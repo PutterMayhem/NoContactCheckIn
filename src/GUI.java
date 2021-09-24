@@ -20,5 +20,4 @@ public class GUI extends Application {
 		launch(args);
 
 	}
-
 }
