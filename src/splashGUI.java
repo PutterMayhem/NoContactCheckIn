@@ -9,7 +9,7 @@ public class splashGUI extends Application {
 	@Override
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("src/splashGUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("src/splashGUItest.fxml"));
 		// Group root = new Group();
 		Scene scene = new Scene(root, 750, 500);
 		primary.setTitle("GUI");
