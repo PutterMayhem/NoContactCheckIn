@@ -2,15 +2,15 @@ package objectClasses;
 
 public class Room {
     //TODO: Validate all needed properties, setters, and getters
-    int rooNumber;
+    int roomNumber;
     boolean booked;
 
-    public int getRooNumber() {
-        return rooNumber;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRooNumber(int rooNumber) {
-        this.rooNumber = rooNumber;
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public boolean isBooked() {

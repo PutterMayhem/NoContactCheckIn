@@ -1,11 +1,15 @@
 package objectClasses;
 
+import java.util.Date;
+
 public class Booking {
     //TODO: Validate all needed properties, setters, and getters
     String customerFName;
     String customerLName;
     int confNum;
     int roomNumber;
+    Date arrival;
+    Date departure;
 
     public String getCustomerFName() {
         return customerFName;
