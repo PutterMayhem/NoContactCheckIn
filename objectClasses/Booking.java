@@ -127,8 +127,8 @@ public class Booking {
     
     
     public static void main(String[] args) {
-    	Booking test = new Booking("Mahad", "Hussein", "mh@gmail.com", 1, 2);
-    	Customer test2 = new Customer("Mahad", "Hussein", "6127779999", "mh@gmail.com");
+    	Booking test = new Booking("fname", "lname", "email", 1, 2);
+    	Customer test2 = new Customer("fname", "lname", "6127779999", "email");
     	try {
     		if (test2.getCustID(test.getEmail()) == 0) {
     			System.out.println("Inputing new customer data");
