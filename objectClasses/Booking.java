@@ -27,21 +27,20 @@ public class Booking {
     String email;
     int confNum;
     int roomNumber;
+    String phone;
 
     Date arrival;
     Date departure;
-
-
     int lengthStay; //in days for now
     
-    public Booking(String custFName, String custLName, String email, int roomNum, int lengthStay) {
+    public Booking(String custFName, String custLName, String email, String phone, int roomNum, int lengthStay) {
     	this.customerFName = custFName;
     	this.customerLName = custLName;
     	this.email = email;
     	this.roomNumber = roomNum;
     	this.lengthStay = lengthStay;
-    	Random rnd = new Random();
-        this.confNum = rnd.nextInt(999999);
+    	this.phone = phone;
+    	
     }
    
     public String getCustomerFName() {
@@ -96,7 +95,25 @@ public class Booking {
     
     
     public boolean createBooking() throws SQLException {
-    	String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
+    	//check if customer already exists
+    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
+    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
+    	if(sqlResults.next()) {
+			System.out.println("Customer Data Exists");
+		} else {
+			System.out.println("Customer data does not exist");
+			sqlQuery = "INSERT INTO Customer (cust_Fname, cust_Lname, cust_Phone, cust_Email)"
+					+ " VALUES ('" + customerFName + "', '" + customerLName + "', '" + phone + "', '" + email + "');";
+			int result = connection().executeUpdate(sqlQuery);
+	    	if(result != 0) {
+	    		System.out.println("Customer Created");
+	    	} else {
+	    		System.out.println("Could not create Customer");
+	    	}
+		}
+    	Random rnd = new Random();
+        this.confNum = rnd.nextInt(999999);
+    	sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
     	int result = connection().executeUpdate(sqlQuery);
     	
     	if(result != 0) {
@@ -105,7 +122,7 @@ public class Booking {
     		connection().close();
     		return true;
     	} else {
-    		System.out.println("Oops, something went wrong!");
+    		System.out.println("Could not create booking");
     		connection().close();
     		return false;
     	}
@@ -127,13 +144,8 @@ public class Booking {
     
     
     public static void main(String[] args) {
-    	Booking test = new Booking("fname", "lname", "email", 1, 2);
-    	Customer test2 = new Customer("fname", "lname", "6127779999", "email");
+    	Booking test = new Booking("fname", "lname", "email", "6127779999", 1, 2);
     	try {
-    		if (test2.getCustID(test.getEmail()) == 0) {
-    			System.out.println("Inputing new customer data");
-    			test2.createCustomer();
-    		}
     		test.createBooking();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
