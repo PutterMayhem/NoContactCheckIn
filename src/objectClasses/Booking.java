@@ -1,23 +1,23 @@
+
 package objectClasses;
 
 
 import java.util.Date;
-
+import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
-import java.time.LocalDateTime;    
+import java.sql.Statement; 
 
 /**
- * Objectives:
- * creates booking; create random confID, take customer details, length of stay, and room number
- * adjusts length of stay; takes confID, or customer email
- * check in, check out; takes confID or email
+ * Functionality:
+ * Create booking, creates user data if it doesn't exist
+ * 
+ * TODO:
+ * Check for duplicate confID
+ * Authentication of email conf ID
+ * check if room is currently booked or not; proper response
  */
 
 public class Booking {
@@ -28,7 +28,6 @@ public class Booking {
     int confNum;
     int roomNumber;
     String phone;
-
     Date arrival;
     Date departure;
     int lengthStay; //in days for now
@@ -65,6 +64,18 @@ public class Booking {
     	this.email = email;
     }
 
+    public void setConfNum(int confNum) {
+        this.confNum = confNum;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+    
     public int getConfNum(String email) throws SQLException {
     	String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "'";
     	ResultSet sqlResults = connection().executeQuery(sqlQuery);
@@ -80,20 +91,6 @@ public class Booking {
 		}
     	
     }
-
-    public void setConfNum(int confNum) {
-        this.confNum = confNum;
-    }
-
-    public int getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-    
-    
     public boolean createBooking() throws SQLException {
     	//check if customer already exists
     	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
@@ -127,7 +124,6 @@ public class Booking {
     		return false;
     	}
     }
-    
     //Connection to database method
     private static Statement connection() {
 		Statement statement = null;
@@ -139,8 +135,6 @@ public class Booking {
 		}
 		return statement;
 	}
-    
-    
     
     
     public static void main(String[] args) {

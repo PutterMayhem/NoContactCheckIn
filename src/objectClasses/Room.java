@@ -6,6 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Functionality:
+ * Check all booked rooms
+ * 
+ * TODO:
+ * Provide details on individual room; rate, beds etc.
+ * check all available rooms
+ */
+
 public class Room {
     //TODO: Validate all needed properties, setters, and getters
     int roomNumber;
@@ -25,6 +34,10 @@ public class Room {
     public void setRoomType(int roomType) {
     	this.roomType = roomType;
     }
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
+    
     //returns true if room is booked, false if room is not booked or does not exist
     public boolean isBooked(int roomNumber) {
     	String sqlQuery = "SELECT room_status FROM Room WHERE room_num = " + roomNumber;
@@ -66,10 +79,6 @@ public class Room {
     		e.printStackTrace();
     	}
     	
-    }
-
-    public void setBooked(boolean booked) {
-        this.booked = booked;
     }
     //Connection to database method
     private static Statement connection() {

@@ -1,14 +1,11 @@
 package objectClasses;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
-import java.time.LocalDateTime;  
 
 public class Customer {
 	int custID;
@@ -91,10 +88,6 @@ public class Customer {
 			e.printStackTrace();
 		}
 		return statement;
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
