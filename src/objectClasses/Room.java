@@ -60,6 +60,25 @@ public class Room {
         return booked;
     }
     
+    //prints list of all available rooms
+    public void getAvailable() {
+    	try {
+    		String sqlQuery = "SELECT * FROM Room Where room_status = 0 AND room_active = 1;";
+    		ResultSet result = connection().executeQuery(sqlQuery);
+    		while (result.next()) {
+    			int roomNum = result.getInt("room_num");
+    			String type = result.getString("roomType_ID");
+    			int floor = result.getInt("floor");
+    			System.out.println("Room Number: " + roomNum + " Room Type: " + type +
+    					 " Room Floor: " + floor);
+    		}
+    	}
+    	catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
     //prints a list of booked rooms
     public void getBooked() {
     	try {
@@ -78,8 +97,9 @@ public class Room {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
-    	
     }
+    
+    
     //Connection to database method
     private static Statement connection() {
 		Statement statement = null;
@@ -94,6 +114,6 @@ public class Room {
     
     public static void main(String[] args) {
     	Room test = new Room();
-    	test.getBooked();
+    	test.isBooked(5);
     }
 }
