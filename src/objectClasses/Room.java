@@ -50,7 +50,8 @@ public class Room {
     }
     
     //returns true if room is booked, false if room is not booked or does not exist
-    public boolean isBooked(int roomNumber) {
+    public static boolean isBooked(int roomNumber) {
+    	boolean isBooked = false;
     	String sqlQuery = "SELECT room_status FROM Room WHERE room_num = " + roomNumber;
     	int roomStatus = 0;
     	try {
@@ -59,7 +60,7 @@ public class Room {
 				roomStatus = result.getInt("room_status");
 			} else {
 				System.out.println("Sorry, room does not exist");
-				return booked;
+				return isBooked;
 			}
 			connection().close();
 			
@@ -67,12 +68,12 @@ public class Room {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	booked = (roomStatus == 1);
-        return booked;
+    	isBooked = (roomStatus == 1);
+        return isBooked;
     }
     
     //prints list of all available rooms. Returns a list of available Rooms.
-    public ArrayList<Room> getAvailable() {
+    public ArrayList<Room> getAllAvailable() {
     	ArrayList<Room> available = new ArrayList<>();
     	try {
     		String sqlQuery = "SELECT * FROM Room Where room_status = 0 AND room_active = 1;";
@@ -95,7 +96,7 @@ public class Room {
     
     
     //prints a list of booked rooms
-    public ArrayList<Room> getBooked() {
+    public ArrayList<Room> getAllBooked() {
     	ArrayList<Room> booked = new ArrayList<>();
     	try {
     		String sqlQuery = "SELECT * FROM Room WHERE room_status = 1;";

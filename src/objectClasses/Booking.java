@@ -108,21 +108,22 @@ public class Booking {
 			return 0;
 		}
     }
-    
-    //method returns true if confID already exists in database
-    public boolean checkConfNum(int confID) throws SQLException {
-    	String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
-    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
-    	//duplicate exists - return true
-    	if(sqlResults.next()) {
-			connection().close();
-			return true;
-		//duplicate does not exist - return false
-		} else {
-			connection().close();
-			return false;
-		}
-    }
+
+//	Commented out due to moving to Account class.
+//    //method returns true if confID already exists in database
+//    public boolean checkConfNum(int confID) throws SQLException {
+//    	String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
+//    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
+//    	//duplicate exists - return true
+//    	if(sqlResults.next()) {
+//			connection().close();
+//			return true;
+//		//duplicate does not exist - return false
+//		} else {
+//			connection().close();
+//			return false;
+//		}
+//    }
     
     /*
      * Checks if customer data exits, creates if not
@@ -130,37 +131,19 @@ public class Booking {
      * checks if room is booked or not
      */
     public boolean createBooking() throws SQLException {
-    	//check if customer already exists
-    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
-    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
-    	if(sqlResults.next()) {
-			System.out.println("Customer Data Exists");
-		} else {
-			System.out.println("Customer data does not exist");
-			sqlQuery = "INSERT INTO Customer (cust_Fname, cust_Lname, cust_Phone, cust_Email)"
-					+ " VALUES ('" + customerFName + "', '" + customerLName + "', '" + phone + "', '" + email + "');";
-			int result = connection().executeUpdate(sqlQuery);
-	    	if(result != 0) {
-	    		System.out.println("Customer Created");
-	    	} else {
-	    		System.out.println("Could not create Customer");
-	    	}
-		}
+    	Account.checkAccount(customerFName, customerLName, phone, email);
     	
     	//ensure unique conf_ID is created
-    	Random rnd = new Random();
-        confNum = rnd.nextInt(999999);
-        while (checkConfNum(confNum)) {
-        	confNum = rnd.nextInt();
-        }
+    	int confNum = Account.createConfID();
         
-        //check room status before booking
-        if (checkRoom(roomNumber)) {
+    	
+       
+        if(Room.isBooked(roomNumber)) {
         	System.out.println("Sorry, room is already booked. Please choose another room");
         	return false;
         }
         
-    	sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
+    	String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
     	int result = connection().executeUpdate(sqlQuery);
     	
     	if(result != 0) {

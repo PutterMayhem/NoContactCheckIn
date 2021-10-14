@@ -1,6 +1,5 @@
 package objectClasses;
 
-import java.util.Date;
 import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,6 +32,66 @@ public class Account {
 		}
 		return statement;
 	}
+    
+    public static int createConfID() throws SQLException {
+    	int confirmation = 0;
+    	Random rnd = new Random();
+        confirmation = rnd.nextInt(999999);
+        while (checkConfNum(confirmation)) {
+        	confirmation = rnd.nextInt();
+        }
+        return confirmation;
+    }
+    
+    //method returns true if confID already exists in database
+    public static boolean checkConfNum(int confID) throws SQLException {
+    	String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
+    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
+    	//duplicate exists - return true
+    	if(sqlResults.next()) {
+			connection().close();
+			return true;
+		//duplicate does not exist - return false
+		} else {
+			connection().close();
+			return false;
+		}
+    }
+    /*
+     * Checks account status and returns true if exists. 
+     * If account does not exist the account is created and returns true. 
+     * If account can't be created returns false.
+     */
+    public static boolean checkAccount(String customerFName, String customerLName, String phone, String email) {
+    	//check if customer already exists
+    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
+    	ResultSet sqlResults;
+		try {
+			sqlResults = connection().executeQuery(sqlQuery);
+
+	    	if(sqlResults.next()) {
+				System.out.println("Customer Data Exists");
+				return true;
+			} else {
+				System.out.println("Customer data does not exist");
+				sqlQuery = "INSERT INTO Customer (cust_Fname, cust_Lname, cust_Phone, cust_Email)"
+						+ " VALUES ('" + customerFName + "', '" + customerLName + "', '" + phone + "', '" + email + "');";
+				int result = connection().executeUpdate(sqlQuery);
+		    	if(result != 0) {
+		    		System.out.println("Customer Created");
+		    		return true;
+		    	} else {
+		    		System.out.println("Could not create Customer");
+		    		return false;
+		    	}
+		    	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+    }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
