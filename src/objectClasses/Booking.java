@@ -109,21 +109,6 @@ public class Booking {
 		}
     }
 
-//	Commented out due to moving to Account class.
-//    //method returns true if confID already exists in database
-//    public boolean checkConfNum(int confID) throws SQLException {
-//    	String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
-//    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
-//    	//duplicate exists - return true
-//    	if(sqlResults.next()) {
-//			connection().close();
-//			return true;
-//		//duplicate does not exist - return false
-//		} else {
-//			connection().close();
-//			return false;
-//		}
-//    }
     
     /*
      * Checks if customer data exits, creates if not
