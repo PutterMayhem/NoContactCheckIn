@@ -19,11 +19,20 @@ public class Account {
 	String email;
 	int confNum;
 	
-	//
-	public void userLogin(String email, int confNum) {
-		
-	}
 	
+	
+	
+    //Connection to database method
+    private static Statement connection() {
+		Statement statement = null;
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uCheckIn", "root", "");
+			statement = conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return statement;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

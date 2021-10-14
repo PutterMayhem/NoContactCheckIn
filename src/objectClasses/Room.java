@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Functionality:
@@ -18,8 +19,18 @@ import java.sql.Statement;
 public class Room {
     //TODO: Validate all needed properties, setters, and getters
     int roomNumber;
-    int roomType;
+    String roomType;
     boolean booked;
+    
+    public Room(int roomNumber, String roomType, boolean booked) {
+    	this.roomNumber = roomNumber;
+    	this.roomType = roomType;
+    	this.booked = booked;
+    }
+    
+    public Room() {
+    		
+    }
 
     public int getRoomNumber() {
         return roomNumber;
@@ -28,10 +39,10 @@ public class Room {
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
-    public int getRoomType() {
+    public String getRoomType() {
     	return roomType;
     }
-    public void setRoomType(int roomType) {
+    public void setRoomType(String roomType) {
     	this.roomType = roomType;
     }
     public void setBooked(boolean booked) {
@@ -60,8 +71,9 @@ public class Room {
         return booked;
     }
     
-    //prints list of all available rooms
-    public void getAvailable() {
+    //prints list of all available rooms. Returns a list of available Rooms.
+    public ArrayList<Room> getAvailable() {
+    	ArrayList<Room> available = new ArrayList<>();
     	try {
     		String sqlQuery = "SELECT * FROM Room Where room_status = 0 AND room_active = 1;";
     		ResultSet result = connection().executeQuery(sqlQuery);
@@ -71,16 +83,20 @@ public class Room {
     			int floor = result.getInt("floor");
     			System.out.println("Room Number: " + roomNum + " Room Type: " + type +
     					 " Room Floor: " + floor);
+    			Room temp = new Room(roomNum, type, false);
+    			available.add(temp);
     		}
     	}
     	catch (SQLException e) {
     		e.printStackTrace();
     	}
+    	return available;
     }
     
     
     //prints a list of booked rooms
-    public void getBooked() {
+    public ArrayList<Room> getBooked() {
+    	ArrayList<Room> booked = new ArrayList<>();
     	try {
     		String sqlQuery = "SELECT * FROM Room WHERE room_status = 1;";
     		ResultSet result = connection().executeQuery(sqlQuery);
@@ -90,6 +106,7 @@ public class Room {
     			int floor = result.getInt("floor");
     			System.out.println("Room Number: " + roomNum + " Room Type: " + type +
     					 " Room Floor: " + floor);
+    			booked.add(new Room(roomNum, type, true));
     		}
     		connection().close();
     		
@@ -97,6 +114,7 @@ public class Room {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+    	return booked;
     }
     
     
