@@ -131,13 +131,14 @@ public class Booking {
      * checks if room is booked or not
      */
     public boolean createBooking() throws SQLException {
+    	//Check if account exists. If not the account is created.
     	Account.checkAccount(customerFName, customerLName, phone, email);
     	
     	//ensure unique conf_ID is created
     	int confNum = Account.createConfID();
         
     	
-       
+    	//Checks if room is booked
         if(Room.isBooked(roomNumber)) {
         	System.out.println("Sorry, room is already booked. Please choose another room");
         	return false;
