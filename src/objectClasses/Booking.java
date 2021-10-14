@@ -131,39 +131,19 @@ public class Booking {
      * checks if room is booked or not
      */
     public boolean createBooking() throws SQLException {
-    	//check if customer already exists
-    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
-    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
-    	if(sqlResults.next()) {
-			System.out.println("Customer Data Exists");
-		} else {
-			System.out.println("Customer data does not exist");
-			sqlQuery = "INSERT INTO Customer (cust_Fname, cust_Lname, cust_Phone, cust_Email)"
-					+ " VALUES ('" + customerFName + "', '" + customerLName + "', '" + phone + "', '" + email + "');";
-			int result = connection().executeUpdate(sqlQuery);
-	    	if(result != 0) {
-	    		System.out.println("Customer Created");
-	    	} else {
-	    		System.out.println("Could not create Customer");
-	    	}
-		}
+    	Account.checkAccount(customerFName, customerLName, phone, email);
     	
     	//ensure unique conf_ID is created
     	int confNum = Account.createConfID();
         
     	
-//        //check room status before booking
-//        if (checkRoom(roomNumber)) {
-//        	System.out.println("Sorry, room is already booked. Please choose another room");
-//        	return false;
-//        }
-//        
+       
         if(Room.isBooked(roomNumber)) {
         	System.out.println("Sorry, room is already booked. Please choose another room");
         	return false;
         }
         
-    	sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
+    	String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + email + "', " + roomNumber + ", " + lengthStay + ", NULL, NULL)";
     	int result = connection().executeUpdate(sqlQuery);
     	
     	if(result != 0) {
