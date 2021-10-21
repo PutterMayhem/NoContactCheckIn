@@ -99,6 +99,7 @@ public class Booking {
     	if(sqlResults.next()) {
     		
     	}
+    	return false;
     }
     
     
