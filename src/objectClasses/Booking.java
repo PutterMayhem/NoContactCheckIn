@@ -79,7 +79,7 @@ public class Booking {
     //method to check if room is currently booked or not
     //returns true if booked
     public boolean checkRoom(int roomNum) throws SQLException {
-    	String sqlQuery = "SELECT * FROM Room WHERE room_num = " + roomNum;
+    	String sqlQuery = "SELECT * FROM Room WHERE room_num = " + roomNum+";";
     	ResultSet sqlResults = connection().executeQuery(sqlQuery);
     	sqlResults.next();
     	int i = sqlResults.getInt("room_status");
@@ -93,9 +93,17 @@ public class Booking {
 		
     }
     
+    public boolean logIn(String email, String confID) throws SQLException {
+    	String sqlQuery = "Select * from booking where cust_Email ='"+email+"' and conf_ID= "+confID+";";
+    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
+    	if(sqlResults.next()) {
+    		
+    	}
+    }
+    
     
     public int getConfNum(String email) throws SQLException {
-    	String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "'";
+    	String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "';";
     	ResultSet sqlResults = connection().executeQuery(sqlQuery);
     	if(sqlResults.next()) {
 			confNum = sqlResults.getInt("conf_ID");

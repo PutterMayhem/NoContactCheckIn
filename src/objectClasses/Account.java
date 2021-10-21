@@ -64,7 +64,7 @@ public class Account {
      */
     public static boolean checkAccount(String customerFName, String customerLName, String phone, String email) {
     	//check if customer already exists
-    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
+    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "';";
     	ResultSet sqlResults;
 		try {
 			sqlResults = connection().executeQuery(sqlQuery);

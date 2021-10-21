@@ -1,4 +1,4 @@
-	package objectClasses;
+package objectClasses;
 
 import java.sql.Connection;
 
@@ -47,7 +47,7 @@ public class Customer {
 	}
 	
 	public int getCustID(String email) throws SQLException {
-    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "'";
+    	String sqlQuery = "SELECT cust_ID FROM Customer WHERE cust_Email = '" + email + "';";
     	ResultSet sqlResults = connection().executeQuery(sqlQuery);
     	if(sqlResults.next()) {
 			custID = sqlResults.getInt("cust_ID");
