@@ -166,6 +166,7 @@ public class Booking {
     
     
     public static void main(String[] args) {
+    	Account testAccount = new Account("email");
     	Booking test = new Booking("fname", "lname", "email", "6127779999", 2, 2);
     	try {
     		test.createBooking();

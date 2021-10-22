@@ -15,9 +15,21 @@ import java.sql.Statement;
  */
 public class Account {
 	
-	String email;
-	int confNum;
+	private String email;
+	private int confNum;
 	
+	public Account(String email) {
+		setEmail(email);
+		confNum = createConfID();
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	
 	
@@ -33,7 +45,7 @@ public class Account {
 		return statement;
 	}
     
-    public static int createConfID() throws SQLException {
+    public static int createConfID() {
     	int confirmation = 0;
     	Random rnd = new Random();
         confirmation = rnd.nextInt(999999);
@@ -44,18 +56,25 @@ public class Account {
     }
     
     //method returns true if confID already exists in database
-    public static boolean checkConfNum(int confID) throws SQLException {
+    public static boolean checkConfNum(int confID) {
     	String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
-    	ResultSet sqlResults = connection().executeQuery(sqlQuery);
-    	//duplicate exists - return true
-    	if(sqlResults.next()) {
-			connection().close();
-			return true;
-		//duplicate does not exist - return false
-		} else {
-			connection().close();
-			return false;
+    	ResultSet sqlResults;
+		try {
+			sqlResults = connection().executeQuery(sqlQuery);
+	    	//duplicate exists - return true
+	    	if(sqlResults.next()) {
+				connection().close();
+				return true;
+			//duplicate does not exist - return false
+			} else {
+				connection().close();
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return false;
     }
     /*
      * Checks account status and returns true if exists. 
@@ -92,6 +111,8 @@ public class Account {
 		}
 		return false;
     }
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
