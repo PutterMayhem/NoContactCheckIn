@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Functionality:
  * Check all booked rooms
- * 
+ *
  * TODO:
  * Provide details on individual room; rate, beds etc.
  * check all available rooms
@@ -21,15 +21,15 @@ public class Room {
     int roomNumber;
     String roomType;
     boolean booked;
-    
+
     public Room(int roomNumber, String roomType, boolean booked) {
     	this.roomNumber = roomNumber;
     	this.roomType = roomType;
     	this.booked = booked;
     }
-    
+
     public Room() {
-    		
+
     }
 
     public int getRoomNumber() {
@@ -48,7 +48,7 @@ public class Room {
     public void setBooked(boolean booked) {
         this.booked = booked;
     }
-    
+
     //returns true if room is booked, false if room is not booked or does not exist
     public static boolean isBooked(int roomNumber) {
     	boolean isBooked = false;
@@ -63,7 +63,7 @@ public class Room {
 				return isBooked;
 			}
 			connection().close();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class Room {
     	isBooked = (roomStatus == 1);
         return isBooked;
     }
-    
+
     //prints list of all available rooms. Returns a list of available Rooms.
     public ArrayList<Room> getAllAvailable() {
     	ArrayList<Room> available = new ArrayList<>();
@@ -93,8 +93,8 @@ public class Room {
     	}
     	return available;
     }
-    
-    
+
+
     //prints a list of booked rooms
     public ArrayList<Room> getAllBooked() {
     	ArrayList<Room> booked = new ArrayList<>();
@@ -110,15 +110,15 @@ public class Room {
     			booked.add(new Room(roomNum, type, true));
     		}
     		connection().close();
-    		
+
     	} catch (SQLException e) {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
     	return booked;
     }
-    
-    
+
+
     //Connection to database method
     private static Statement connection() {
 		Statement statement = null;
@@ -130,9 +130,9 @@ public class Room {
 		}
 		return statement;
 	}
-    
+
     public static void main(String[] args) {
     	Room test = new Room();
-    	test.isBooked(5);
+    	Room.isBooked(5);
     }
 }

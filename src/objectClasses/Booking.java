@@ -14,7 +14,7 @@ import java.util.Random;
  * confID for duplicates in the check if room is currently booked or not; proper
  * response TODO: booking a room makes it unavailable? checking in makes room
  * unavailable? Authentication of email conf ID
- * 
+ *
  */
 
 public class Booking {
@@ -71,11 +71,18 @@ public class Booking {
 
 	}
 
+	/*
+	 * Returns true if customer entered valid data. False if not. Use if statement
+	 * to determine actions taken.
+	 */
 	public boolean logIn(String email, String confID) throws SQLException {
-		String sqlQuery = "Select * from booking where cust_Email ='" + email + "' and conf_ID= " + confID + ";";
-		ResultSet sqlResults = connection().executeQuery(sqlQuery);
-		if (sqlResults.next()) {
+		String sqlQuery1 = "Select * from Customer where cust_Email ='" + email + "';";
+		String sqlQuery2 = "Select * from Booking where conf_ID = '" + confID + "';";
 
+		ResultSet sqlResults1 = connection().executeQuery(sqlQuery1);
+		ResultSet sqlResults2 = connection().executeQuery(sqlQuery2);
+		if (sqlResults1.next() && sqlResults2.next()) {
+			return true;
 		}
 		return false;
 	}
