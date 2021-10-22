@@ -19,13 +19,10 @@ import java.util.Random;
 
 public class Booking {
 	// TODO: Validate all needed properties, setters, and getters
-	String customerFName;
-	String customerLName;
-	String email;
+
 	Account customer;
 	int confNum;
 	int roomNumber;
-	String phone;
 	Date arrival;
 	Date departure;
 	int lengthStay; // in days for now
@@ -43,30 +40,6 @@ public class Booking {
 
 	public void setAccount(Account customer) {
 		this.customer = customer;
-	}
-
-	public String getCustomerFName() {
-		return customerFName;
-	}
-
-	public void setCustomerFName(String customerFName) {
-		this.customerFName = customerFName;
-	}
-
-	public String getCustomerLName() {
-		return customerLName;
-	}
-
-	public void setCustomerLName(String customerLName) {
-		this.customerLName = customerLName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public void setConfNum(int confNum) {
