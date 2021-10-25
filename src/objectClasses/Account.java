@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * TODO:
- * Manipulates booking data, check-in, check-out with date
- * adjusts length of stay
- * authenticates user with conf_ID and email
+ * An guest or employee at the hotel. 
  */
 public class Account {
 

@@ -22,14 +22,14 @@ public class Booking {
 
 	Account customer;
 	int confNum;
-	int roomNumber;
+	Room room;
 	Date arrival;
 	Date departure;
 	int lengthStay; // in days for now
 
-	public Booking(Account customer, int roomNum, int lengthStay) {
+	public Booking(Account customer, Room room, int lengthStay) {
 		this.customer = customer;
-		this.roomNumber = roomNum;
+		this.room = room;
 		this.lengthStay = lengthStay;
 
 	}
@@ -46,12 +46,12 @@ public class Booking {
 		this.confNum = confNum;
 	}
 
-	public int getRoomNumber() {
-		return roomNumber;
+	public Room getRoom() {
+		return room;
 	}
 
-	public void setRoomNumber(int roomNumber) {
-		this.roomNumber = roomNumber;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 	// method to check if room is currently booked or not
@@ -108,8 +108,8 @@ public class Booking {
 		ResultSet sqlResults;
 		try {
 			sqlResults = connection().executeQuery(sqlQuery);
-			// duplicate exists - return true
 			if (sqlResults.next()) {
+				// duplicate exists - return true
 				connection().close();
 				return true;
 				// duplicate does not exist - return false
@@ -147,13 +147,13 @@ public class Booking {
 		confNum = createConfID();
 
 		// Checks if room is booked
-		if (Room.isBooked(roomNumber)) {
+		if (Room.isBooked(room)) {
 			System.out.println("Sorry, room is already booked. Please choose another room");
 			return false;
 		}
 
-		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', " + roomNumber
-				+ ", " + lengthStay + ", NULL, NULL)";
+		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
+				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 
 		if (result != 0) {
@@ -181,8 +181,11 @@ public class Booking {
 	}
 
 	public static void main(String[] args) {
-		Account testAct = new Account("fname", "lname", "cegustner@gmail.com", "6127779999");
-		Booking test = new Booking(testAct, 2, 2);
+
+		Room testRoom = new Room(2, "test", false);
+		testRoom.createRoom(2, "test");
+		Account testAct = new Account("fname", "lname", "6127779999", "cegustner@gmail.com");
+		Booking test = new Booking(testAct, testRoom, 2);
 		try {
 			test.createBooking();
 		} catch (SQLException e) {
