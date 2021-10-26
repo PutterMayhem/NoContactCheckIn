@@ -12,8 +12,8 @@ import java.util.Random;
 /**
  * Functionality: Create booking, creates user data if it doesn't exist check
  * confID for duplicates in the check if room is currently booked or not; proper
- * response TODO: booking a room makes it unavailable? checking in makes room
- * unavailable? Authentication of email conf ID
+ * response TODO: checking in makes room unavailable? Authentication of email
+ * conf ID
  *
  */
 
@@ -150,17 +150,18 @@ public class Booking {
 			System.out.println("Sorry, room is already booked. Please choose another room");
 			return false;
 		}
-
+		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
 				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL)";
 		int result = connection().executeUpdate(sqlQuery);
-
+		// Updates room status in room database
 		String sqlUpdate = "UPDATE room SET room_status = 1;";
 		connection().execute(sqlUpdate);
 		if (result != 0) {
 			room.setBooked(true);
 			System.out.println("Booking Created");
 			System.out.println("Your Confirmation Number is: " + confNum);
+			System.out.println("To login to our kiosks use your e-mail address and your confirmation number");
 			connection().close();
 			return true;
 		} else {
@@ -183,17 +184,48 @@ public class Booking {
 	}
 
 	public static void main(String[] args) {
-		// Only run this once unless you delete
+
+		/*
+		 * Removes entries from database so program can be run again. Comment out to see
+		 * what happens when a room is double booked. Will show exceptions for duplicate
+		 * entries but still runs.
+		 */
+		String sqldelete = "delete from roomtype;";
+		try {
+			connection().execute(sqldelete);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sqldelete = "delete from room;";
+		try {
+			connection().execute(sqldelete);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sqldelete = "delete from booking;";
+		try {
+			connection().execute(sqldelete);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		String sqlQuery = "insert into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
 		try {
-			connection().executeUpdate(sqlQuery);
+			connection().executeQuery(sqlQuery);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		// Creates a room to book
 		Room testRoom = new Room(2, "1", false);
+		// Adds room to database
 		testRoom.createRoom(2, "1");
+		// Creates account for booking
 		Account testAct = new Account("fname", "lname", "6127779999", "cegustner@gmail.com");
+		// Creates booking
 		Booking test = new Booking(testAct, testRoom, 2);
 		try {
 			test.createBooking();
@@ -201,5 +233,6 @@ public class Booking {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 }
