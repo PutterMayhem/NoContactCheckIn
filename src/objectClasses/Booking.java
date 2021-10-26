@@ -171,6 +171,11 @@ public class Booking {
 		}
 	}
 
+	public static void checkOut(int roomNumber) throws SQLException {
+		String sqlQuery = "Update room SET room_status = 0;";
+		connection().execute(sqlQuery);
+	}
+
 	// Connection to database method
 	private static Statement connection() {
 		Statement statement = null;
@@ -214,7 +219,7 @@ public class Booking {
 
 		String sqlQuery = "insert into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
 		try {
-			connection().executeQuery(sqlQuery);
+			connection().execute(sqlQuery);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
