@@ -155,8 +155,10 @@ public class Booking {
 				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 
+		String sqlUpdate = "UPDATE room SET room_status = 1;";
+		connection().execute(sqlUpdate);
 		if (result != 0) {
-			// room.setBooked(true);
+			room.setBooked(true);
 			System.out.println("Booking Created");
 			System.out.println("Your Confirmation Number is: " + confNum);
 			connection().close();
