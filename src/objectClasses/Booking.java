@@ -131,7 +131,6 @@ public class Booking {
 		while (checkConfNum(confirmation)) {
 			confirmation = rnd.nextInt();
 		}
-		System.out.println(confirmation);
 		return confirmation;
 	}
 
@@ -157,6 +156,7 @@ public class Booking {
 		int result = connection().executeUpdate(sqlQuery);
 
 		if (result != 0) {
+			// room.setBooked(true);
 			System.out.println("Booking Created");
 			System.out.println("Your Confirmation Number is: " + confNum);
 			connection().close();
@@ -181,7 +181,14 @@ public class Booking {
 	}
 
 	public static void main(String[] args) {
-
+		// Only run this once unless you delete
+		String sqlQuery = "insert into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
+		try {
+			connection().executeUpdate(sqlQuery);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Room testRoom = new Room(2, "1", false);
 		testRoom.createRoom(2, "1");
 		Account testAct = new Account("fname", "lname", "6127779999", "cegustner@gmail.com");
