@@ -182,8 +182,8 @@ public class Booking {
 
 	public static void main(String[] args) {
 
-		Room testRoom = new Room(2, "test", false);
-		testRoom.createRoom(2, "test");
+		Room testRoom = new Room(2, "1", false);
+		testRoom.createRoom(2, "1");
 		Account testAct = new Account("fname", "lname", "6127779999", "cegustner@gmail.com");
 		Booking test = new Booking(testAct, testRoom, 2);
 		try {
