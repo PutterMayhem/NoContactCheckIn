@@ -117,8 +117,8 @@ public class Room {
 	}
 
 	public boolean createRoom(int roomNum, String roomType) {
-		String sqlQuery = "Insert into room(room_num, roomType_ID, room_status, room_active, floor) VALUES ( " + roomNum
-				+ ",\"" + roomType + "\", " + 0 + ", " + false + ", 2);";
+		String sqlQuery = "Replace into room(room_num, roomType_ID, room_status, room_active, floor) VALUES ( "
+				+ roomNum + ",\"" + roomType + "\", " + 0 + ", " + false + ", 2);";
 		try {
 			connection().execute(sqlQuery);
 			String sqlQuery2 = "select * from Room where room_num = " + roomNum + ";";

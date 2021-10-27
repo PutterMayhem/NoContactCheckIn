@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Functionality: Create booking, creates user data if it doesn't exist check
@@ -216,8 +217,8 @@ public class Booking {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		String sqlQuery = "insert into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
+		Scanner input = new Scanner(System.in);
+		String sqlQuery = "replace into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
 		try {
 			connection().execute(sqlQuery);
 		} catch (SQLException e1) {
@@ -229,9 +230,19 @@ public class Booking {
 		// Adds room to database
 		testRoom.createRoom(2, "1");
 		// Creates account for booking
-		Account testAct = new Account("fname", "lname", "6127779999", "cegustner@gmail.com");
+		System.out.println("Enter first name:");
+		String fname = input.next();
+		System.out.println("Enter Last Name:");
+		String lname = input.next();
+		System.out.println("Enter phone number: (Example: 7635555555)");
+		String phone = input.next();
+		System.out.println("Enter e-mail:");
+		String email = input.next();
+		System.out.println("How long are you going to stay?");
+		int days = input.nextInt();
+		Account testAct = new Account(fname, lname, phone, email);
 		// Creates booking
-		Booking test = new Booking(testAct, testRoom, 2);
+		Booking test = new Booking(testAct, testRoom, days);
 		try {
 			test.createBooking();
 		} catch (SQLException e) {
