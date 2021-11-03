@@ -1,5 +1,5 @@
 
-package objectClasses;
+package objectclasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,39 +53,6 @@ public class Booking {
 
 	public void setRoom(Room room) {
 		this.room = room;
-	}
-
-	// method to check if room is currently booked or not
-	// returns true if booked
-	public boolean checkRoom(int roomNum) throws SQLException {
-		String sqlQuery = "SELECT * FROM Room WHERE room_num = " + roomNum + ";";
-		ResultSet sqlResults = connection().executeQuery(sqlQuery);
-		sqlResults.next();
-		int i = sqlResults.getInt("room_status");
-		if (i == 0) {
-			connection().close();
-			return false;
-		} else {
-			connection().close();
-			return true;
-		}
-
-	}
-
-	/*
-	 * Returns true if customer entered valid data. False if not. Use if statement
-	 * to determine actions taken.
-	 */
-	public boolean logIn(String email, String confID) throws SQLException {
-		String sqlQuery1 = "Select * from Customer where cust_Email ='" + email + "';";
-		String sqlQuery2 = "Select * from Booking where conf_ID = '" + confID + "';";
-
-		ResultSet sqlResults1 = connection().executeQuery(sqlQuery1);
-		ResultSet sqlResults2 = connection().executeQuery(sqlQuery2);
-		if (sqlResults1.next() && sqlResults2.next()) {
-			return true;
-		}
-		return false;
 	}
 
 	public int getConfNum(String email) throws SQLException {
@@ -249,6 +216,5 @@ public class Booking {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }

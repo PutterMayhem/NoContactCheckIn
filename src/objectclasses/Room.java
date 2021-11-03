@@ -1,4 +1,4 @@
-package objectClasses;
+package objectclasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -133,6 +133,27 @@ public class Room {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public static Room getRoomFromDB(int roomNumber) {
+		Room output = null;
+		String sqlQuery = "select * from room where room_num=" + roomNumber + ";";
+		try {
+			ResultSet result = connection().executeQuery(sqlQuery);
+			output.setRoomNumber(result.getInt("room_num"));
+			output.setRoomType(result.getString("roomType_ID"));
+			int status = result.getInt("room_status");
+			if (status == 0) {
+				output.setBooked(true);
+			} else {
+				output.setBooked(false);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
 	}
 
 	// Connection to database method

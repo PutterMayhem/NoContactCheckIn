@@ -1,4 +1,4 @@
-package objectClasses;
+package objectclasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * An guest or employee at the hotel. 
+ * An guest or employee at the hotel.
  */
 public class Account {
 
