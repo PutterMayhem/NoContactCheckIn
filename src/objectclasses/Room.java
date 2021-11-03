@@ -94,6 +94,32 @@ public class Room {
 		return available;
 	}
 
+	/*
+	 * Retrieves all available rooms of a certain type
+	 */
+	public ArrayList<Room> getAllAvailableType(String type) {
+		ArrayList<Room> list = new ArrayList<>();
+		try {
+			String sqlQuery = "Select * from Room where room_status = 0 And room_active = 1 and roomType_ID = '" + type
+					+ "';";
+			ResultSet result = connection().executeQuery(sqlQuery);
+
+			while (result.next()) {
+
+				int roomNum = result.getInt("room_num");
+				String roomType = result.getString("roomType_ID");
+				int floor = result.getInt("floor");
+				Room temp = new Room(roomNum, roomType, false);
+				list.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+
+	}
+
 	// prints a list of booked rooms
 	public ArrayList<Room> getAllBooked() {
 		ArrayList<Room> booked = new ArrayList<>();
@@ -135,6 +161,9 @@ public class Room {
 		return false;
 	}
 
+	/*
+	 * Retrieves data from the DB to create a room object.
+	 */
 	public static Room getRoomFromDB(int roomNumber) {
 		Room output = null;
 		String sqlQuery = "select * from room where room_num=" + roomNumber + ";";
