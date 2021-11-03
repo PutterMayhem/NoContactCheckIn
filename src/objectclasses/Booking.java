@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Functionality: Create booking, creates user data if it doesn't exist check
@@ -28,10 +27,12 @@ public class Booking {
 	Date departure;
 	int lengthStay; // in days for now
 
-	public Booking(Account customer, Room room, int lengthStay) {
+	public Booking(Account customer, Room room, Date checkIn, Date checkOut) {
 		this.customer = customer;
 		this.room = room;
-		this.lengthStay = lengthStay;
+		this.arrival = checkIn;
+		this.departure = checkOut;
+		lengthStay = getDaysBetween(checkIn, checkOut);
 
 	}
 
@@ -144,6 +145,12 @@ public class Booking {
 		connection().execute(sqlQuery);
 	}
 
+	private int getDaysBetween(Date start, Date end) {
+		long difference = end.getTime() - start.getTime();
+		float daysBetween = (difference / (1000 * 60 * 60 * 24));
+		return (int) daysBetween;
+	}
+
 	// Connection to database method
 	private static Statement connection() {
 		Statement statement = null;
@@ -156,65 +163,4 @@ public class Booking {
 		return statement;
 	}
 
-	public static void main(String[] args) {
-
-		/*
-		 * Removes entries from database so program can be run again. Comment out to see
-		 * what happens when a room is double booked. Will show exceptions for duplicate
-		 * entries but still runs.
-		 */
-		String sqldelete = "delete from roomtype;";
-		try {
-			connection().execute(sqldelete);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		sqldelete = "delete from room;";
-		try {
-			connection().execute(sqldelete);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		sqldelete = "delete from booking;";
-		try {
-			connection().execute(sqldelete);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Scanner input = new Scanner(System.in);
-		String sqlQuery = "replace into roomtype(roomtype_ID, king, queen, full, pull_out, suite, rate) Values(\"1\", 1, 0, 0, 0, 0, 100)";
-		try {
-			connection().execute(sqlQuery);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		// Creates a room to book
-		Room testRoom = new Room(2, "1", false);
-		// Adds room to database
-		testRoom.createRoom(2, "1");
-		// Creates account for booking
-		System.out.println("Enter first name:");
-		String fname = input.next();
-		System.out.println("Enter Last Name:");
-		String lname = input.next();
-		System.out.println("Enter phone number: (Example: 7635555555)");
-		String phone = input.next();
-		System.out.println("Enter e-mail:");
-		String email = input.next();
-		System.out.println("How long are you going to stay?");
-		int days = input.nextInt();
-		Account testAct = new Account(fname, lname, phone, email);
-		// Creates booking
-		Booking test = new Booking(testAct, testRoom, days);
-		try {
-			test.createBooking();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

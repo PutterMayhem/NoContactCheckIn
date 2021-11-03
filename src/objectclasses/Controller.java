@@ -46,13 +46,14 @@ public class Controller {
 	public boolean bookingProcess(Date checkIn, Date checkOut, String type) {
 		ArrayList<Room> available = room.getAllAvailableType(type);
 
-		// Add code to retrieve data from GUI.
+		// TODO Add code to retrieve data from GUI. Then delete test data
 		Room test = Room.getRoomFromDB(101);
 		String ccNum = "4785414525354747";
 		Date tempDate = new Date(10 / 31 / 2021);
 		int csc = 345;
 		VirtualCCProcessor ccp = new VirtualCCProcessor(ccNum, tempDate, csc);
 		int token = ccp.hashCode();
+
 	}
 
 }
