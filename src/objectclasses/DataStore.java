@@ -3,9 +3,18 @@ package objectclasses;
 public class DataStore {
 	private Account user;
 	private Room room;
-	private final static DataStore ds = new DataStore();
+	private Booking booking;
+	private static DataStore ds = new DataStore();
 
 	private DataStore() {
+	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
 	}
 
 	public Account getUser() {
@@ -25,6 +34,13 @@ public class DataStore {
 	}
 
 	public static DataStore getDs() {
+		return ds;
+	}
+
+	public static DataStore getInstance() {
+		if (ds == null) {
+			ds = new DataStore();
+		}
 		return ds;
 	}
 
