@@ -49,6 +49,8 @@ CREATE TABLE Booking(
     stay_length int,
     check_in date,
     check_out date,
+    ccnum varchar(16),
+    ccexp varchar(5),
     FOREIGN KEY(cust_email) REFERENCES Customer(cust_email) ON DELETE CASCADE,
     FOREIGN KEY(room_num) REFERENCES Room(room_num) ON DELETE CASCADE
 );
@@ -60,7 +62,9 @@ CREATE Table Request(
     req_FullfillDateTime date,
     fulfilled boolean,
     conf_ID int,
-    FOREIGN KEY(conf_ID) REFERENCES Booking(conf_ID) ON DELETE CASCADE
+    item_ID int,
+    FOREIGN KEY(conf_ID) REFERENCES Booking(conf_ID) ON DELETE CASCADE,
+    FOREIGN KEY(item_ID) REFERENCES Items(item_ID) ON DELETE CASCADE
 );
 
 create table Items(
