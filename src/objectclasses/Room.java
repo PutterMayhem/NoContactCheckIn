@@ -82,7 +82,7 @@ public class Room {
 			ResultSet result = connection().executeQuery(sqlQuery);
 			while (result.next()) {
 				int roomNum = result.getInt("room_num");
-				String type = result.getString("roomType_id");
+				String type = result.getString("roomType_ID");
 				int floor = result.getInt("floor");
 				System.out.println("Room Number: " + roomNum + " Room Type: " + type + " Room Floor: " + floor);
 				Room temp = new Room(roomNum, type, false);
@@ -107,7 +107,7 @@ public class Room {
 			while (result.next()) {
 
 				int roomNum = result.getInt("room_num");
-				String roomType = result.getString("roomtype_id");
+				String roomType = result.getString("roomType_ID");
 				int floor = result.getInt("floor");
 				Room temp = new Room(roomNum, roomType, false);
 				list.add(temp);
@@ -128,7 +128,7 @@ public class Room {
 			ResultSet result = connection().executeQuery(sqlQuery);
 			while (result.next()) {
 				int roomNum = result.getInt("room_num");
-				String type = result.getString("roomType_id");
+				String type = result.getString("roomType_ID");
 				int floor = result.getInt("floor");
 				System.out.println("Room Number: " + roomNum + " Room Type: " + type + " Room Floor: " + floor);
 				booked.add(new Room(roomNum, type, true));
@@ -143,7 +143,7 @@ public class Room {
 	}
 
 	public boolean createRoom(int roomNum, String roomType) {
-		String sqlQuery = "Replace into room(room_num, roomtype_id, room_status, room_active, floor) VALUES ( "
+		String sqlQuery = "Replace into room(room_num, roomType_ID, room_status, room_active, floor) VALUES ( "
 				+ roomNum + ",\"" + roomType + "\", " + 0 + ", " + false + ", 2);";
 		try {
 			connection().execute(sqlQuery);
@@ -170,7 +170,7 @@ public class Room {
 		try {
 			ResultSet result = connection().executeQuery(sqlQuery);
 			output.setRoomNumber(result.getInt("room_num"));
-			output.setRoomType(result.getString("roomtype_id"));
+			output.setRoomType(result.getString("roomType_ID"));
 			int status = result.getInt("room_status");
 			if (status == 0) {
 				output.setBooked(true);

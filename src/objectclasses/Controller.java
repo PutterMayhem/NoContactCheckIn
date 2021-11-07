@@ -21,7 +21,7 @@ public class Controller {
 	 */
 	public boolean logIn(String email, String confID) throws SQLException {
 		String sqlQuery1 = "Select * from Customer where cust_email ='" + email + "';";
-		String sqlQuery2 = "Select * from Booking where conf_id = '" + confID + "';";
+		String sqlQuery2 = "Select * from Booking where conf_ID = '" + confID + "';";
 
 		ResultSet sqlResults1 = connection().executeQuery(sqlQuery1);
 		ResultSet sqlResults2 = connection().executeQuery(sqlQuery2);
