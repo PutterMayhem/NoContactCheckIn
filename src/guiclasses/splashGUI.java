@@ -1,6 +1,7 @@
+package guiclasses;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.*;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -28,14 +29,13 @@ public class splashGUI extends Application {
 		// TODO Auto-generated method stub
 		// Parent root = FXMLLoader.load(getClass().getResource("\\GUI.fxml"));
 		// Group root = new Group();
-		File f = new File("src/images/download2.png");
-		String imagePath = f.getAbsolutePath();
-		File hiltonImage = new File("src/images/hiltonimage2.jpg");
-		String hiltonImagePath = hiltonImage.getAbsolutePath();
+
 		DataStore ds = DataStore.getInstance();
 		GridPane gp = new GridPane();
 
 		Pane imgPane = new Pane();
+		File f = new File("src/images/download2.png");
+		String imagePath = f.getAbsolutePath();
 		ImageView imgView = formatPicture(imagePath);
 		imgPane.getChildren().add(imgView);
 		imgPane.setBackground(
@@ -57,6 +57,8 @@ public class splashGUI extends Application {
 				new Background(new BackgroundFill(Color.web("#808080"), CornerRadii.EMPTY, Insets.EMPTY)));
 		gp.add(cornerText, 2, 0);
 
+		File hiltonImage = new File("src/images/hiltonimage2.jpg");
+		String hiltonImagePath = hiltonImage.getAbsolutePath();
 		imgView = formatPicture(hiltonImagePath);
 		Pane hiltonPane = new Pane();
 		hiltonPane.getChildren().add(imgView);

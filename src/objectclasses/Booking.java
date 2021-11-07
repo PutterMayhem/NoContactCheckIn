@@ -60,7 +60,7 @@ public class Booking {
 		String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "';";
 		ResultSet sqlResults = connection().executeQuery(sqlQuery);
 		if (sqlResults.next()) {
-			confNum = sqlResults.getInt("conf_ID");
+			confNum = sqlResults.getInt("conf_id");
 			System.out.println("Your Confirmation Number is: " + confNum);
 			connection().close();
 			return confNum;
@@ -73,7 +73,7 @@ public class Booking {
 
 	// method returns true if confID already exists in database
 	public boolean checkConfNum(int confID) {
-		String sqlQuery = "SELECT * FROM Booking WHERE conf_ID = " + confID;
+		String sqlQuery = "SELECT * FROM Booking WHERE conf_id = " + confID;
 		ResultSet sqlResults;
 		try {
 			sqlResults = connection().executeQuery(sqlQuery);
