@@ -1,4 +1,3 @@
-USE uCheckIn;
 INSERT INTO RoomType (roomType_ID, king, queen, full, pull_out, suite, rate)
 VALUES ('SK', 1, 0, 0, 0, 0, 100),
 	   ('DQ', 0, 2, 0, 0, 0, 110),
@@ -12,6 +11,7 @@ VALUES (100, 'SK', 1, 1, 1),
        (220, 'SKS', 0, 0, 2),
        (310, 'DQS', 1, 1, 3);
        
+       
 INSERT INTO Employee (emp_ID, emp_Fname, emp_Lname, admin)
-VALUES (1, 'Chuck', 'Gustner', 1),
-	   (2, 'Mahad', 'Hussein', 0);
+VALUES (1, Chuck, Gustner, 1),
+	   (2, Mahad, Hussein, 0);

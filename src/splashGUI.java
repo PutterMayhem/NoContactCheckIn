@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.*;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -27,11 +28,15 @@ public class splashGUI extends Application {
 		// TODO Auto-generated method stub
 		// Parent root = FXMLLoader.load(getClass().getResource("\\GUI.fxml"));
 		// Group root = new Group();
+		File f = new File("src/images/download2.png");
+		String imagePath = f.getAbsolutePath();
+		File hiltonImage = new File("src/images/hiltonimage2.jpg");
+		String hiltonImagePath = hiltonImage.getAbsolutePath();
 		DataStore ds = DataStore.getInstance();
 		GridPane gp = new GridPane();
 
 		Pane imgPane = new Pane();
-		ImageView imgView = formatPicture("c:/users/cegus/ucheckin/src/images/download2.png");
+		ImageView imgView = formatPicture(imagePath);
 		imgPane.getChildren().add(imgView);
 		imgPane.setBackground(
 				new Background(new BackgroundFill(Color.web("#808080"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -52,7 +57,7 @@ public class splashGUI extends Application {
 				new Background(new BackgroundFill(Color.web("#808080"), CornerRadii.EMPTY, Insets.EMPTY)));
 		gp.add(cornerText, 2, 0);
 
-		imgView = formatPicture("c:/users/cegus/ucheckin/src/images/hiltonimage2.jpg");
+		imgView = formatPicture(hiltonImagePath);
 		Pane hiltonPane = new Pane();
 		hiltonPane.getChildren().add(imgView);
 		gp.add(hiltonPane, 0, 1);
