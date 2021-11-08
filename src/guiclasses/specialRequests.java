@@ -1,6 +1,6 @@
 package guiclasses;
 
-public class sepcialRequests {
+public class specialRequests {
 
 
     public static void main(String[] args) {
