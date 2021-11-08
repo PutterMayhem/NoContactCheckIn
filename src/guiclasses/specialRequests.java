@@ -60,15 +60,23 @@ public class specialRequests extends Application {
 
         // TODO: Add buttons and fields for special requests
         Pane lookup = new Pane();
+        GridPane login = new GridPane();
         Label emailLbl = new Label("Email Address: ");
         TextField emailTxtFld = new TextField("john.doe@yourdomain.com");
         Label confCodeLbl = new Label("Confirmation Code: ");
         TextField confCodeTxtFld = new TextField();
         Button lookupButton = new Button("Lookup");
+
+        login.add(emailLbl, 0, 0);
+        login.add(emailTxtFld, 1, 0);
+        login.add(confCodeLbl, 2, 0);
+        login.add(confCodeTxtFld, 3, 0);
+        login.add(lookupButton, 4, 0);
+
+        lookup.getChildren().add(login);
         lookup.setMinWidth(825);
         lookup.setBackground(new Background(new BackgroundFill(Color.web("#808080"), CornerRadii.EMPTY, Insets.EMPTY)));
-        lookup.getChildren().add(emailLbl);
-        lookup.getChildren().add(emailTxtFld);
+
         gp.add(lookup, 1, 0);
 
         Scene scene = new Scene(gp, 1920, 1080);
