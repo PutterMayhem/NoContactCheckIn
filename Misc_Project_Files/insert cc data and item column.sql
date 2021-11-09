@@ -1,8 +1,7 @@
 use ucheckin;
 
 alter table booking
-add ccnum varchar(16),
-add ccexp varchar(5);
+add cctoken int;
 
 alter table request
 add item_ID int;

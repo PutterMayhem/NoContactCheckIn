@@ -9,7 +9,7 @@ USE uCheckIn;
 
 -- Create the tables -- 
 CREATE TABLE Customer(
-	cust_ID int primary key,
+	cust_ID int primary key auto_increment,
     cust_Fname varchar(20),
     cust_Lname varchar(20),
     cust_Phone int,
@@ -49,10 +49,24 @@ CREATE TABLE Booking(
     stay_length int,
     check_in date,
     check_out date,
-    ccnum varchar(16),
-    ccexp varchar(5),
+	cctoken int,
     FOREIGN KEY(cust_email) REFERENCES Customer(cust_email) ON DELETE CASCADE,
     FOREIGN KEY(room_num) REFERENCES Room(room_num) ON DELETE CASCADE
+);
+
+create table Items(
+    item_ID int auto_increment,
+    item_Name varchar(20),
+    item_price float,
+    PRIMARY KEY(item_ID)
+);
+
+create table Employee(
+    emp_ID int auto_increment,
+    emp_Fname varchar(20),
+    emp_Lname varchar(20),
+    admin boolean,
+    PRIMARY KEY(emp_ID)
 );
 
 CREATE Table Request(
@@ -63,22 +77,11 @@ CREATE Table Request(
     fulfilled boolean,
     conf_ID int,
     item_ID int,
-    FOREIGN KEY(conf_ID) REFERENCES Booking(conf_ID) ON DELETE CASCADE,
-    FOREIGN KEY(item_ID) REFERENCES Items(item_ID) ON DELETE CASCADE
+	FOREIGN KEY(conf_ID) REFERENCES Booking(conf_ID),
+    FOREIGN KEY(item_ID) REFERENCES Items(item_ID)
 );
 
-create table Items(
-    item_ID int primary key,
-    item_Name varchar(20),
-    item_price float
-);
 
-create table Employee(
-    emp_ID int primary key,
-    emp_Fname varchar(20),
-    emp_Lname varchar(20),
-    admin boolean
-);
 
 INSERT INTO RoomType (roomType_ID, king, queen, full, pull_out, suite, rate)
 VALUES ('SK', 1, 0, 0, 0, 0, 100),
@@ -94,6 +97,18 @@ VALUES (100, 'SK', 1, 1, 1),
        (310, 'DQS', 1, 1, 3);
        
        
-INSERT INTO Employee (emp_ID, emp_Fname, emp_Lname, admin)
-VALUES (1, Chuck, Gustner, 1),
-	   (2, Mahad, Hussein, 0);
+INSERT INTO Employee (emp_Fname, emp_Lname, admin)
+VALUES ("Chuck", "Gustner", 1),
+	   ("Mahad", "Hussein", 0);
+       
+INSERT INTO Items(item_Name, item_Price)
+VALUES ("Chicken Kiev", 13.99),
+		("Caesar Salad", 8.99),
+        ("16oz New York Strip Steak", 16.99),
+        ("Pork Ribs", 17.99),
+        ("Talapia", 6.99),
+        ("Shrimp Scampi", 9.99),
+        ("Pepperoni Pizza", 12.99),
+        ("Chocolate Cake", 6.99),
+        ("New York Cheese Cake", 9.99),
+        ("French Silk Pie", 8.99);
