@@ -1,0 +1,16 @@
+.root{
+	highlight: #808080;
+}
+
+.gpane{
+	-fx-background-color: highlight;
+}
+
+.button{
+	-fx-border-width: 10px;
+	-fx-border-style: groove;
+}
+
+.button:hover{
+	-fx-background-color: SKYBLUE;
+}
