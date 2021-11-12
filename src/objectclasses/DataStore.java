@@ -4,6 +4,8 @@ public class DataStore {
 	private Account user;
 	private Room room;
 	private Booking booking;
+	private Employee employee;
+
 	private static DataStore ds = new DataStore();
 
 	private DataStore() {
@@ -31,6 +33,14 @@ public class DataStore {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public static DataStore getDs() {
