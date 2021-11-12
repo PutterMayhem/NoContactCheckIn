@@ -97,8 +97,15 @@ public class Controller {
 		return true;
 	}
 
-	public boolean createRequest() {
-		// TODO add code to add a special request
+	public void createRequest(String type, Date reqDate, Date fulfillDate, int conf_id, int item_id) {
+		String query = "insert into request(req_Type, req_DateTime, req_FulfillDate, conf_ID, item_ID values('" + type
+				+ "', " + reqDate + "', " + fulfillDate + "', " + conf_id + "'," + item_id + "';";
+		try {
+			connection().execute(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean createCustomer(String fName, String lName, String email, String phone) {

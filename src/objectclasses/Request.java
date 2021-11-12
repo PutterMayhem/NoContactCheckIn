@@ -11,6 +11,21 @@ public class Request {
 	int conf_id;
 	int item_id;
 
+	public Request() {
+
+	}
+
+	public Request(int req_id, String type, Date requestDate, Date requestFulfilledDate, int conf_id, int item_id) {
+		super();
+		this.req_id = req_id;
+		this.type = type;
+		this.requestDate = requestDate;
+		this.requestFulfilledDate = requestFulfilledDate;
+		this.conf_id = conf_id;
+		this.item_id = item_id;
+		fulfilled = false;
+	}
+
 	public int getReq_id() {
 		return req_id;
 	}
