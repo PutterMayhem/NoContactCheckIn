@@ -12,7 +12,6 @@ import java.sql.Statement;
 public class Account {
 
 	private String email;
-	private int confNum;
 	private int custID;
 	private String custFName;
 	private String custLName;

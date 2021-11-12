@@ -49,10 +49,51 @@ public class Controller {
 		// TODO Add code to retrieve data from GUI. Then delete test data
 		Room test = Room.getRoomFromDB(101);
 		String ccNum = "4785414525354747";
-		Date tempDate = new Date(10 / 31 / 2021);
+		String tempDate = "1023";
 		int csc = 345;
+
 		VirtualCCProcessor ccp = new VirtualCCProcessor(ccNum, tempDate, csc);
 		int token = ccp.hashCode();
+		// TODO insert token into booking table
+		return false;
+	}
+
+	public boolean checkRequests() {
+		// TODO add code to check requests
+	}
+
+	public boolean checkIn() {
+		// TODO add code to check in
+	}
+
+	public boolean checkOut() {
+		// TODO add code to check out
+	}
+
+	public boolean createRequest() {
+		// TODO add code to add a special request
+	}
+
+	public boolean createCustomer(String fName, String lName, String email, String phone) {
+		Account newAccount = new Account(fName, lName, phone, email);
+		try {
+			boolean isCreated = newAccount.createCustomer();
+			return isCreated;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean createEmployee(String fName, String lName, String email, String phone, boolean admin) {
+		Employee newEmp = new Employee(fName, lName, phone, email, admin);
+		try {
+			boolean isCreated = newEmp.createEmployee();
+			return isCreated;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

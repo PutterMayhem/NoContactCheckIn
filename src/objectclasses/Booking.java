@@ -109,7 +109,6 @@ public class Booking {
 	 */
 	public boolean createBooking() throws SQLException {
 		// Check if account exists. If not the account is created.
-		// Account.checkAccount(customerFName, customerLName, phone, email);
 
 		// ensure unique conf_ID is created
 		confNum = createConfID();

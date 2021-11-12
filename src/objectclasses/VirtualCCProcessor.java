@@ -1,13 +1,11 @@
 package objectclasses;
 
-import java.util.Date;
-
 public class VirtualCCProcessor {
 	private String cardNum;
-	private Date expiration;
+	private String expiration;
 	private int csc;
 
-	public VirtualCCProcessor(String cardNum, Date expiration, int csc) {
+	public VirtualCCProcessor(String cardNum, String expiration, int csc) {
 		super();
 		this.cardNum = cardNum;
 		this.expiration = expiration;
@@ -22,11 +20,11 @@ public class VirtualCCProcessor {
 		this.cardNum = cardNum;
 	}
 
-	public Date getExpiration() {
+	public String getExpiration() {
 		return expiration;
 	}
 
-	public void setExpiration(Date expiration) {
+	public void setExpiration(String expiration) {
 		this.expiration = expiration;
 	}
 
