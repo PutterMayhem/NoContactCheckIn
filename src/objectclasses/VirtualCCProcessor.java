@@ -45,4 +45,8 @@ public class VirtualCCProcessor {
 		hash = 37 * hash + dateString.hashCode();
 		return hash;
 	}
+
+	public String payBill(float amt) {
+		return "Approved";
+	}
 }

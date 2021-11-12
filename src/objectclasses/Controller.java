@@ -10,10 +10,10 @@ import java.util.Date;
 
 public class Controller {
 
-	private Room room;
-	private int numGuests;
-	private Date checkIn;
-	private Date checkOut;
+	private DataStore ds = DataStore.getInstance();
+
+	public Controller() {
+	}
 
 	/*
 	 * Returns true if customer entered valid data. False if not. Use if statement
@@ -44,7 +44,7 @@ public class Controller {
 	}
 
 	public boolean bookingProcess(Date checkIn, Date checkOut, String type) {
-		ArrayList<Room> available = room.getAllAvailableType(type);
+		ArrayList<Room> available = ds.getRoom().getAllAvailableType(type);
 
 		// TODO Add code to retrieve data from GUI. Then delete test data
 		Room test = Room.getRoomFromDB(101);
@@ -58,8 +58,30 @@ public class Controller {
 		return false;
 	}
 
-	public boolean checkRequests() {
-		// TODO add code to check requests
+	/*
+	 * Returns a list of open requests.
+	 */
+	public ArrayList<Request> checkRequests() {
+		String query = "select * from requests where fullfilled = 0";
+		try {
+			ResultSet result = connection().executeQuery(query);
+			ArrayList<Request> request = new ArrayList<>();
+			while (result.next()) {
+				Request temp = new Request();
+				temp.setConf_id(result.getInt("req_ID"));
+				temp.setFulfilled(true);
+				temp.setItem_id(result.getInt("item_ID"));
+				temp.setRequestDate(result.getDate("req_FulfillDate"));
+				temp.setType(result.getString("req_Type"));
+				temp.setReq_id(result.getInt("req_ID"));
+				request.add(temp);
+			}
+			return request;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public boolean checkIn() {
@@ -67,7 +89,12 @@ public class Controller {
 	}
 
 	public boolean checkOut() {
-		// TODO add code to check out
+		ds.getBooking().checkOut(ds.getRoom().getRoomNumber());
+		ds.setBooking(null);
+		ds.setRoom(null);
+		ds.setUser(null);
+		ds.setEmployee(null);
+		return true;
 	}
 
 	public boolean createRequest() {

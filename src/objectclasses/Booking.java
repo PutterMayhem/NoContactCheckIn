@@ -27,12 +27,15 @@ public class Booking {
 	Date departure;
 	int lengthStay; // in days for now
 
+	float bill;
+
 	public Booking(Account customer, Room room, Date checkIn, Date checkOut) {
 		this.customer = customer;
 		this.room = room;
 		this.arrival = checkIn;
 		this.departure = checkOut;
 		lengthStay = getDaysBetween(checkIn, checkOut);
+		this.bill = 0;
 
 	}
 
@@ -139,9 +142,14 @@ public class Booking {
 		}
 	}
 
-	public static void checkOut(int roomNumber) throws SQLException {
-		String sqlQuery = "Update room SET room_status = 0;";
-		connection().execute(sqlQuery);
+	public void checkOut(int roomNumber) {
+		String sqlQuery = "Update room SET room_status = 0 where room_num = " + roomNumber + ";";
+		try {
+			connection().execute(sqlQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private int getDaysBetween(Date start, Date end) {
