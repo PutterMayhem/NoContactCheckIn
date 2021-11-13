@@ -43,16 +43,21 @@ public class Controller {
 		return statement;
 	}
 
-	public boolean bookingProcess(Date checkIn, Date checkOut, String type) {
+	public ArrayList<Room> getAllAvailableType(String type) {
+		return Room.getAllAvailableType(type);
+	}
+
+	public ArrayList<Room> getAllAvailable() {
+		return Room.getAllAvailable();
+	}
+
+	public boolean bookingProcess(int roomNum, Date checkIn, Date checkOut, String type, String ccNum, String expDate) {
 		ArrayList<Room> available = ds.getRoom().getAllAvailableType(type);
-
 		// TODO Add code to retrieve data from GUI. Then delete test data
-		Room test = Room.getRoomFromDB(101);
-		String ccNum = "4785414525354747";
-		String tempDate = "1023";
-		int csc = 345;
+		Room test = Room.getRoomFromDB(roomNum);
 
-		VirtualCCProcessor ccp = new VirtualCCProcessor(ccNum, tempDate, csc);
+		int csc = 456;
+		VirtualCCProcessor ccp = new VirtualCCProcessor(ccNum, expDate, csc);
 		int token = ccp.hashCode();
 		// TODO insert token into booking table
 		return false;

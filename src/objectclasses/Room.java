@@ -75,7 +75,7 @@ public class Room {
 	}
 
 	// prints list of all available rooms. Returns a list of available Rooms.
-	public ArrayList<Room> getAllAvailable() {
+	public static ArrayList<Room> getAllAvailable() {
 		ArrayList<Room> available = new ArrayList<>();
 		try {
 			String sqlQuery = "SELECT * FROM Room Where room_status = 0 AND room_active = 1;";
@@ -97,7 +97,7 @@ public class Room {
 	/*
 	 * Retrieves all available rooms of a certain type
 	 */
-	public ArrayList<Room> getAllAvailableType(String type) {
+	public static ArrayList<Room> getAllAvailableType(String type) {
 		ArrayList<Room> list = new ArrayList<>();
 		try {
 			String sqlQuery = "Select * from Room where room_status = 0 And room_active = 1 and roomtype_id = '" + type
@@ -121,7 +121,7 @@ public class Room {
 	}
 
 	// prints a list of booked rooms
-	public ArrayList<Room> getAllBooked() {
+	public static ArrayList<Room> getAllBooked() {
 		ArrayList<Room> booked = new ArrayList<>();
 		try {
 			String sqlQuery = "SELECT * FROM Room WHERE room_status = 1;";
