@@ -19,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import objectclasses.Controller;
-import objectclasses.DataStore;
 
 public class splashGUI extends Application {
 
@@ -28,8 +27,7 @@ public class splashGUI extends Application {
 		// TODO Auto-generated method stub
 		// Parent root = FXMLLoader.load(getClass().getResource("\\GUI.fxml"));
 		// Group root = new Group();
-		Controller control = new Controller();
-		DataStore ds = DataStore.getInstance();
+		Controller control = Controller.getInstance();
 		GridPane gp = new GridPane();
 
 		String stylesheet = getClass().getResource("/guiclasses/splashGUIstylesheet.css").toExternalForm();
