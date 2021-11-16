@@ -10,9 +10,74 @@ import java.util.Date;
 
 public class Controller {
 
-	private DataStore ds = DataStore.getInstance();
+	private Booking booking;
+	private Account account;
+	private Room room;
+	private Employee employee;
+	private Request request;
+	private VirtualCCProcessor vcc;
+	private static Controller controller = new Controller();
 
-	public Controller() {
+	private Controller() {
+	}
+
+	public static Controller getInstance() {
+		if (controller == null) {
+			controller = new Controller();
+		}
+		return controller;
+	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	public VirtualCCProcessor getVcc() {
+		return vcc;
+	}
+
+	public void setVcc(VirtualCCProcessor vcc) {
+		this.vcc = vcc;
+	}
+
+	public Controller getController() {
+		return controller;
 	}
 
 	/*
@@ -95,11 +160,8 @@ public class Controller {
 	}
 
 	public boolean checkOut() {
-		ds.getBooking().checkOut(ds.getRoom().getRoomNumber());
-		ds.setBooking(null);
-		ds.setRoom(null);
-		ds.setUser(null);
-		ds.setEmployee(null);
+		getBooking().checkOut(room.getRoomNumber());
+		controller = null;
 		return true;
 	}
 
@@ -109,7 +171,7 @@ public class Controller {
 		try {
 			connection().execute(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -120,7 +182,6 @@ public class Controller {
 			boolean isCreated = newAccount.createCustomer();
 			return isCreated;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
