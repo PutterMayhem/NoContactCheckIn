@@ -22,6 +22,8 @@ import objectclasses.Controller;
 
 public class splashGUI extends Application {
 
+	private Scene scene;
+
 	@Override
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
@@ -97,15 +99,37 @@ public class splashGUI extends Application {
 
 		gp.add(bottom, 0, 3, 3, 1);
 
-		Scene scene = new Scene(gp, 1920, 1080);
+		scene = new Scene(gp, 1920, 1080);
 
 		scene.getStylesheets().add(stylesheet);
 		primary.setTitle("GUI");
 		primary.setScene(scene);
 		primary.show();
 
-		// TODO add button actions
+		/*
+		 * Button actions
+		 */
+		bookRoom.setOnAction(actionEvent -> {
+			BookingGUI booking = new BookingGUI();
+			Scene bookingScene = booking.getScene();
+			primary.setScene(bookingScene);
+			primary.show();
+		});
 
+		logIn.setOnAction(actionEvent -> {
+			LogIn login = new LogIn(primary);
+			Scene loginScene = login.logIn();
+			primary.setScene(loginScene);
+			primary.show();
+		});
+
+		checkIn.setOnAction(actionEvent -> {
+			// TODO make check in window appear
+		});
+	}
+
+	protected Scene getScene() {
+		return scene;
 	}
 
 	private ImageView formatPicture(String location) {

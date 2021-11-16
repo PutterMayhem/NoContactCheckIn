@@ -117,7 +117,7 @@ public class Controller {
 	}
 
 	public boolean bookingProcess(int roomNum, Date checkIn, Date checkOut, String type, String ccNum, String expDate) {
-		ArrayList<Room> available = ds.getRoom().getAllAvailableType(type);
+		ArrayList<Room> available = Room.getAllAvailableType(type);
 		// TODO Add code to retrieve data from GUI. Then delete test data
 		Room test = Room.getRoomFromDB(roomNum);
 

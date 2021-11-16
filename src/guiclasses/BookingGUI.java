@@ -1,7 +1,6 @@
 package guiclasses;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -26,11 +25,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import objectclasses.*;
+import objectclasses.Account;
+import objectclasses.Booking;
+import objectclasses.Room;
 
+public class BookingGUI extends Application implements Initializable {
 
-public class BookingGUI extends Application implements Initializable{
-	
 	@FXML
 	private Button btn_submit;
 	@FXML
@@ -59,12 +59,26 @@ public class BookingGUI extends Application implements Initializable{
 			primary.setTitle("Booking");
 			primary.setScene(scene);
 			primary.show();
-			
-		} catch(IOException e) {
+
+		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
 	}
+
+	public Scene getScene() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
+		loader.setController(this);
+		try {
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 1920, 1080);
+			return scene;
+		} catch (IOException e) {
+
+		}
+		return null;
+	}
+
 	public static void changeScene(ActionEvent event, String fxmlFile, String title, String fname, int room) {
 		Parent root = null;
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -73,49 +87,50 @@ public class BookingGUI extends Application implements Initializable{
 				root = FXMLLoader.load(BookingGUI.class.getResource(fxmlFile));
 				stage.setTitle(title);
 				stage.setScene(new Scene(root, 1920, 1080));
-				stage.show(); 
+				stage.show();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				
-			} catch(Exception e) {
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//Application.launch(splashGUI.class, new String[]{});
+			// Application.launch(splashGUI.class, new String[]{});
 		}
-		
-		
+
 	}
-	
-	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate, LocalDate localDate2) {
-		if (fname == null || lname == null || email == null || room == null || localDate == null || localDate2 == null) {
+
+	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate,
+			LocalDate localDate2) {
+		if (fname == null || lname == null || email == null || room == null || localDate == null
+				|| localDate2 == null) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Initializing....");
 		// TODO Auto-generated method stub
-		btn_cancel.setOnAction(new EventHandler<ActionEvent>( ) {
+		btn_cancel.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				//switch back to splash page
-				//changeScene(event, null, null, null, 0);
+				// switch back to splash page
+				// changeScene(event, null, null, null, 0);
 			}
-			
+
 		});
-		btn_submit.setOnAction(new EventHandler<ActionEvent>( ) {
+		btn_submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), txt_room.getText()
-						, dtp_checkin.getValue(), dtp_checkout.getValue()))) {
+				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), txt_room.getText(),
+						dtp_checkin.getValue(), dtp_checkout.getValue()))) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Please fill in all the required fields");
 					alert.setTitle("Error!");
@@ -128,7 +143,7 @@ public class BookingGUI extends Application implements Initializable{
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
 				String room_num = txt_room.getText();
-				
+
 				if (Account.checkAccount(fname, lname, null, email)) {
 					SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 					Account user = new Account(fname, lname, null, email);
@@ -144,12 +159,13 @@ public class BookingGUI extends Application implements Initializable{
 					}
 					Booking booking = new Booking(user, room, date1, date2);
 					try {
-						if (booking.createBooking() == true ) {
+						if (booking.createBooking() == true) {
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum(email));
+							alert.setContentText(
+									"Booking Created! Your Confirmation Number is: " + booking.getConfNum(email));
 							alert.setTitle("Success!");
 							alert.showAndWait();
-							//switch back to splash page
+							// switch back to splash page
 							changeScene(event, "specialRequests.fxml", "Title", null, 0);
 						} else {
 							Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -160,18 +176,14 @@ public class BookingGUI extends Application implements Initializable{
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}		
-					
-					
+					}
+
 				}
-				
-				//System.out.println("event works");
-				
+
+				// System.out.println("event works");
+
 			}
 		});
 	}
-	
-
-	
 
 }
