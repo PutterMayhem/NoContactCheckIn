@@ -123,7 +123,7 @@ public class Booking {
 		}
 		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
-				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL)";
+				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL, NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 		// Updates room status in room database
 		String sqlUpdate = "UPDATE room SET room_status = 1;";

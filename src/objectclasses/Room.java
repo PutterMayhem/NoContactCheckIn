@@ -165,22 +165,27 @@ public class Room {
 	 * Retrieves data from the DB to create a room object.
 	 */
 	public static Room getRoomFromDB(int roomNumber) {
-		Room output = null;
+		String type = null;
+		int status = 0;
 		String sqlQuery = "select * from room where room_num=" + roomNumber + ";";
 		try {
 			ResultSet result = connection().executeQuery(sqlQuery);
-			output.setRoomNumber(result.getInt("room_num"));
-			output.setRoomType(result.getString("roomType_ID"));
-			int status = result.getInt("room_status");
-			if (status == 0) {
-				output.setBooked(true);
-			} else {
-				output.setBooked(false);
+			if (result.next()) {
+				type = result.getString("roomType_ID");
+				status = result.getInt("room_status");
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		Room output = new Room();
+		output.setRoomNumber(roomNumber);
+		output.setRoomType(type);
+		if (status == 0) {
+			output.setBooked(true);
+		} else {
+			output.setBooked(false);
 		}
 		return output;
 	}

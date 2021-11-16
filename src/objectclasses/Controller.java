@@ -90,6 +90,7 @@ public class Controller {
 	}
 
 	public boolean checkIn() {
+		return false;
 		// TODO add code to check in
 	}
 
