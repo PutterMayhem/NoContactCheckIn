@@ -36,7 +36,7 @@ public class LoggedInGUI extends Application implements Initializable{
 	@FXML 
 	private Button btn_checkout;
 	@FXML
-	private Button btn_requests;
+	private Button btn_request;
 	@FXML
 	private Button btn_logout;
 	@FXML
@@ -45,7 +45,7 @@ public class LoggedInGUI extends Application implements Initializable{
 	
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedIn.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/guiclasses/LoggedIn.fxml"));
 		loader.setController(this);
 		
 		try {
@@ -71,7 +71,6 @@ public class LoggedInGUI extends Application implements Initializable{
 		if (fxmlFile != null) {
 			try {
 				root = FXMLLoader.load(BookingGUI.class.getResource(fxmlFile));
-				LoggedInGUI.setUpInformation(fname, room);
 				stage.setTitle(title);
 				stage.setScene(new Scene(root, 1920, 1080));
 				stage.show(); 
@@ -94,12 +93,12 @@ public class LoggedInGUI extends Application implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Initializing....");
 		// TODO Auto-generated method stub
-		btn_requests.setOnAction(new EventHandler<ActionEvent>( ) {
+		btn_request.setOnAction(new EventHandler<ActionEvent>( ) {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				
+				changeScene(event, "specialRequests.fxml", "Make a Request", null, 0);
 			}
 			
 		});
