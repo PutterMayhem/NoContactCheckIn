@@ -3,6 +3,11 @@ package guiclasses;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,10 +19,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import objectclasses.Account;
+import objectclasses.Booking;
 import objectclasses.Controller;
 
 public class LogIn extends Application {
@@ -43,15 +49,15 @@ public class LogIn extends Application {
 		imgPane.getChildren().add(imgView);
 
 		VBox inputBox = new VBox();
-		Text lblUserName = new Text("Username:");
-		Text lblPassword = new Text("Password:");
+		Text lblUserName = new Text("Last Name:");
+		Text lblPassword = new Text("Confirmation #:");
 
 		TextField userField = new TextField();
 		TextField passwordField = new TextField();
 
 		Button submit = new Button("Log In");
 		Button cancel = new Button("Cancel");
-		submit.setPadding(new Insets(15));
+		submit.setPadding(new Insets(200));
 
 		inputBox.getChildren().add(lblUserName);
 		inputBox.getChildren().add(userField);
@@ -60,14 +66,15 @@ public class LogIn extends Application {
 		inputBox.getChildren().add(submit);
 		inputBox.getChildren().add(cancel);
 
-		Pane imagePane = new Pane();
+		HBox imagePane = new HBox();
 		File hiltonImage = new File("src/images/hiltonimage2.jpg");
 		String hiltonImagePath = hiltonImage.getAbsolutePath();
 		ImageView imgView2 = formatPicture(hiltonImagePath);
+		imagePane.setAlignment(Pos.CENTER);
 		imagePane.getChildren().add(imgView2);
 
 		gp.add(imgPane, 0, 0, 3, 1);
-		gp.add(imagePane, 0, 1, 1, 2);
+		gp.add(imagePane, 0, 1);
 		gp.add(inputBox, 1, 1);
 		Scene output = new Scene(gp, 1920, 1080);
 		output.getStylesheets().add(stylesheet);
@@ -75,14 +82,26 @@ public class LogIn extends Application {
 		/*
 		 * Button Actions
 		 */
-		cancel.setOnAction(actionEvent -> {
-			splashGUI splash = new splashGUI();
-			Scene scene = splash.getScene();
-			primary.setScene(scene);
-			primary.show();
+		submit.setOnAction(actionEvent -> {
+			String username = userField.getText();
+			String password = passwordField.getText();
+			if (control.logIn(username, password)) {
+				String query = "Select cust_email from booking where conf_ID = " + password + ";";
+				try {
+					ResultSet result = connection().executeQuery(query);
+					String email = result.getString("cust_email");
+					Account loggedIn = Booking.getAccountFromDB(username, email);
+					control.setAccount(loggedIn);
+					splashGUI main = new splashGUI();
+					Scene splash = main.getScene();
+					main.showWindow(primary, splash);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+			}
 		});
-
 		return output;
 	}
 
@@ -96,6 +115,18 @@ public class LogIn extends Application {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	// Connection to database method
+	private static Statement connection() {
+		Statement statement = null;
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uCheckIn", "root", "");
+			statement = conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return statement;
 	}
 
 	@Override

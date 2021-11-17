@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import objectclasses.Controller;
 
@@ -37,10 +38,15 @@ public class splashGUI extends Application {
 
 		HBox imgPane = new HBox();
 		File f = new File("src/images/download2.png");
+		Text loggedIn = new Text("Not logged in");
+		if (control.getAccount() != null) {
+			loggedIn.setText("Logged in as: " + control.getAccount().getEmail());
+		}
 		String imagePath = f.getAbsolutePath();
 		ImageView imgView = formatPicture(imagePath);
 		imgPane.setAlignment(Pos.CENTER);
 		imgPane.getChildren().add(imgView);
+		imgPane.getChildren().add(loggedIn);
 
 		gp.add(imgPane, 0, 0, 3, 1);
 
@@ -56,6 +62,7 @@ public class splashGUI extends Application {
 		File hiltonImage = new File("src/images/hiltonimage2.jpg");
 		String hiltonImagePath = hiltonImage.getAbsolutePath();
 		imgView = formatPicture(hiltonImagePath);
+
 		Pane hiltonPane = new Pane();
 		hiltonPane.getChildren().add(imgView);
 		gp.add(hiltonPane, 0, 1);
@@ -103,8 +110,7 @@ public class splashGUI extends Application {
 
 		scene.getStylesheets().add(stylesheet);
 		primary.setTitle("GUI");
-		primary.setScene(scene);
-		primary.show();
+		showWindow(primary, scene);
 
 		/*
 		 * Button actions
@@ -126,6 +132,11 @@ public class splashGUI extends Application {
 		checkIn.setOnAction(actionEvent -> {
 			// TODO make check in window appear
 		});
+	}
+
+	public void showWindow(Stage primary, Scene scene) {
+		primary.setScene(scene);
+		primary.show();
 	}
 
 	protected Scene getScene() {

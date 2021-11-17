@@ -17,6 +17,14 @@ public class Account {
 	private String custLName;
 	private String phone;
 
+	public Account(int custID, String custFName, String custLName, String phone, String email) {
+		this.custFName = custFName;
+		this.custLName = custLName;
+		this.phone = phone;
+		this.email = email;
+		this.custID = custID;
+	}
+
 	public Account(String custFName, String custLName, String phone, String email) {
 		this.custFName = custFName;
 		this.custLName = custLName;

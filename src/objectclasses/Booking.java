@@ -55,6 +55,7 @@ public class Booking {
 	public Room getRoom() {
 		return room;
 	}
+
 	public Date getArrival() {
 		return arrival;
 	}
@@ -62,26 +63,21 @@ public class Booking {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
+
 	public int getConfNum() {
 		return confNum;
 	}
 
-	/*public int getConfNum(String email) throws SQLException {
-		String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "';";
-		ResultSet sqlResults = connection().executeQuery(sqlQuery);
-		if (sqlResults.next()) {
-			confNum = sqlResults.getInt("conf_ID");
-			System.out.println("Your Confirmation Number is: " + confNum);
-			connection().close();
-			return confNum;
-		} else {
-			System.out.println("Sorry, no confirmation number with that email was found");
-			connection().close();
-			return 0;
-		}
-	}
-	*/
+	/*
+	 * public int getConfNum(String email) throws SQLException { String sqlQuery =
+	 * "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "';"; ResultSet
+	 * sqlResults = connection().executeQuery(sqlQuery); if (sqlResults.next()) {
+	 * confNum = sqlResults.getInt("conf_ID");
+	 * System.out.println("Your Confirmation Number is: " + confNum);
+	 * connection().close(); return confNum; } else {
+	 * System.out.println("Sorry, no confirmation number with that email was found"
+	 * ); connection().close(); return 0; } }
+	 */
 
 	// method returns true if confID already exists in database
 	public boolean checkConfNum(int confID) {
@@ -162,12 +158,33 @@ public class Booking {
 			e.printStackTrace();
 		}
 	}
-	
 
 	private int getDaysBetween(Date start, Date end) {
 		long difference = end.getTime() - start.getTime();
 		float daysBetween = (difference / (1000 * 60 * 60 * 24));
 		return (int) daysBetween;
+	}
+
+	public static Account getAccountFromDB(String lName, String email) {
+		String query = "Select * from customer where cust_Lname = " + lName + ";";
+		String query2 = "Select * from booking where cust_email = " + email + ";";
+		try {
+			ResultSet results = connection().executeQuery(query);
+			ResultSet results2 = connection().executeQuery(query2);
+			if (results.next() && results2.next()) {
+				int accountID = results.getInt("cust_ID");
+				String fName = results.getString("cust_Fname");
+				String lastName = results.getString("cust_Lname");
+				String phone = results.getString("phone");
+				String e_mail = results.getString("email");
+				Account output = new Account(accountID, fName, lastName, phone, e_mail);
+				return output;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// Connection to database method

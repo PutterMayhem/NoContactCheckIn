@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
@@ -27,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import objectclasses.Account;
 import objectclasses.Booking;
+import objectclasses.Controller;
 import objectclasses.Room;
 
 public class BookingGUI extends Application implements Initializable {
@@ -47,6 +47,8 @@ public class BookingGUI extends Application implements Initializable {
 	private TextField txt_room;
 	@FXML
 	private Button btn_cancel;
+
+	Controller control = Controller.getInstance();
 
 	@Override
 	public void start(Stage primary) throws Exception {
@@ -111,10 +113,11 @@ public class BookingGUI extends Application implements Initializable {
 			return true;
 		}
 	}
-	
+
 	public String getFName() {
 		return txt_fname.getText();
 	}
+
 	public int getRoomNum() {
 		return (Integer.parseInt(txt_room.getText()));
 	}
@@ -149,28 +152,31 @@ public class BookingGUI extends Application implements Initializable {
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
 				int room_num = Integer.parseInt(txt_room.getText());
-				
+
 				if (Account.checkAccount(fname, lname, null, email)) {
-					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");					
-				    //System.out.println(sdf2.format(sdf.parse(startDateString)));
+					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+					// System.out.println(sdf2.format(sdf.parse(startDateString)));
 					Account user = new Account(fname, lname, null, email);
 					Room room = Room.getRoomFromDB(room_num);
 					Date date1 = null;
 					Date date2 = null;
 					try {
-						date1 = sdf.parse(checkin);  
-						date2 = sdf.parse(checkout);  
-						
+						date1 = sdf.parse(checkin);
+						date2 = sdf.parse(checkout);
+
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					Booking booking = new Booking(user, room, date1, date2);
+					control.setBooking(booking);
+
 					try {
-						if (booking.createBooking() == true ) {
+						if (booking.createBooking() == true) {
 							System.out.println(booking.getArrival());
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum() + "\n"
+							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
+									+ "\n"
 									+ "To login to our kiosks use your e-mail address and your confirmation number");
 							alert.setTitle("Success!");
 							alert.showAndWait();

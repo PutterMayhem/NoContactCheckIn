@@ -12,7 +12,7 @@ CREATE TABLE Customer(
 	cust_ID int primary key auto_increment,
     cust_Fname varchar(20),
     cust_Lname varchar(20),
-    cust_Phone int,
+    cust_Phone varchar(11),
     cust_Email varchar(100)
 );
 
