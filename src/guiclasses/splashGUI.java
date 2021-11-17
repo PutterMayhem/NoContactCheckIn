@@ -39,6 +39,7 @@ public class splashGUI extends Application {
 		HBox imgPane = new HBox();
 		File f = new File("src/images/download2.png");
 		Text loggedIn = new Text("Not logged in");
+		loggedIn.setId("loggedin");
 		if (control.getAccount() != null) {
 			loggedIn.setText("Logged in as: " + control.getAccount().getEmail());
 		}
@@ -110,7 +111,8 @@ public class splashGUI extends Application {
 
 		scene.getStylesheets().add(stylesheet);
 		primary.setTitle("GUI");
-		showWindow(primary, scene);
+		primary.setScene(scene);
+		primary.show();
 
 		/*
 		 * Button actions
@@ -132,6 +134,7 @@ public class splashGUI extends Application {
 		checkIn.setOnAction(actionEvent -> {
 			// TODO make check in window appear
 		});
+
 	}
 
 	public void showWindow(Stage primary, Scene scene) {

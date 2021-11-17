@@ -50,14 +50,15 @@ public class LogIn extends Application {
 
 		VBox inputBox = new VBox();
 		Text lblUserName = new Text("Last Name:");
+		lblUserName.getStyleClass().add("lblUserName");
 		Text lblPassword = new Text("Confirmation #:");
-
+		lblPassword.getStyleClass().add("lblPassword");
 		TextField userField = new TextField();
 		TextField passwordField = new TextField();
+		inputBox.setMargin(inputBox, new Insets(500));
 
 		Button submit = new Button("Log In");
 		Button cancel = new Button("Cancel");
-		submit.setPadding(new Insets(200));
 
 		inputBox.getChildren().add(lblUserName);
 		inputBox.getChildren().add(userField);
@@ -101,6 +102,12 @@ public class LogIn extends Application {
 				}
 
 			}
+		});
+
+		cancel.setOnAction(actionEvent -> {
+			splashGUI main = new splashGUI();
+			Scene splash = main.getScene();
+			main.showWindow(primary, splash);
 		});
 		return output;
 	}

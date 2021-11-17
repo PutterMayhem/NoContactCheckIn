@@ -13,3 +13,15 @@
 .button:hover{
 	-fx-background-color: SKYBLUE;
 }
+
+.loggedin{
+	-fx-font-size: 24px;
+}
+
+.lblPassword{
+	-fx-font-size:  24px;
+}
+
+.lblUserName{
+	-fx-font-size: 24px;
+}
