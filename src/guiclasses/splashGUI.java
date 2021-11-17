@@ -101,8 +101,6 @@ public class splashGUI extends Application {
 		Font lblFont = Font.font("Trebuchet MS", FontWeight.MEDIUM, 16);
 		lbl.setFont(lblFont);
 		bottom.getChildren().add(lbl);
-		// bottom.setBackground(new Background(new BackgroundFill(Color.web("#808080"),
-		// CornerRadii.EMPTY, Insets.EMPTY)));
 		bottom.setMinWidth(1080);
 
 		gp.add(bottom, 0, 3, 3, 1);
