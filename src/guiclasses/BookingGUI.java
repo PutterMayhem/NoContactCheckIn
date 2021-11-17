@@ -55,7 +55,7 @@ public class BookingGUI extends Application implements Initializable {
 		loader.setController(this);
 		try {
 			Parent root = loader.load();
-			Scene scene = new Scene(root, 1335, 720);
+			Scene scene = new Scene(root, 1920, 1080);
 			primary.setTitle("Booking");
 			primary.setScene(scene);
 			primary.show();
@@ -111,6 +111,13 @@ public class BookingGUI extends Application implements Initializable {
 			return true;
 		}
 	}
+	
+	public String getFName() {
+		return txt_fname.getText();
+	}
+	public int getRoomNum() {
+		return (Integer.parseInt(txt_room.getText()));
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -122,7 +129,6 @@ public class BookingGUI extends Application implements Initializable {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				// switch back to splash page
-				// changeScene(event, null, null, null, 0);
 			}
 
 		});
@@ -142,31 +148,33 @@ public class BookingGUI extends Application implements Initializable {
 				String fname = txt_fname.getText();
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
-				String room_num = txt_room.getText();
-
+				int room_num = Integer.parseInt(txt_room.getText());
+				
 				if (Account.checkAccount(fname, lname, null, email)) {
-					SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");					
+				    //System.out.println(sdf2.format(sdf.parse(startDateString)));
 					Account user = new Account(fname, lname, null, email);
-					Room room = Room.getRoomFromDB(Integer.parseInt(room_num));
+					Room room = Room.getRoomFromDB(room_num);
 					Date date1 = null;
 					Date date2 = null;
 					try {
-						date1 = formatter.parse(checkin);
-						date2 = formatter.parse(checkout);
+						date1 = sdf.parse(checkin);  
+						date2 = sdf.parse(checkout);  
+						
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					Booking booking = new Booking(user, room, date1, date2);
 					try {
-						if (booking.createBooking() == true) {
+						if (booking.createBooking() == true ) {
+							System.out.println(booking.getArrival());
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setContentText(
-									"Booking Created! Your Confirmation Number is: " + booking.getConfNum(email));
+							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum() + "\n"
+									+ "To login to our kiosks use your e-mail address and your confirmation number");
 							alert.setTitle("Success!");
 							alert.showAndWait();
-							// switch back to splash page
-							changeScene(event, "specialRequests.fxml", "Title", null, 0);
+							changeScene(event, "LoggedIn.fxml", "Logged In", fname, room_num);
 						} else {
 							Alert alert = new Alert(Alert.AlertType.ERROR);
 							alert.setContentText("Failed to create booking");
@@ -179,8 +187,6 @@ public class BookingGUI extends Application implements Initializable {
 					}
 
 				}
-
-				// System.out.println("event works");
 
 			}
 		});

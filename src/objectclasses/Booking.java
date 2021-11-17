@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -54,12 +55,19 @@ public class Booking {
 	public Room getRoom() {
 		return room;
 	}
+	public Date getArrival() {
+		return arrival;
+	}
 
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+	
+	public int getConfNum() {
+		return confNum;
+	}
 
-	public int getConfNum(String email) throws SQLException {
+	/*public int getConfNum(String email) throws SQLException {
 		String sqlQuery = "SELECT conf_ID FROM Booking WHERE cust_email = '" + email + "';";
 		ResultSet sqlResults = connection().executeQuery(sqlQuery);
 		if (sqlResults.next()) {
@@ -73,6 +81,7 @@ public class Booking {
 			return 0;
 		}
 	}
+	*/
 
 	// method returns true if confID already exists in database
 	public boolean checkConfNum(int confID) {
@@ -115,18 +124,20 @@ public class Booking {
 
 		// ensure unique conf_ID is created
 		confNum = createConfID();
-
 		// Checks if room is booked
 		if (Room.isBooked(room)) {
 			System.out.println("Sorry, room is already booked. Please choose another room");
 			return false;
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		String date1 = sdf.format(arrival);
+		String date2 = sdf.format(departure);
 		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
-				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL, NULL)";
+				+ room.roomNumber + ", " + lengthStay + ", DATE '" + date1 + "', DATE '" + date2 + "', NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 		// Updates room status in room database
-		String sqlUpdate = "UPDATE room SET room_status = 1;";
+		String sqlUpdate = "UPDATE room SET room_status = 1 WHERE room_num = " + room.roomNumber;
 		connection().execute(sqlUpdate);
 		if (result != 0) {
 			room.setBooked(true);
@@ -145,12 +156,13 @@ public class Booking {
 	public void checkOut(int roomNumber) {
 		String sqlQuery = "Update room SET room_status = 0 where room_num = " + roomNumber + ";";
 		try {
-			connection().execute(sqlQuery);
+			connection().executeUpdate(sqlQuery);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
 
 	private int getDaysBetween(Date start, Date end) {
 		long difference = end.getTime() - start.getTime();
