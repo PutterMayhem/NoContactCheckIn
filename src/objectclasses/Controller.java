@@ -84,8 +84,8 @@ public class Controller {
 	 * Returns true if customer entered valid data. False if not. Use if statement
 	 * to determine actions taken.
 	 */
-	public boolean logIn(String lName, String confID) {
-		String sqlQuery1 = "Select * from Customer where cust_email ='" + lName + "';";
+	public boolean logIn(String email, String confID) {
+		String sqlQuery1 = "Select * from Customer where cust_email ='" + email + "';";
 		String sqlQuery2 = "Select * from Booking where conf_ID = '" + confID + "';";
 
 		ResultSet sqlResults1;

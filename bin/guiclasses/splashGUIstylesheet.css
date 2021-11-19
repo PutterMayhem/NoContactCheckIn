@@ -6,9 +6,6 @@
 	-fx-background-color: highlight;
 }
 
-.button{
-	-fx-border-width: 10px;
-}
 
 .button:hover{
 	-fx-background-color: SKYBLUE;
