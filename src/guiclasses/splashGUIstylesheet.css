@@ -1,0 +1,27 @@
+.root{
+	highlight: #808080;
+}
+
+.gpane{
+	-fx-background-color: highlight;
+}
+
+.button{
+	-fx-border-width: 10px;
+}
+
+.button:hover{
+	-fx-background-color: SKYBLUE;
+}
+
+.loggedin{
+	-fx-font-size: 24px;
+}
+
+.lblPassword{
+	-fx-font-size:  24px;
+}
+
+.lblUserName{
+	-fx-font-size: 24px;
+}

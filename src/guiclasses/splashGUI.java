@@ -31,24 +31,28 @@ public class splashGUI extends Application {
 
 	@Override
 	public void start(Stage primary) throws Exception {
-		// TODO Auto-generated method stub
-		// Parent root = FXMLLoader.load(getClass().getResource("\\GUI.fxml"));
-		// Group root = new Group();
+
 		Controller control = Controller.getInstance();
-		Parent guiView = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
+		Parent guiView = FXMLLoader.load(getClass().getResource("/guiclasses/splashgui.fxml"));
 		Scene scene = new Scene(guiView);
 		primary.setTitle("GUI");
 		primary.setScene(scene);
 		primary.show();
 
+	}
+
+	public void initialize() {
 		/*
 		 * Button actions
 		 */
 		bookButton.setOnAction(actionEvent -> {
 			BookingGUI booking = new BookingGUI();
-			Scene bookingScene = booking.getScene();
-			primary.setScene(bookingScene);
-			primary.show();
+			try {
+				changeToBooking(actionEvent);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 
 		loginButton.setOnAction(actionEvent -> {
@@ -63,7 +67,6 @@ public class splashGUI extends Application {
 		checkInButton.setOnAction(actionEvent -> {
 			// TODO make check in window appear
 		});
-
 	}
 
 	public void changeToLogin(ActionEvent event) throws IOException {
