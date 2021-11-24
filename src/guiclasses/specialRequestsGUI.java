@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class specialRequests extends Application {
+public class specialRequestsGUI extends Application {
 
     @FXML
     private Button lookupBtn;
