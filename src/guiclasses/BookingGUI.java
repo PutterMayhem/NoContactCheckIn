@@ -164,6 +164,9 @@ public class BookingGUI extends Application implements Initializable {
 						date1 = sdf.parse(checkin);
 						date2 = sdf.parse(checkout);
 
+						control.setArrival(date1);
+						control.setDepart(date2);
+
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

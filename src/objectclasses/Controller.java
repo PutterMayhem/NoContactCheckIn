@@ -18,6 +18,9 @@ public class Controller {
 	private VirtualCCProcessor vcc;
 	private static Controller controller = new Controller();
 
+	private Date arrival;
+	private Date depart;
+
 	private Controller() {
 	}
 
@@ -66,6 +69,22 @@ public class Controller {
 
 	public void setRequest(Request request) {
 		this.request = request;
+	}
+
+	public Date getArrival() {
+		return arrival;
+	}
+
+	public void setArrival(Date arrival) {
+		this.arrival = arrival;
+	}
+
+	public Date getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Date depart) {
+		this.depart = depart;
 	}
 
 	public VirtualCCProcessor getVcc() {

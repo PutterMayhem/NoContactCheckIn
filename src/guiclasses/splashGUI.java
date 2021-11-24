@@ -1,7 +1,5 @@
 package guiclasses;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -12,8 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import objectclasses.Controller;
 
@@ -27,7 +23,7 @@ public class splashGUI extends Application {
 	@FXML
 	Button loginButton;
 	@FXML
-	Button checkInButton;
+	Button checkinButton;
 
 	@Override
 	public void start(Stage primary) throws Exception {
@@ -46,7 +42,6 @@ public class splashGUI extends Application {
 		 * Button actions
 		 */
 		bookButton.setOnAction(actionEvent -> {
-			BookingGUI booking = new BookingGUI();
 			try {
 				changeToBooking(actionEvent);
 			} catch (IOException e) {
@@ -64,14 +59,14 @@ public class splashGUI extends Application {
 			}
 		});
 
-		checkInButton.setOnAction(actionEvent -> {
+		checkinButton.setOnAction(actionEvent -> {
 			// TODO make check in window appear
 		});
 	}
 
 	public void changeToLogin(ActionEvent event) throws IOException {
-		Parent tableView = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene loginView = new Scene(tableView);
+		Parent view = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene loginView = new Scene(view);
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -93,18 +88,6 @@ public class splashGUI extends Application {
 
 	protected Scene getScene() {
 		return scene;
-	}
-
-	private ImageView formatPicture(String location) {
-		try {
-			FileInputStream fis = new FileInputStream(location);
-			Image img = new Image(fis);
-			return new ImageView(img);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public static void main(String[] args) {

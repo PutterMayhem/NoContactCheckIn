@@ -45,37 +45,6 @@ public class Login extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 
-			loginButton.setOnAction(eventAction -> {
-				String email = emailField.getText();
-				String conf = confField.getText();
-				if (!validate(email, conf)) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setContentText("Please fill in all the required fields");
-					alert.setTitle("Error!");
-					alert.showAndWait();
-					return;
-				} else {
-					if (control.logIn(email, conf)) {
-						try {
-							changeToLoggedIn(eventAction);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setContentText("Wrong email or confirmation #");
-						alert.setTitle("Error");
-						alert.showAndWait();
-						return;
-					}
-				}
-				
-				cancelButton.setOnAction(actionEvent ->{
-					
-				})
-			});
-
 			Scene scene = new Scene(root, 1920, 1080);
 			primary.setScene(scene);
 			primary.setTitle("Login");
@@ -85,6 +54,53 @@ public class Login extends Application {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void initialize() {
+		loginButton.setOnAction(eventAction -> {
+			String email = emailField.getText();
+			String conf = confField.getText();
+			if (!validate(email, conf)) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setContentText("Please fill in all the required fields");
+				alert.setTitle("Error!");
+				alert.showAndWait();
+				return;
+			} else {
+				if (control.logIn(email, conf)) {
+					try {
+						changeToLoggedIn(eventAction);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Wrong email or confirmation #");
+					alert.setTitle("Error");
+					alert.showAndWait();
+					return;
+				}
+			}
+		});
+
+		cancelButton.setOnAction(actionEvent -> {
+			try {
+				changeToSplash(actionEvent);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void changeToSplash(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
+		Scene splashView = new Scene(root);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		window.setScene(splashView);
 	}
 
 	public boolean validate(String lastName, String confNum) {
