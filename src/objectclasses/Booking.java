@@ -110,6 +110,21 @@ public class Booking {
 		}
 		return confirmation;
 	}
+	public static boolean adjustStay(Date arrival, Date newDeparture, int conf_ID) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		String sdeparture = sdf.format(newDeparture);
+		int i = getDaysBetween(arrival, newDeparture);
+		try {
+			String sqlUpdate = "UPDATE Booking SET check_out = DATE '" + sdeparture + "', stay_length = " + i
+					+ " WHERE conf_ID = " + conf_ID;
+			connection().executeUpdate(sqlUpdate);
+			connection().close();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	/*
 	 * Checks if customer data exits, creates if not check conf_ID for duplicates in
@@ -159,7 +174,7 @@ public class Booking {
 		}
 	}
 
-	private int getDaysBetween(Date start, Date end) {
+	private static int getDaysBetween(Date start, Date end) {
 		long difference = end.getTime() - start.getTime();
 		float daysBetween = (difference / (1000 * 60 * 60 * 24));
 		return (int) daysBetween;

@@ -29,7 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import objectclasses.*;
 
-public class LoggedInGUI extends Application implements Initializable{
+public class LoggedInGUI implements Initializable {
 	
 	@FXML
 	private Button btn_lengthstay;
@@ -40,37 +40,45 @@ public class LoggedInGUI extends Application implements Initializable{
 	@FXML
 	private Button btn_logout;
 	@FXML
-	private static Label label_welcome;
+	private Label label_welcome;
+	private int room;
+	private String fname;
+	private String lname;
+	private Date checkin;
+	private Date checkout;
+	private int confNum;
 	
 	
-	public void start(Stage primary) throws Exception {
-		// TODO Auto-generated method stub
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/guiclasses/LoggedIn.fxml"));
-		loader.setController(this);
-		
-		try {
-			Parent root = loader.load();
-			Scene scene = new Scene(root, 1335, 720);
-			primary.setTitle("Logged In");
-			primary.setScene(scene);
-			primary.show();
-			
-		} catch(IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+	public void setUpInformation(String fname, String lname, int room_num, Date date1, Date date2, int confnum) {
+		label_welcome.setText("Welcome " + fname + "!");
+		this.fname = fname;
+		this.lname = lname;
+		room = room_num;
+		checkin = date1;
+		checkout = date2;
+		confNum = confnum;
 	}
 	
-	public static void setUpInformation(String fname, int room_num) {
-		label_welcome.setText("Welcome " + fname + "!");
+	public Scene getScene() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedIn.fxml"));
+		loader.setController(this);
+		try {
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 1920, 1080);
+			return scene;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void changeScene(ActionEvent event, String fxmlFile, String title, String fname, int room) {
+		System.out.println("test ");
 		Parent root = null;
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		if (fxmlFile != null) {
 			try {
-				root = FXMLLoader.load(BookingGUI.class.getResource(fxmlFile));
+				root = FXMLLoader.load(LoggedInGUI.class.getResource(fxmlFile));
 				stage.setTitle(title);
 				stage.setScene(new Scene(root, 1920, 1080));
 				stage.show(); 
@@ -85,7 +93,6 @@ public class LoggedInGUI extends Application implements Initializable{
 			}
 			//Application.launch(splashGUI.class, new String[]{});
 		}
-		
 		
 	}
 
@@ -102,6 +109,21 @@ public class LoggedInGUI extends Application implements Initializable{
 			}
 			
 		});
+		btn_lengthstay.setOnAction(new EventHandler<ActionEvent>( ) {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				AdjustStayGUI adjustStay  = new AdjustStayGUI();
+				Scene adjustStayScene = adjustStay.getScene();
+				adjustStay.setUpInformation(fname, lname, room, checkin, checkout, confNum);
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				primary.setScene(adjustStayScene);
+				primary.show();
+			}
+			
+		});
+		
 		
 		
 	}

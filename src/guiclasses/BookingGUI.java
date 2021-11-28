@@ -47,6 +47,7 @@ public class BookingGUI extends Application implements Initializable {
 	private TextField txt_room;
 	@FXML
 	private Button btn_cancel;
+	private static int confNum;
 
 	Controller control = Controller.getInstance();
 
@@ -54,7 +55,6 @@ public class BookingGUI extends Application implements Initializable {
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
-		loader.setController(this);
 		try {
 			Parent root = loader.load();
 			Scene scene = new Scene(root, 1920, 1080);
@@ -76,17 +76,18 @@ public class BookingGUI extends Application implements Initializable {
 			Scene scene = new Scene(root, 1920, 1080);
 			return scene;
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public static void changeScene(ActionEvent event, String fxmlFile, String title, String fname, int room) {
 		Parent root = null;
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		if (fxmlFile != null) {
 			try {
-				root = FXMLLoader.load(BookingGUI.class.getResource(fxmlFile));
+				FXMLLoader loader = new FXMLLoader(BookingGUI.class.getResource(fxmlFile));
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				root = loader.load();
 				stage.setTitle(title);
 				stage.setScene(new Scene(root, 1920, 1080));
 				stage.show();
@@ -176,14 +177,18 @@ public class BookingGUI extends Application implements Initializable {
 
 					try {
 						if (booking.createBooking() == true) {
-							System.out.println(booking.getArrival());
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
 									+ "\n"
 									+ "To login to our kiosks use your e-mail address and your confirmation number");
 							alert.setTitle("Success!");
 							alert.showAndWait();
-							changeScene(event, "LoggedIn.fxml", "Logged In", fname, room_num);
+							LoggedInGUI loggedin  = new LoggedInGUI();
+							Scene loggedInScene = loggedin.getScene();
+							loggedin.setUpInformation(fname, lname, room_num, date1, date2, booking.getConfNum());
+							Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							primary.setScene(loggedInScene);
+							primary.show();
 						} else {
 							Alert alert = new Alert(Alert.AlertType.ERROR);
 							alert.setContentText("Failed to create booking");
