@@ -6,28 +6,31 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane id="gp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.Login">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Pane id="logoPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2">
          <children>
-            <ImageView id="logoView" fitHeight="444.0" fitWidth="530.0" layoutX="695.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logoView" fitHeight="314.0" fitWidth="530.0" layoutX="784.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../bin/images/download2.png" />
                </image>
@@ -37,64 +40,44 @@
             <Insets />
          </GridPane.margin>
       </Pane>
-      <VBox id="loginBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
-            <Label id="lbl-email" text="Email Address:">
+            <Label layoutX="926.0" layoutY="50.0" text="Last Name:">
                <font>
                   <Font size="36.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="860.0" />
-               </VBox.margin>
             </Label>
-            <TextField id="emailField" fx:id="emaillField" prefHeight="97.0" prefWidth="1920.0" promptText="Email Address">
-               <VBox.margin>
-                  <Insets left="600.0" right="600.0" />
-               </VBox.margin>
+            <TextField fx:id="lastNameField" layoutX="791.0" layoutY="121.0" promptText="Last Name">
                <font>
                   <Font size="36.0" />
                </font>
             </TextField>
-            <Label id="lbl-ConNum" text="Confirmation #:">
-               <font>
-                  <Font size="36.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="825.0" />
-               </VBox.margin>
-            </Label>
-            <TextField id="confField" fx:id="confField" prefHeight="97.0" prefWidth="1920.0" promptText="Confirmation #">
-               <VBox.margin>
-                  <Insets left="600.0" right="600.0" />
-               </VBox.margin>
+            <TextField fx:id="confField" layoutX="791.0" layoutY="303.0" promptText="Confirmation #">
                <font>
                   <Font size="36.0" />
                </font>
             </TextField>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Login">
-                     <HBox.margin>
-                        <Insets left="725.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Cancel">
-                     <HBox.margin>
-                        <Insets left="75.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets top="55.0" />
-               </VBox.margin>
-            </HBox>
+            <Label layoutX="891.0" layoutY="241.0" text="Confirmation #:">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="loginButton" layoutX="858.0" layoutY="453.0" mnemonicParsing="false" text="Login">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelButton" layoutX="1025.0" layoutY="453.0" mnemonicParsing="false" text="Cancel">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
          </children>
-      </VBox>
+      </AnchorPane>
+      <Button fx:id="empLogin" mnemonicParsing="false" text="Employee Login" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </GridPane>

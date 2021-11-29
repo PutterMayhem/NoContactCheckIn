@@ -27,6 +27,8 @@ public class Login extends Application {
 
 	@FXML
 	TextField confField;
+	@FXML
+	Button empLogin;
 
 	Controller control = Controller.getInstance();
 
@@ -67,7 +69,7 @@ public class Login extends Application {
 				alert.showAndWait();
 				return;
 			} else {
-				if (control.logIn(email, conf)) {
+				if (control.custLogIn(email, conf)) {
 					try {
 						changeToLoggedIn(eventAction);
 					} catch (IOException e) {
@@ -82,9 +84,12 @@ public class Login extends Application {
 					return;
 				}
 			}
+
 		});
 
-		cancelButton.setOnAction(actionEvent -> {
+		cancelButton.setOnAction(actionEvent ->
+
+		{
 			try {
 				changeToSplash(actionEvent);
 			} catch (IOException e) {
