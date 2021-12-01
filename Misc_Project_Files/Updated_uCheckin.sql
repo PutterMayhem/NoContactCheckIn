@@ -38,15 +38,7 @@ CREATE TABLE `Booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `Booking`
---
 
-LOCK TABLES `Booking` WRITE;
-/*!40000 ALTER TABLE `Booking` DISABLE KEYS */;
-INSERT INTO `Booking` VALUES (36648,'mahad@gmail.com',200,11,'2021-11-29','2021-12-10',NULL),(50804,'mahad@gmail.com',200,4,'2021-11-28','2021-12-02',NULL),(51655,'mahad@gmail.com',200,7,'2021-12-05','2021-12-12',NULL),(54675,'mahad@gmail.com',310,3,'2021-12-05','2021-12-08',NULL),(108850,'test@email.com',200,7,'2021-11-17','2021-11-24',NULL),(126846,'mahad@gmail.com',100,5,'2021-12-05','2021-12-10',NULL),(152409,'mahad@gmail.com',200,2,'2021-11-23','2021-11-25',NULL),(225538,'mahad@gmail.com',100,2,'2021-12-05','2021-12-07',NULL),(231099,'mahad@gmail.com',310,5,'2021-12-12','2021-12-17',NULL),(245211,'mahad@gmail.com',200,16,'2021-12-12','2021-12-28',NULL),(259357,'mahad@gmail.com',220,5,'2021-12-05','2021-12-10',NULL),(294140,'mahad@gmail.com',100,10,'2021-12-05','2021-12-15',NULL),(307909,'mahad@gmail.com',100,7,'2021-11-21','2021-11-28',NULL),(370756,'mahad@gmail.com',220,3,'2021-12-05','2021-12-08',NULL),(379091,'mahad@gmail.com',200,5,'2021-12-05','2021-12-10',NULL),(404688,'mahad@gmail.com',101,14,'2021-12-01','2021-12-15',NULL),(428089,'mahad@gmail.com',101,4,'2021-11-28','2021-12-02',NULL),(430270,'mahad@gmail.com',100,10,'2021-11-30','2021-12-10',NULL),(436352,'mahad@gmail.com',101,11,'2021-11-28','2021-12-09',NULL),(475549,'mahad@gmail.com',101,3,'2021-11-28','2021-12-01',NULL),(485750,'mahad@gmail.com',200,3,'2021-11-28','2021-12-01',NULL),(608650,'mahad@gmail.com',101,5,'2021-12-05','2021-12-10',NULL),(630340,'mahad@gmail.com',220,5,'2021-11-28','2021-12-03',NULL),(689662,'mahad@gmail.com',200,4,'2021-11-28','2021-12-02',NULL),(715559,'mahad@gmail.com',100,5,'2021-12-05','2021-12-10',NULL),(729094,'mahad@gmail.com',101,4,'2021-12-05','2021-12-09',NULL),(776521,'mahad@gmail.com',220,10,'2021-12-06','2021-12-16',NULL),(788154,'mahad@gmail.com',101,2,'2021-12-05','2021-12-07',NULL),(816996,'mahad@gmail.com',100,3,'2021-11-24','2021-11-27',NULL),(842080,'mahad@gmail.com',101,4,'2021-11-21','2021-11-25',NULL),(877268,'mahad@gmail.com',200,5,'2021-11-28','2021-12-03',NULL),(898974,'mahad@gmail.com',101,4,'2021-11-28','2021-12-02',NULL),(902003,'mahad@gmail.com',100,18,'2021-12-05','2021-12-23',NULL),(927442,'mahad@gmail.com',101,5,'2021-11-28','2021-12-03',NULL),(987949,'mahad@gmail.com',220,5,'2021-11-21','2021-11-26',NULL),(998637,'mahad@gmail.com',101,9,'2021-12-05','2021-12-14',NULL);
-/*!40000 ALTER TABLE `Booking` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Customer`
@@ -66,15 +58,6 @@ CREATE TABLE `Customer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `Customer`
---
-
-LOCK TABLES `Customer` WRITE;
-/*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (1,'Test','Testingson','null','test@email.com'),(6,'Mahad','Hussein','null','mahad@gmail.com');
-/*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Employee`
