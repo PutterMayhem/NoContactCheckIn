@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import objectclasses.Account;
 import objectclasses.Booking;
@@ -47,7 +48,6 @@ public class BookingGUI extends Application implements Initializable {
 	private TextField txt_room;
 	@FXML
 	private Button btn_cancel;
-	private static int confNum;
 
 	Controller control = Controller.getInstance();
 
@@ -70,7 +70,6 @@ public class BookingGUI extends Application implements Initializable {
 
 	public Scene getScene() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
-		loader.setController(this);
 		try {
 			Parent root = loader.load();
 			Scene scene = new Scene(root, 1920, 1080);
@@ -79,30 +78,6 @@ public class BookingGUI extends Application implements Initializable {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public static void changeScene(ActionEvent event, String fxmlFile, String title, String fname, int room) {
-		Parent root = null;
-		if (fxmlFile != null) {
-			try {
-				FXMLLoader loader = new FXMLLoader(BookingGUI.class.getResource(fxmlFile));
-				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				root = loader.load();
-				stage.setTitle(title);
-				stage.setScene(new Scene(root, 1920, 1080));
-				stage.show();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			try {
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// Application.launch(splashGUI.class, new String[]{});
-		}
-
 	}
 
 	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate,
@@ -139,11 +114,14 @@ public class BookingGUI extends Application implements Initializable {
 		btn_submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), txt_room.getText(),
 						dtp_checkin.getValue(), dtp_checkout.getValue()))) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Please fill in all the required fields");
 					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
 					alert.showAndWait();
 					return;
 				}
@@ -158,6 +136,7 @@ public class BookingGUI extends Application implements Initializable {
 					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 					// System.out.println(sdf2.format(sdf.parse(startDateString)));
 					Account user = new Account(fname, lname, null, email);
+					
 					Room room = Room.getRoomFromDB(room_num);
 					Date date1 = null;
 					Date date2 = null;
@@ -165,34 +144,38 @@ public class BookingGUI extends Application implements Initializable {
 						date1 = sdf.parse(checkin);
 						date2 = sdf.parse(checkout);
 
-						control.setArrival(date1);
-						control.setDepart(date2);
-
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					Booking booking = new Booking(user, room, date1, date2);
-					control.setBooking(booking);
 
 					try {
 						if (booking.createBooking() == true) {
+							control.setAccount(user);
+							control.setArrival(date1);
+							control.setDepart(date2);
+							control.setBooking(booking);
+							control.setRoom(Room.getRoomFromDB(room_num));
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
 									+ "\n"
 									+ "To login to our kiosks use your e-mail address and your confirmation number");
 							alert.setTitle("Success!");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.initOwner(primary);
 							alert.showAndWait();
 							LoggedInGUI loggedin  = new LoggedInGUI();
 							Scene loggedInScene = loggedin.getScene();
-							loggedin.setUpInformation(fname, lname, room_num, date1, date2, booking.getConfNum());
-							Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							loggedin.setInformation(control);
 							primary.setScene(loggedInScene);
 							primary.show();
 						} else {
 							Alert alert = new Alert(Alert.AlertType.ERROR);
 							alert.setContentText("Failed to create booking");
 							alert.setTitle("Error!");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.initOwner(primary);
 							alert.showAndWait();
 						}
 					} catch (SQLException e) {

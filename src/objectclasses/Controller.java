@@ -168,7 +168,6 @@ public class Controller {
 				temp.setFulfilled(true);
 				temp.setItem_id(result.getInt("item_ID"));
 				temp.setRequestDate(result.getDate("req_FulfillDate"));
-				temp.setType(result.getString("req_Type"));
 				temp.setReq_id(result.getInt("req_ID"));
 				request.add(temp);
 			}

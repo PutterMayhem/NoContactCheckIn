@@ -41,22 +41,12 @@ public class LoggedInGUI implements Initializable {
 	private Button btn_logout;
 	@FXML
 	private Label label_welcome;
-	private int room;
-	private String fname;
-	private String lname;
-	private Date checkin;
-	private Date checkout;
-	private int confNum;
+	private static Controller control;
 	
 	
-	public void setUpInformation(String fname, String lname, int room_num, Date date1, Date date2, int confnum) {
-		label_welcome.setText("Welcome " + fname + "!");
-		this.fname = fname;
-		this.lname = lname;
-		room = room_num;
-		checkin = date1;
-		checkout = date2;
-		confNum = confnum;
+	public void setInformation(Controller control) {
+		LoggedInGUI.control = control;
+		label_welcome.setText("Welcome " + control.getAccount().getFName() + "!");
 	}
 	
 	public Scene getScene() {
@@ -72,40 +62,21 @@ public class LoggedInGUI implements Initializable {
 		return null;
 	}
 	
-	public static void changeScene(ActionEvent event, String fxmlFile, String title, String fname, int room) {
-		System.out.println("test ");
-		Parent root = null;
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		if (fxmlFile != null) {
-			try {
-				root = FXMLLoader.load(LoggedInGUI.class.getResource(fxmlFile));
-				stage.setTitle(title);
-				stage.setScene(new Scene(root, 1920, 1080));
-				stage.show(); 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			//Application.launch(splashGUI.class, new String[]{});
-		}
-		
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("Initializing....");
+		
 		// TODO Auto-generated method stub
 		btn_request.setOnAction(new EventHandler<ActionEvent>( ) {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				changeScene(event, "specialRequests.fxml", "Make a Request", null, 0);
+				MakeRequestGUI makeRequest  = new MakeRequestGUI();
+				Scene makeRequestScene = makeRequest.getScene();
+				makeRequest.setInformation(control);
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				primary.setScene(makeRequestScene);
+				primary.show();
 			}
 			
 		});
@@ -116,7 +87,7 @@ public class LoggedInGUI implements Initializable {
 				// TODO Auto-generated method stub
 				AdjustStayGUI adjustStay  = new AdjustStayGUI();
 				Scene adjustStayScene = adjustStay.getScene();
-				adjustStay.setUpInformation(fname, lname, room, checkin, checkout, confNum);
+				adjustStay.setInformation(control);
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				primary.setScene(adjustStayScene);
 				primary.show();

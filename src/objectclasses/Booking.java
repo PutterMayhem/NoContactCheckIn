@@ -59,6 +59,15 @@ public class Booking {
 	public Date getArrival() {
 		return arrival;
 	}
+	public Date getDeparture() {
+		return departure;
+	}
+	public void setArrival(Date arrival) {
+		this.arrival = arrival;
+	}
+	public void setDeparture(Date departure) {
+		this.departure = departure;
+	}
 
 	public void setRoom(Room room) {
 		this.room = room;

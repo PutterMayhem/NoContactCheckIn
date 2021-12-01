@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import objectclasses.Account;
 import objectclasses.Booking;
@@ -44,12 +45,8 @@ public class AdjustStayGUI extends Application implements Initializable {
 	private Button btn_confirm;
 	@FXML
 	private Button btn_back;
-	private static Date arrival;
-	private static Date departure;
-	private static int confNum;
-	private static String fname;
-	private static String lname;
-	private static int room;
+
+	private static Controller control;
 	
 	@Override
 	public void start(Stage primary) throws Exception {
@@ -81,21 +78,15 @@ public class AdjustStayGUI extends Application implements Initializable {
 		return null;
 	}
 	
-	public void setUpInformation(String fname, String lname, int room_num, Date date1, Date date2, int confnum) {
+	public void setInformation(Controller control) {
+		AdjustStayGUI.control = control;
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		String checkin = sdf.format(date1);
-		String checkout = sdf.format(date2);
+		String checkin = sdf.format(control.getBooking().getArrival());
+		String checkout = sdf.format(control.getBooking().getDeparture());
 		label_arrival.setText(checkin);
 		label_departure.setText(checkout);
-		String room = String.valueOf(room_num);
+		String room = String.valueOf(control.getRoom().getRoomNumber());
 		label_room.setText(room);
-		AdjustStayGUI.arrival = date1;
-		AdjustStayGUI.departure = date2;
-		AdjustStayGUI.confNum = confnum;
-		AdjustStayGUI.fname = fname;
-		AdjustStayGUI.lname = lname;
-		AdjustStayGUI.room = room_num;
-		
 	}
 	
 	public static boolean validate(LocalDate date) {
@@ -118,7 +109,7 @@ public class AdjustStayGUI extends Application implements Initializable {
 		} 
 		if(dateDeparture.compareTo(now) < 0) {
 			return false;
-		} else if (dateDeparture.compareTo(arrival) < 0) {
+		} else if (dateDeparture.compareTo(control.getArrival()) < 0) {
 			return false;
 		} else {
 			return true;
@@ -127,16 +118,18 @@ public class AdjustStayGUI extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("Initializing....");
 		// TODO Auto-generated method stub
 		btn_confirm.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				if (!(validate(dp_departure.getValue()))) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Please provide a new departure date!");
 					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
 					alert.showAndWait();
 					return;
 				}
@@ -144,6 +137,8 @@ public class AdjustStayGUI extends Application implements Initializable {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Date provided is invalid");
 					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
 					alert.showAndWait();
 					return;
 				}
@@ -151,15 +146,17 @@ public class AdjustStayGUI extends Application implements Initializable {
 					String temp = dp_departure.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 					Date newDeparture = sdf.parse(temp);
-					Booking.adjustStay(arrival, newDeparture, confNum);
+					Booking.adjustStay(control.getArrival(), newDeparture, control.getBooking().getConfNum());
+					control.getBooking().setDeparture(newDeparture);
 					Alert alert = new Alert(Alert.AlertType.INFORMATION);
 					alert.setContentText("Length of Stay has been Changed!");
 					alert.setTitle("Success!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
 					alert.showAndWait();
 					LoggedInGUI loggedin  = new LoggedInGUI();
 					Scene loggedInScene = loggedin.getScene();
-					loggedin.setUpInformation(fname, lname, room, arrival, newDeparture, confNum);
-					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					loggedin.setInformation(control);
 					primary.setScene(loggedInScene);
 					primary.show();
 				} catch(Exception e) {
@@ -176,14 +173,13 @@ public class AdjustStayGUI extends Application implements Initializable {
 				try {
 					LoggedInGUI loggedin  = new LoggedInGUI();
 					Scene loggedInScene = loggedin.getScene();
-					loggedin.setUpInformation(fname, lname, room, arrival, departure, confNum);
+					loggedin.setInformation(control);
 					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					primary.setScene(loggedInScene);
 					primary.show();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
 
 		});
