@@ -129,15 +129,6 @@ CREATE TABLE `Request` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `Request`
---
-
-LOCK TABLES `Request` WRITE;
-/*!40000 ALTER TABLE `Request` DISABLE KEYS */;
-INSERT INTO `Request` VALUES (1,'2021-11-30 00:00:00',NULL,0,987949),(2,'2021-11-30 23:57:48',NULL,0,51655),(3,'2021-12-01 00:00:17',NULL,0,259357),(4,'2021-12-01 00:04:58',NULL,0,231099),(5,'2021-12-01 00:07:23',NULL,0,259357);
-/*!40000 ALTER TABLE `Request` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `RequestItems`
@@ -158,15 +149,6 @@ CREATE TABLE `RequestItems` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `RequestItems`
---
-
-LOCK TABLES `RequestItems` WRITE;
-/*!40000 ALTER TABLE `RequestItems` DISABLE KEYS */;
-INSERT INTO `RequestItems` VALUES (3,3,23),(4,4,22),(5,4,13),(6,5,23);
-/*!40000 ALTER TABLE `RequestItems` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `RequestType`
