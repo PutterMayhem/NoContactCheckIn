@@ -28,6 +28,8 @@ public class Booking {
 	Date departure;
 	int lengthStay; // in days for now
 
+	int ccToken;
+
 	float bill;
 
 	public Booking(Account customer, Room room, Date checkIn, Date checkOut) {
@@ -59,12 +61,15 @@ public class Booking {
 	public Date getArrival() {
 		return arrival;
 	}
+
 	public Date getDeparture() {
 		return departure;
 	}
+
 	public void setArrival(Date arrival) {
 		this.arrival = arrival;
 	}
+
 	public void setDeparture(Date departure) {
 		this.departure = departure;
 	}
@@ -87,6 +92,14 @@ public class Booking {
 	 * System.out.println("Sorry, no confirmation number with that email was found"
 	 * ); connection().close(); return 0; } }
 	 */
+
+	public int getCcToken() {
+		return ccToken;
+	}
+
+	public void setCcToken(int ccToken) {
+		this.ccToken = ccToken;
+	}
 
 	// method returns true if confID already exists in database
 	public boolean checkConfNum(int confID) {
@@ -119,6 +132,7 @@ public class Booking {
 		}
 		return confirmation;
 	}
+
 	public static boolean adjustStay(Date arrival, Date newDeparture, int conf_ID) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		String sdeparture = sdf.format(newDeparture);
@@ -129,7 +143,7 @@ public class Booking {
 			connection().executeUpdate(sqlUpdate);
 			connection().close();
 			return true;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
