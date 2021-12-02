@@ -98,16 +98,25 @@ public class BookingGUI extends Application implements Initializable {
 		return (Integer.parseInt(txt_room.getText()));
 	}
 
+	public void changeToSplash(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
+		Scene splashView = new Scene(root);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		window.setScene(splashView);
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Initializing....");
 		// TODO Auto-generated method stub
-		btn_cancel.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				// switch back to splash page
+		btn_cancel.setOnAction(actionEvent -> {
+			try {
+				changeToSplash(actionEvent);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		});
@@ -136,7 +145,7 @@ public class BookingGUI extends Application implements Initializable {
 					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 					// System.out.println(sdf2.format(sdf.parse(startDateString)));
 					Account user = new Account(fname, lname, null, email);
-					
+
 					Room room = Room.getRoomFromDB(room_num);
 					Date date1 = null;
 					Date date2 = null;
@@ -165,7 +174,7 @@ public class BookingGUI extends Application implements Initializable {
 							alert.initModality(Modality.APPLICATION_MODAL);
 							alert.initOwner(primary);
 							alert.showAndWait();
-							LoggedInGUI loggedin  = new LoggedInGUI();
+							LoggedInGUI loggedin = new LoggedInGUI();
 							Scene loggedInScene = loggedin.getScene();
 							loggedin.setInformation(control);
 							primary.setScene(loggedInScene);

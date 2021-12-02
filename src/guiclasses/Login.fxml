@@ -42,7 +42,7 @@
       </Pane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
-            <Label layoutX="926.0" layoutY="50.0" text="Last Name:">
+            <Label layoutX="953.0" layoutY="43.0" text="Email">
                <font>
                   <Font size="36.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Font size="36.0" />
                </font>
             </TextField>
-            <Label layoutX="891.0" layoutY="241.0" text="Confirmation #:">
+            <Label layoutX="891.0" layoutY="228.0" text="Confirmation #:">
                <font>
                   <Font size="36.0" />
                </font>

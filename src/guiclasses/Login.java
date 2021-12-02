@@ -87,14 +87,20 @@ public class Login extends Application {
 
 		});
 
-		cancelButton.setOnAction(actionEvent ->
-
-		{
+		cancelButton.setOnAction(actionEvent -> {
 			try {
 				changeToSplash(actionEvent);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		});
+
+		empLogin.setOnAction(actionEvent -> {
+			try {
+				changeToEmpLogin(actionEvent);
+			} catch (IOException e) {
+
 			}
 		});
 	}
@@ -106,6 +112,14 @@ public class Login extends Application {
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		window.setScene(splashView);
+	}
+
+	public void changeToEmpLogin(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("emplogin.fxml"));
+		Scene scene = new Scene(root);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(scene);
 	}
 
 	public boolean validate(String lastName, String confNum) {
