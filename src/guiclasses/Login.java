@@ -45,7 +45,7 @@ public class Login extends Application {
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
 
 			Scene scene = new Scene(root, 1920, 1080);
 			primary.setScene(scene);
@@ -59,6 +59,7 @@ public class Login extends Application {
 	}
 
 	public void initialize() {
+
 		loginButton.setOnAction(eventAction -> {
 			String email = emailField.getText();
 			String conf = confField.getText();
@@ -100,7 +101,7 @@ public class Login extends Application {
 			try {
 				changeToEmpLogin(actionEvent);
 			} catch (IOException e) {
-
+				e.printStackTrace();
 			}
 		});
 	}
