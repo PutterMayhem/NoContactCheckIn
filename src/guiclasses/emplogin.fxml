@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.EmpLogin">
    <children>
       <ImageView fitHeight="403.0" fitWidth="427.0" layoutX="700.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
@@ -41,7 +40,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="cacnelButton" layoutX="961.0" layoutY="774.0" mnemonicParsing="false" text="Cancel">
+      <Button fx:id="cancelButton" layoutX="961.0" layoutY="774.0" mnemonicParsing="false" text="Cancel">
          <font>
             <Font size="36.0" />
          </font>
