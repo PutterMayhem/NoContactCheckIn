@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1335.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.CheckRequestsGUI">
+   <children>
+      <AnchorPane prefHeight="241.0" prefWidth="1335.0" style="-fx-background-color: #808080">
+         <children>
+            <ImageView fitHeight="270.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/download2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="630.0" prefWidth="1539.0">
+         <children>
+            <Label layoutX="423.0" layoutY="29.0" prefHeight="63.0" prefWidth="338.0" text="Customer Requests" textAlignment="CENTER">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="152.0" layoutY="118.0" prefHeight="290.0" prefWidth="909.0">
+               <content>
+                  <TableView fx:id="table_checkreq" prefHeight="289.0" prefWidth="909.0">
+                    <columns>
+                      <TableColumn fx:id="col_confnum" prefWidth="101.92996978759766" text="Confirmation #" />
+                      <TableColumn fx:id="col_reqID" prefWidth="109.33831787109375" text="Request ID" />
+                        <TableColumn fx:id="col_reqname" prefWidth="255.66168212890625" text="Request Item" />
+                        <TableColumn fx:id="col_price" prefWidth="79.94329833984375" text="Price" />
+                        <TableColumn fx:id="col_time" prefWidth="162.0567626953125" text="Time Requested" />
+                        <TableColumn fx:id="col_status" prefWidth="101.81585693359375" text="Status" />
+                        <TableColumn fx:id="col_select" prefWidth="79.40045166015625" text="Select" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Button fx:id="btn_back" layoutX="524.0" layoutY="453.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="143.0" text="Back">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_complete" layoutX="1127.0" layoutY="206.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="175.0" text="Set Complete" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+         </children>
+         </AnchorPane>
+   </children>
+</VBox>

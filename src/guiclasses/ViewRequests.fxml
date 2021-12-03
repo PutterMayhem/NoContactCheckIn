@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="guiclasses.ViewRequestsGUI" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1335.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="270.0" prefWidth="1080.0" style="-fx-background-color: #808080">
+         <children>
+            <ImageView fitHeight="270.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/download2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="630.0" prefWidth="1539.0">
+         <children>
+            <Label layoutX="60.0" layoutY="30.0" prefHeight="63.0" prefWidth="306.0" text="Current Requests " textAlignment="CENTER">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="32.0" layoutY="118.0" prefHeight="290.0" prefWidth="731.0">
+               <content>
+                  <TableView fx:id="table_request" prefHeight="303.0" prefWidth="721.0">
+                    <columns>
+                      <TableColumn fx:id="col_request1" prefWidth="246.85313415527344" text="Requests" />
+                      <TableColumn fx:id="col_time1" prefWidth="250.025390625" text="Time Requested" />
+                        <TableColumn fx:id="col_status1" prefWidth="122.58111572265625" text="Status" />
+                        <TableColumn fx:id="col_cancel1" prefWidth="96.4189453125" text="Cancel" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Button fx:id="btn_back1" layoutX="93.0" layoutY="465.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="211.0" text="Back">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_request1" layoutX="482.0" layoutY="465.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="212.0" text="New Request">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_cancel1" layoutX="935.0" layoutY="309.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="211.0" text="Cancel">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Label layoutX="899.0" layoutY="160.0" prefHeight="107.0" prefWidth="294.0" text="Changed your mind? You can select pending requests and cancel" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+         </AnchorPane>
+   </children>
+</VBox>
