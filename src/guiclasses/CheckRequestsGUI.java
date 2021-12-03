@@ -57,7 +57,9 @@ public class CheckRequestsGUI extends Application implements Initializable {
 	@FXML
 	private Button btn_complete;
 	@FXML
-	private Button btn_button;
+	private Button btn_back;
+	
+	
 	
 	ObservableList<CheckTable> checklist = FXCollections.observableArrayList();
 	
@@ -115,6 +117,20 @@ public class CheckRequestsGUI extends Application implements Initializable {
 						Request.setRequestItemComplete(check.getReqID());
 					}
 				});
+			}
+			
+		});
+		
+		btn_back.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				LoggedInAdminGUI loggedin = new LoggedInAdminGUI();
+				Scene loggedInScene = loggedin.getScene();
+				primary.setScene(loggedInScene);
+				primary.show();
 			}
 			
 		});

@@ -35,7 +35,7 @@ CREATE TABLE `Booking` (
   KEY `room_num` (`room_num`),
   CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`cust_email`) REFERENCES `Customer` (`cust_Email`) ON DELETE CASCADE,
   CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`room_num`) REFERENCES `Room` (`room_num`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -55,7 +55,7 @@ CREATE TABLE `Customer` (
   `cust_Email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`cust_ID`),
   KEY `cust_Email` (`cust_Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -72,7 +72,7 @@ CREATE TABLE `Employee` (
   `emp_Lname` varchar(20) DEFAULT NULL,
   `admin` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`emp_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `Items` (
   `item_Name` varchar(30) DEFAULT NULL,
   `item_price` float DEFAULT NULL,
   PRIMARY KEY (`item_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `Request` (
   PRIMARY KEY (`req_ID`),
   KEY `conf_ID` (`conf_ID`),
   CONSTRAINT `request_ibfk_1` FOREIGN KEY (`conf_ID`) REFERENCES `Booking` (`conf_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -146,7 +146,7 @@ CREATE TABLE `RequestItems` (
   KEY `reqID_idx` (`req_ID`),
   CONSTRAINT `item_ID` FOREIGN KEY (`item_ID`) REFERENCES `Items` (`item_ID`) ON UPDATE RESTRICT,
   CONSTRAINT `reqID` FOREIGN KEY (`req_ID`) REFERENCES `Request` (`req_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -164,7 +164,7 @@ CREATE TABLE `RequestType` (
   `reqType_ID` int NOT NULL,
   `reqType_Description` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`reqType_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,7 @@ CREATE TABLE `Room` (
   PRIMARY KEY (`room_num`),
   KEY `roomType_ID` (`roomType_ID`),
   CONSTRAINT `room_ibfk_1` FOREIGN KEY (`roomType_ID`) REFERENCES `RoomType` (`roomType_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +222,7 @@ CREATE TABLE `RoomType` (
   `suite` tinyint(1) DEFAULT NULL,
   `rate` float DEFAULT NULL,
   PRIMARY KEY (`roomType_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

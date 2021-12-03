@@ -53,7 +53,7 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 			primary.setTitle("Admin Page");
 			primary.setScene(scene);
 			primary.show();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -79,7 +79,11 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 
 					@Override
 					public void handle(ActionEvent event) {
-						
+						Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+						CheckRequestsGUI cr = new CheckRequestsGUI();
+						Scene crs = cr.getScene();
+						primary.setScene(crs);
+						primary.show();
 					}
 					
 				});
