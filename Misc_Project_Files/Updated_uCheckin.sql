@@ -106,7 +106,7 @@ CREATE TABLE `Items` (
 
 LOCK TABLES `Items` WRITE;
 /*!40000 ALTER TABLE `Items` DISABLE KEYS */;
-INSERT INTO `Items` VALUES (11,'Chicken Kiev',13.99),(12,'Caesar Salad',8.99),(13,'New York Strip Steak',16.99),(14,'Pork Ribs',17.99),(15,'Talapia',6.99),(16,'Shrimp Scampi',9.99),(17,'Pepperoni Pizza',12.99),(18,'Chocolate Cake',6.99),(19,'New York Cheese Cake',9.99),(20,'French Silk Pie',8.99),(21,'Toiletries',NULL),(22,'Personal Care Items',NULL),(23,'Coffee Kit',NULL),(24,'Tissue Box',NULL),(25,'Bathroom Robe and Slippers',NULL),(26,'Fresh Pillows',NULL);
+INSERT INTO `Items` VALUES (11,'Chicken Kiev',13.99),(12,'Caesar Salad',8.99),(13,'New York Strip Steak',16.99),(14,'Pork Ribs',17.99),(15,'Talapia',6.99),(16,'Shrimp Scampi',9.99),(17,'Pepperoni Pizza',12.99),(18,'Chocolate Cake',6.99),(19,'New York Cheese Cake',9.99),(20,'French Silk Pie',8.99),(21,'Toiletries',0),(22,'Personal Care Items',0),(23,'Coffee Kit',0),(24,'Tissue Box',0),(25,'Bathroom Robe and Slippers',0,(26,'Fresh Pillows',0));
 /*!40000 ALTER TABLE `Items` ENABLE KEYS */;
 UNLOCK TABLES;
 

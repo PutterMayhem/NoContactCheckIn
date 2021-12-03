@@ -247,7 +247,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 				foodlist.add(new FoodTable(rs1.getString("item_Name"), "$" + price, new CheckBox()));
 			}
 			rs1.close();
-			String query3 = "SELECT r.conf_ID, ri.reqitem_ID, r.req_ID, i.item_Name, r.req_DateTime, r.fulfilled FROM Request r " + 
+			String query3 = "SELECT r.conf_ID, ri.reqitem_ID, r.req_ID, i.item_Name, r.req_DateTime, ri.fulfilled FROM Request r " + 
 					"INNER JOIN RequestItems ri ON r.req_ID = ri.req_ID " + 
 					"INNER JOIN Items i ON i.item_ID = ri.item_ID " + 
 					"WHERE conf_ID = " + confNum + " ORDER BY fulfilled";

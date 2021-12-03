@@ -88,7 +88,7 @@ public class Request {
 		return statement;
 	}
 	public static void createRequestItem(int reqID, int itemID) {
-		String sqlQuery = "INSERT INTO RequestItems (req_ID, item_ID) VALUES (" + reqID + ", " + itemID + ")";
+		String sqlQuery = "INSERT INTO RequestItems (req_ID, item_ID, fulfilled) VALUES (" + reqID + ", " + itemID + ", 0)";
 		try {
 			connection().executeUpdate(sqlQuery);
 			connection().close();
@@ -116,6 +116,43 @@ public class Request {
 			e.printStackTrace();
 		}
 		return i;
+		
+	}
+	public static void setRequestItemComplete(int reqItemID) {
+		String query = "UPDATE RequestItems SET fulfilled = 1 WHERE reqitem_ID = " + reqItemID;
+		try {
+			connection().executeUpdate(query);
+			String query1 = "SELECT * FROM RequestItems WHERE reqitem_ID = " + reqItemID;
+			ResultSet rs = connection().executeQuery(query1);
+			rs.next();
+			int reqID = rs.getInt("req_ID");
+			Boolean b = true;
+			String query2 = "SELECT * FROM RequestItems WHERE req_ID = " + reqID;
+			ResultSet rs2 = connection().executeQuery(query2);
+			while (rs2.next()) {
+				if (rs2.getInt("fulfilled") == 0) {
+					b = false;
+				}
+			}
+			if (b) {
+				setRequestComplete(reqID);
+			}
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void setRequestComplete(int reqID) {
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		sdf.format(today);
+		String query = "UPDATE Requests SET fulfilled = 1, req_FullfillDateTime = DATE '" + today + "' WHERE req_ID = " + reqID;
+		try {
+			connection().executeUpdate(query);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
