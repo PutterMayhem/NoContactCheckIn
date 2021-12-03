@@ -47,7 +47,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 	@FXML
 	private Label label_welcome;
 	@FXML
-	private Button btn_cancel;
+	private Button btn_back;
 	@FXML
 	private Button btn_submit;
 	@FXML
@@ -60,7 +60,26 @@ public class MakeRequestGUI extends Application implements Initializable{
 	private TableColumn<ServiceTable, CheckBox> col_select;
 	@FXML
 	private TableColumn<FoodTable, CheckBox> col_selectfood;
+	@FXML
+    private Button btn_cancel;
+    @FXML
+    private TableView<RequestTable> table_request;
+    @FXML
+    private TableColumn<RequestTable, String> col_reqID;
+    @FXML
+    private TableColumn<RequestTable, String> col_request;
+    @FXML
+    private TableColumn<RequestTable, Date> col_time;
+    @FXML
+    private TableColumn<RequestTable, String> col_status;
+    @FXML
+    private TableColumn<RequestTable, CheckBox> col_cancel;
 	private static Controller control;
+	private static int confNum;
+	
+	ObservableList<ServiceTable> servicelist = FXCollections.observableArrayList();
+	ObservableList<FoodTable> foodlist = FXCollections.observableArrayList();
+	ObservableList<RequestTable> requestlist = FXCollections.observableArrayList();
 	
 	@Override
 	public void start(Stage primary) throws Exception {
@@ -95,6 +114,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 	public void setInformation(Controller control) {
 		MakeRequestGUI.control = control;
 		label_welcome.setText("Make a Request for Room " + control.getRoom().getRoomNumber());
+		MakeRequestGUI.confNum = control.getBooking().getConfNum();
 	}
 	
 	private static Statement connection() {
@@ -107,9 +127,6 @@ public class MakeRequestGUI extends Application implements Initializable{
 		}
 		return statement;
 	}
-	
-	ObservableList<ServiceTable> servicelist = FXCollections.observableArrayList();
-	ObservableList<FoodTable> foodlist = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -147,7 +164,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 						}
 					}
 				});
-				int reqID = Request.createRequest(control.getBooking().getConfNum());
+				int reqID = Request.createRequest(confNum);
 				items.forEach((item) -> {
 					Request.createRequestItem(reqID, item);
 				});
@@ -157,17 +174,48 @@ public class MakeRequestGUI extends Application implements Initializable{
 				alert.initModality(Modality.APPLICATION_MODAL);
 				alert.initOwner(primary);
 				alert.showAndWait();
-				LoggedInGUI loggedin  = new LoggedInGUI();
-				Scene loggedInScene = loggedin.getScene();
-				loggedin.setInformation(control);
-				
-				primary.setScene(loggedInScene);
+				MakeRequestGUI mr  = new MakeRequestGUI();
+				Scene mrs = mr.getScene();
+				mr.setInformation(control);
+				primary.setScene(mrs);
 				primary.show();
 			}
 			
 		});
 		
 		btn_cancel.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				requestlist.forEach((request) -> {
+					if((request.getSelect() != null) & (request.getSelect().isSelected())) {
+						String query = "DELETE FROM RequestItems WHERE reqitem_ID = " + request.getReqItemID();
+						try {
+							connection().executeUpdate(query);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setContentText("Requests have been canceled");
+				alert.setTitle("Success!");
+				alert.initModality(Modality.APPLICATION_MODAL);
+				alert.initOwner(primary);
+				alert.showAndWait();
+				MakeRequestGUI mr  = new MakeRequestGUI();
+				Scene mrs = mr.getScene();
+				mr.setInformation(control);
+				primary.setScene(mrs);
+				primary.show();
+			}
+			
+		});
+		
+		btn_back.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -185,31 +233,55 @@ public class MakeRequestGUI extends Application implements Initializable{
 		});
 		
 		try {
+			
 			String query1 = "SELECT * FROM Items WHERE item_price IS NULL";
 			ResultSet rs = connection().executeQuery(query1);
 			while(rs.next()) {
 				servicelist.add(new ServiceTable(rs.getString("item_Name"), new CheckBox())); 
 			}
+			rs.close();
 			String query2 = "SELECT * FROM Items WHERE item_price IS NOT NULL";
 			ResultSet rs1 = connection().executeQuery(query2);
 			while(rs1.next()) {
 				String price = String.format("%.2f",rs1.getFloat("item_price"));
 				foodlist.add(new FoodTable(rs1.getString("item_Name"), "$" + price, new CheckBox()));
 			}
-			rs.close();
 			rs1.close();
+			String query3 = "SELECT r.conf_ID, ri.reqitem_ID, r.req_ID, i.item_Name, r.req_DateTime, r.fulfilled FROM Request r " + 
+					"INNER JOIN RequestItems ri ON r.req_ID = ri.req_ID " + 
+					"INNER JOIN Items i ON i.item_ID = ri.item_ID " + 
+					"WHERE conf_ID = " + confNum + " ORDER BY fulfilled";
+			ResultSet rs2 = connection().executeQuery(query3);
+			while(rs2.next()) {
+				String temp = null;
+				if (rs2.getInt("fulfilled") == 0) {
+					temp = "Pending";
+					requestlist.add(new RequestTable(String.valueOf(rs2.getInt("reqitem_ID")), rs2.getString("item_Name"), rs2.getDate("req_DateTime"), temp, new CheckBox())); 
+				} else if (rs2.getInt("fulfilled") == 1) {
+					temp = "Completed";
+					requestlist.add(new RequestTable(String.valueOf(rs2.getInt("reqitem_ID")), rs2.getString("item_Name"), rs2.getDate("req_DateTime"), temp, null)); 
+				}
+				
+			}
+			rs2.close();
+		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
+		col_reqID.setCellValueFactory(new PropertyValueFactory<>("reqItemID"));
+		col_request.setCellValueFactory(new PropertyValueFactory<>("name"));
+		col_time.setCellValueFactory(new PropertyValueFactory<>("requestTime"));
+		col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+		col_cancel.setCellValueFactory(new PropertyValueFactory<>("select"));
 		col_namefree.setCellValueFactory(new PropertyValueFactory<>("name"));
 		col_namefood.setCellValueFactory(new PropertyValueFactory<>("name"));
 		col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		col_select.setCellValueFactory(new PropertyValueFactory<>("select"));
 		col_selectfood.setCellValueFactory(new PropertyValueFactory<>("select"));
-		
 		table_room.setItems(servicelist);
 		table_food.setItems(foodlist);
+		table_request.setItems(requestlist);
 	}
 
 }
