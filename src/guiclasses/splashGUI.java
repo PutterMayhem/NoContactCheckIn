@@ -62,7 +62,7 @@ public class splashGUI extends Application {
 		});
 
 		checkinButton.setOnAction(actionEvent -> {
-			Alert checkIn = new Alert(AlertType.CONFIRMATION);
+			Alert checkIn = new Alert(AlertType.INFORMATION);
 			checkIn.setContentText("You have been checked in.");
 			checkIn.setHeaderText("Check In");
 			checkIn.setTitle("Check In");

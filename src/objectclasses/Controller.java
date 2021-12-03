@@ -16,6 +16,8 @@ public class Controller {
 	private Employee employee;
 	private Request request;
 	private VirtualCCProcessor vcc;
+
+	private float amountOwed;
 	private static Controller controller = new Controller();
 
 	private Date arrival;
@@ -93,6 +95,14 @@ public class Controller {
 
 	public void setVcc(VirtualCCProcessor vcc) {
 		this.vcc = vcc;
+	}
+
+	public float getAmountOwed() {
+		return amountOwed;
+	}
+
+	public void setAmountOwed(float amountOwed) {
+		this.amountOwed = amountOwed;
 	}
 
 	public Controller getController() {
@@ -203,11 +213,16 @@ public class Controller {
 		return true;
 	}
 
-	public void createRequest(String type, Date reqDate, Date fulfillDate, int conf_id, int item_id) {
+	public void createRequest(String type, Date reqDate, Date fulfillDate, int conf_id, int item_id, int quant) {
 		String query = "insert into request(req_Type, req_DateTime, req_FulfillDate, conf_ID, item_ID values('" + type
 				+ "', " + reqDate + "', " + fulfillDate + "', " + conf_id + "'," + item_id + "';";
 		try {
 			connection().execute(query);
+			String itmeQuery = "select * from items where item_ID = " + item_id + ";";
+			ResultSet result = connection().executeQuery(itmeQuery);
+			float price = result.getFloat("item_price");
+			price = price * quant;
+			amountOwed += price;
 		} catch (SQLException e) {
 
 			e.printStackTrace();

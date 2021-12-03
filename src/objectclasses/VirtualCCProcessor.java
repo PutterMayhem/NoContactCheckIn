@@ -46,7 +46,7 @@ public class VirtualCCProcessor {
 		return hash;
 	}
 
-	public String payBill(float amt) {
+	public String payBill(int cctoken, float amt) {
 		return "Approved";
 	}
 }
