@@ -150,6 +150,9 @@ CREATE TABLE `RequestItems` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+ALTER TABLE `uCheckIn`.`RequestItems` 
+ADD COLUMN `fulfilled` TINYINT(1) NULL AFTER `item_ID`;
+
 --
 -- Table structure for table `RequestType`
 --
