@@ -66,6 +66,7 @@ create table Employee(
     emp_Fname varchar(20),
     emp_Lname varchar(20),
     admin boolean,
+    password varchar(25),
     PRIMARY KEY(emp_ID)
 );
 
