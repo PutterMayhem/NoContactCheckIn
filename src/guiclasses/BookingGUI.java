@@ -68,18 +68,6 @@ public class BookingGUI extends Application implements Initializable {
 		}
 	}
 
-	public Scene getScene() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
-		try {
-			Parent root = loader.load();
-			Scene scene = new Scene(root, 1920, 1080);
-			return scene;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate,
 			LocalDate localDate2) {
 		if (fname == null || lname == null || email == null || room == null || localDate == null
