@@ -145,6 +145,31 @@ public class Controller {
 		return false;
 	}
 
+	public boolean empLogin(String username, String password) {
+
+		String query = "select * from employee where username = " + username + " and password = " + password + ";";
+
+		try {
+			ResultSet result = connection().executeQuery(query);
+			if (result.next()) {
+				int empID = result.getInt("emp_ID");
+				String fName = result.getString("emp_Fname");
+				String lName = result.getString("emp_Lname");
+				int admin = result.getInt("admin");
+				boolean admin2 = false;
+				if (admin == 1) {
+					admin2 = true;
+				}
+				employee = new Employee(fName, lName, "", "", admin2);
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	// Connection to database method
 	private static Statement connection() {
 		Statement statement = null;
@@ -208,6 +233,7 @@ public class Controller {
 	}
 
 	public boolean checkOut() {
+
 		getBooking().checkOut(room.getRoomNumber());
 		controller = null;
 		return true;

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import objectclasses.Controller;
 
 public class EmpLogin extends Application {
 
@@ -26,6 +27,8 @@ public class EmpLogin extends Application {
 	@FXML
 	TextField passField;
 
+	Controller controller = Controller.getInstance();
+
 	@Override
 	public void start(Stage primary) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("emplogin.fxml"));
@@ -38,7 +41,7 @@ public class EmpLogin extends Application {
 
 	public void initialize() {
 		loginButton.setOnAction(actonEvent -> {
-
+			boolean login = controller.empLogin(userField.getText(), passField.getText());
 		});
 
 		cancelButton.setOnAction(actionEvent -> {
@@ -63,4 +66,5 @@ public class EmpLogin extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
