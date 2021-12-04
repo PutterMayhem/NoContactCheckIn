@@ -18,12 +18,12 @@ import objectclasses.Controller;
 public class Login extends Application {
 
 	@FXML
-	private Button loginButton;
+	Button loginButton;
 	@FXML
-	private Button cancelButton;
+	Button cancelButton;
 
 	@FXML
-	private TextField emailField;
+	TextField emailField;
 
 	@FXML
 	TextField confField;

@@ -114,7 +114,7 @@ public class Controller {
 	 * to determine actions taken.
 	 */
 	public boolean custLogIn(String email, String confID) {
-		String sqlQuery1 = "Select * from Booking where cust_email ='" + email + " and conf_ID = '" + confID + "';";
+		String sqlQuery1 = "Select * from Booking where cust_email ='" + email + "' and conf_ID = '" + confID + "';";
 		String accountQuery = "Select * from Account where cust_email = '" + email + "';";
 		ResultSet sqlResults1;
 		try {
@@ -147,7 +147,7 @@ public class Controller {
 
 	public boolean empLogin(String username, String password) {
 
-		String query = "select * from employee where username = " + username + " and password = " + password + ";";
+		String query = "select * from employee where username = '" + username + "' and password = '" + password + "';";
 
 		try {
 			ResultSet result = connection().executeQuery(query);
