@@ -169,17 +169,17 @@ CREATE TABLE RequestItems(
 -- ------------------------------ --
 -- 1. Insert data into `Customer` --
 -- ------------------------------ --
-INSERT INTO Customer
-VALUES (0, "Jerry", "Seinfeld", 6515550123, "jseinfeld1@seinfeld.com"),
-	(1, "Linus", "Sebastian", 6125553210, "linus@ltt.com"),
-    (2, "Jeff", "Johnson", 6125558289, "jeff@imjeff.com"),
-    (3, "Max", "Christiansen", 6515550124, "max@max.com"),
-    (4, "David", "Qual", 6515550125, "David@limosales.limo"),
-    (5, "Chuck", "Gustner", 6515550216, "Chuck@limosales.limo"),
-    (6, "Mahad", "Hussein", 6515550217, "Mahad@limosales.limo"),
-    (7, "Jennifer", "Aniston", 6125551234, "janiston@jenan.net"),
-    (8, "Free", "Willy", 6125554321, "Free.Will@flippers.rock"),
-    (9, "Alex", "Trebek", 6125558985, "ATrebek@gameshowcommittee.org");
+INSERT INTO Customer(cust_Fname, cust_Lname, cust_Phone, cust_email)
+VALUES ("Jerry", "Seinfeld", 6515550123, "jseinfeld1@seinfeld.com"),
+	("Linus", "Sebastian", 6125553210, "linus@ltt.com"),
+    ("Jeff", "Johnson", 6125558289, "jeff@imjeff.com"),
+    ("Max", "Christiansen", 6515550124, "max@max.com"),
+    ("David", "Qual", 6515550125, "David@limosales.limo"),
+    ("Chuck", "Gustner", 6515550216, "Chuck@limosales.limo"),
+    ("Mahad", "Hussein", 6515550217, "Mahad@limosales.limo"),
+    ("Jennifer", "Aniston", 6125551234, "janiston@jenan.net"),
+    ("Free", "Willy", 6125554321, "Free.Will@flippers.rock"),
+    ("Alex", "Trebek", 6125558985, "ATrebek@gameshowcommittee.org");
 
 -- ------------------------------ --
 -- 2. Insert data into `RoomType` --
@@ -245,9 +245,9 @@ VALUES (11, "Chicken Kiev", 13.99),
 -- ------------------------------ --
 -- 7. Insert data into `Employee` --
 -- ------------------------------ --        
-INSERT INTO Employee
-VALUES (0, "Chuck", "Gustner", 1, "cgustner", ""),
-	   (1, "Mahad", "Hussein", 0, "mhussein", "");
+INSERT INTO Employee(emp_Fname, emp_Lname, admin, username, password)
+VALUES ("Chuck", "Gustner", 1, "cgustner", ""),
+	   ("Mahad", "Hussein", 0, "mhussein", "");
        
        
 -- ----------------------------- --
