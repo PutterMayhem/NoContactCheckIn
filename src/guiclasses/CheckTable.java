@@ -8,6 +8,7 @@ public class CheckTable {
 	int confNum;
 	int reqID;
 	String name;
+	int room;
 	String price;
 	Date time;
 	String status;
@@ -56,14 +57,21 @@ public class CheckTable {
 		this.select = select;
 	}
 
-	public CheckTable(int confNum, int reqID, String name, String price, Date time, String status, CheckBox select) {
+	public CheckTable(int confNum, int reqID, String name, int room, String price, Date time, String status, CheckBox select) {
 		super();
 		this.confNum = confNum;
 		this.reqID = reqID;
 		this.name = name;
+		this.room = room;
 		this.price = price;
 		this.time = time;
 		this.status = status;
 		this.select = select;
+	}
+	public int getRoom() {
+		return room;
+	}
+	public void setRoom(int room) {
+		this.room = room;
 	}
 }

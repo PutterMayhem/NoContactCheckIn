@@ -47,8 +47,8 @@
                         <TableColumn fx:id="col_reqID" prefWidth="77.46685791015625" text="Request ID" />
                       <TableColumn fx:id="col_request" prefWidth="189.13427734375" text="Items Requested" />
                       <TableColumn fx:id="col_time" prefWidth="162.068115234375" text="Time Requested" />
-                        <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="109.55645751953125" text="Status" />
-                        <TableColumn fx:id="col_cancel" prefWidth="77.1790771484375" text="Cancel" />
+                        <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="120.1494140625" text="Status" />
+                        <TableColumn fx:id="col_cancel" prefWidth="67.8505859375" text="Cancel" />
                     </columns>
                   </TableView>
                </content>
@@ -59,20 +59,20 @@
                      <children>
                         <TableView fx:id="table_room" prefHeight="194.0" prefWidth="591.0">
                            <columns>
-                              <TableColumn fx:id="col_namefree" prefWidth="401.37913513183594" text="Free Room Service" />
-                              <TableColumn fx:id="col_select" minWidth="0.0" prefWidth="93.62091064453125" text="Select" />
+                              <TableColumn fx:id="col_namefree" prefWidth="420.2689552307129" text="Free Room Service" />
+                              <TableColumn fx:id="col_select" minWidth="0.0" prefWidth="75.73101806640625" text="Select" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Button fx:id="btn_submit" layoutX="337.0" layoutY="585.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="173.0" text="Submit">
+            <Button fx:id="btn_submit" layoutX="337.0" layoutY="585.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="173.0" style="-fx-border-color: #00269B#00269B;" text="Submit">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btn_back" layoutX="69.0" layoutY="585.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="173.0" text="Back">
+            <Button fx:id="btn_back" layoutX="69.0" layoutY="585.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="173.0" style="-fx-border-color: #00269B#00269B;" text="Back">
                <font>
                   <Font size="25.0" />
                </font>
@@ -82,14 +82,14 @@
                   <TableView fx:id="table_food" prefHeight="194.0" prefWidth="516.0">
                      <columns>
                         <TableColumn fx:id="col_namefood" prefWidth="313.4249725341797" text="Food Services" />
-                        <TableColumn fx:id="col_price" minWidth="0.0" prefWidth="91.57504272460938" text="Price" />
-                        <TableColumn fx:id="col_selectfood" minWidth="0.0" prefWidth="109.0" text="Select" />
+                        <TableColumn fx:id="col_price" minWidth="0.0" prefWidth="122.4482421875" text="Price" />
+                        <TableColumn fx:id="col_selectfood" minWidth="0.0" prefWidth="78.55181884765625" text="Select" />
                      </columns>
                   </TableView>
                </children>
             </AnchorPane>
             <Label layoutX="798.0" layoutY="105.0" prefHeight="57.0" prefWidth="272.0" />
-            <Line endX="-28.85498046875" endY="521.9999389648438" layoutX="637.0" layoutY="161.0" startX="-28.85498046875" startY="-161.0" />
+            <Line endX="-28.85498046875" endY="521.9999389648438" layoutX="648.0" layoutY="161.0" startX="-28.85498046875" startY="-161.0" />
             <Label alignment="CENTER" layoutX="729.0" layoutY="14.0" prefHeight="52.0" prefWidth="500.0" text="Current Requests">
                <font>
                   <Font name="Trebuchet MS" size="40.0" />
@@ -100,7 +100,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btn_cancel" layoutX="910.0" layoutY="585.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="173.0" style="-fx-background-color: #00289B#00289B;" text="Cancel" textFill="WHITE">
+            <Button fx:id="btn_cancel" layoutX="899.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #00289B#00289B;" text="Delete Request" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>

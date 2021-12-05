@@ -52,12 +52,24 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 			Scene scene = new Scene(root, 1920, 1080);
 			primary.setTitle("Admin Page");
 			primary.setScene(scene);
+			primary.setFullScreen(true);
 			primary.show();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
+	}
+	
+	public void changeToSplash(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
+		Scene splashView = new Scene(root);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		window.setScene(splashView);
+		window.show();
+		window.setFullScreen(true);
 	}
 	
 	public Scene getScene() {
@@ -83,6 +95,7 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 						CheckRequestsGUI cr = new CheckRequestsGUI();
 						Scene crs = cr.getScene();
 						primary.setScene(crs);
+						primary.setFullScreen(true);
 						primary.show();
 					}
 					
@@ -91,7 +104,14 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 
 					@Override
 					public void handle(ActionEvent event) {
-						
+						Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+						AddEmployeeGUI ae = new AddEmployeeGUI();
+						Scene aes = ae.getScene();
+						primary.setFullScreen(true);
+						primary.setScene(aes);
+						primary.setFullScreen(true);
+						primary.setTitle("uCheckin");
+						primary.show();
 					}
 					
 				});
@@ -99,6 +119,14 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 
 					@Override
 					public void handle(ActionEvent event) {
+						Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+						AdminBookingGUI ab = new AdminBookingGUI();
+						Scene abs = ab.getScene();
+						primary.setFullScreen(true);
+						primary.setScene(abs);
+						primary.setFullScreen(true);
+						primary.setTitle("uCheckin ");
+						primary.show();
 						
 					}
 					
@@ -107,7 +135,12 @@ public class LoggedInAdminGUI extends Application implements Initializable{
 
 					@Override
 					public void handle(ActionEvent event) {
-						
+						try {
+							changeToSplash(event);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					
 				});

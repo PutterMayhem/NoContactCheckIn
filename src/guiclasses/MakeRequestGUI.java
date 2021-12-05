@@ -22,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objectclasses.Controller;
 import objectclasses.Request;
@@ -75,6 +77,7 @@ public class MakeRequestGUI extends Application implements Initializable{
     @FXML
     private TableColumn<RequestTable, CheckBox> col_cancel;
 	private static Controller control;
+	private static float totalprice;
 	private static int confNum;
 	
 	ObservableList<ServiceTable> servicelist = FXCollections.observableArrayList();
@@ -98,12 +101,12 @@ public class MakeRequestGUI extends Application implements Initializable{
 		}
 	}
 	
-	public Scene getScene() {
+	public Scene getScene(double width, double height) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MakeRequest.fxml"));
 		loader.setController(this);
 		try {
 			Parent root = loader.load();
-			Scene scene = new Scene(root, 1920, 1080);
+			Scene scene = new Scene(root, width, height);
 			return scene;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -115,6 +118,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 		MakeRequestGUI.control = control;
 		label_welcome.setText("Make a Request for Room " + control.getRoom().getRoomNumber());
 		MakeRequestGUI.confNum = control.getBooking().getConfNum();
+		MakeRequestGUI.totalprice = control.getAmountOwed();
 	}
 	
 	private static Statement connection() {
@@ -132,7 +136,6 @@ public class MakeRequestGUI extends Application implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		btn_submit.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -158,16 +161,20 @@ public class MakeRequestGUI extends Application implements Initializable{
 							ResultSet result = connection().executeQuery(query);
 							result.next();
 							items.add(result.getInt("item_ID"));
+							totalprice += result.getFloat("item_price");
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				});
+				
 				int reqID = Request.createRequest(confNum);
 				items.forEach((item) -> {
 					Request.createRequestItem(reqID, item);
 				});
+				control.setAmountOwed(totalprice);
+				System.out.println(totalprice);
 				Alert alert = new Alert(Alert.AlertType.INFORMATION);
 				alert.setContentText("Requests Have Been Submitted!");
 				alert.setTitle("Success!");
@@ -175,10 +182,12 @@ public class MakeRequestGUI extends Application implements Initializable{
 				alert.initOwner(primary);
 				alert.showAndWait();
 				MakeRequestGUI mr  = new MakeRequestGUI();
-				Scene mrs = mr.getScene();
+				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+				Scene mrs = mr.getScene(screenSize.getWidth(), screenSize.getHeight());
 				mr.setInformation(control);
 				primary.setScene(mrs);
 				primary.show();
+				primary.setFullScreen(true);
 			}
 			
 		});
@@ -191,15 +200,30 @@ public class MakeRequestGUI extends Application implements Initializable{
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				requestlist.forEach((request) -> {
 					if((request.getSelect() != null) & (request.getSelect().isSelected())) {
+						String q = "SELECT * FROM RequestItems ri INNER JOIN Items i ON ri.item_ID = i.item_ID "
+								+ "WHERE reqitem_ID = " + request.getReqItemID();
 						String query = "DELETE FROM RequestItems WHERE reqitem_ID = " + request.getReqItemID();
 						try {
+							ResultSet rs = connection().executeQuery(q);
+							rs.next();
+							int i = rs.getInt("req_ID");
+							float price = rs.getFloat("item_price");
+							rs.close();
 							connection().executeUpdate(query);
+							totalprice -= price;
+							String q2 = "SELECT * FROM RequestItems WHERE req_ID = " + i;
+							ResultSet rs2 = connection().executeQuery(q2);
+							if (!rs2.next()) {
+								Request.deleteRequest(i);
+							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				});
+				control.setAmountOwed(totalprice);
+				System.out.println(totalprice);
 				Alert alert = new Alert(Alert.AlertType.INFORMATION);
 				alert.setContentText("Requests have been canceled");
 				alert.setTitle("Success!");
@@ -207,10 +231,12 @@ public class MakeRequestGUI extends Application implements Initializable{
 				alert.initOwner(primary);
 				alert.showAndWait();
 				MakeRequestGUI mr  = new MakeRequestGUI();
-				Scene mrs = mr.getScene();
+				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+				Scene mrs = mr.getScene(screenSize.getWidth(), screenSize.getHeight());
 				mr.setInformation(control);
 				primary.setScene(mrs);
 				primary.show();
+				primary.setFullScreen(true);
 			}
 			
 		});
@@ -226,6 +252,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					primary.setScene(loggedInScene);
 					primary.show();
+					primary.setFullScreen(true);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -234,13 +261,13 @@ public class MakeRequestGUI extends Application implements Initializable{
 		
 		try {
 			
-			String query1 = "SELECT * FROM Items WHERE item_price IS NULL";
+			String query1 = "SELECT * FROM Items WHERE item_price = 0";
 			ResultSet rs = connection().executeQuery(query1);
 			while(rs.next()) {
 				servicelist.add(new ServiceTable(rs.getString("item_Name"), new CheckBox())); 
 			}
 			rs.close();
-			String query2 = "SELECT * FROM Items WHERE item_price IS NOT NULL";
+			String query2 = "SELECT * FROM Items WHERE item_price > 0";
 			ResultSet rs1 = connection().executeQuery(query2);
 			while(rs1.next()) {
 				String price = String.format("%.2f",rs1.getFloat("item_price"));
@@ -250,7 +277,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 			String query3 = "SELECT r.conf_ID, ri.reqitem_ID, r.req_ID, i.item_Name, r.req_DateTime, ri.fulfilled FROM Request r " + 
 					"INNER JOIN RequestItems ri ON r.req_ID = ri.req_ID " + 
 					"INNER JOIN Items i ON i.item_ID = ri.item_ID " + 
-					"WHERE conf_ID = " + confNum + " ORDER BY fulfilled";
+					"WHERE conf_ID = " + confNum + " ORDER BY ri.fulfilled";
 			ResultSet rs2 = connection().executeQuery(query3);
 			while(rs2.next()) {
 				String temp = null;

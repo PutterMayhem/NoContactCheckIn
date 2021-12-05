@@ -116,7 +116,15 @@ public class Request {
 			e.printStackTrace();
 		}
 		return i;
-		
+	}
+	public static void deleteRequest(int reqID) {
+		String delete = "DELETE FROM Request WHERE req_ID = " + reqID;
+		try {
+			connection().executeUpdate(delete);
+			connection().close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void setRequestItemComplete(int reqItemID) {
 		String query = "UPDATE RequestItems SET fulfilled = 1 WHERE reqitem_ID = " + reqItemID;
@@ -144,10 +152,7 @@ public class Request {
 		}
 	}
 	public static void setRequestComplete(int reqID) {
-		Date today = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-		sdf.format(today);
-		String query = "UPDATE Requests SET fulfilled = 1, req_FullfillDateTime = DATE '" + today + "' WHERE req_ID = " + reqID;
+		String query = "UPDATE Request SET fulfilled = 1, req_FullfillDateTime = now() WHERE req_ID = " + reqID;
 		try {
 			connection().executeUpdate(query);
 		} catch(SQLException e) {

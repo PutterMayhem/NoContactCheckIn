@@ -35,7 +35,7 @@
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font></Label>
-            <Button fx:id="btn_confirm" layoutX="759.0" layoutY="400.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Confirm" textFill="#1f0da8">
+            <Button fx:id="btn_confirm" layoutX="759.0" layoutY="400.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B;" text="Confirm">
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Font name="Trebuchet MS" size="30.0" />
                </font>
             </Label>
-            <Button fx:id="btn_back" layoutX="432.0" layoutY="400.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Back" textFill="#1f0da8">
+            <Button fx:id="btn_back" layoutX="432.0" layoutY="400.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B;" text="Back">
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font>

@@ -36,6 +36,7 @@ public class EmpLogin extends Application {
 		primary.setTitle("UCheckIn");
 		primary.setScene(scene);
 		primary.show();
+		primary.setFullScreen(true);
 
 	}
 
@@ -61,6 +62,7 @@ public class EmpLogin extends Application {
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 		window.setScene(splashView);
+		window.setFullScreen(true);
 	}
 
 	public static void main(String[] args) {

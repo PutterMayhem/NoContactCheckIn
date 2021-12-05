@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,7 +31,7 @@ import objectclasses.Booking;
 import objectclasses.Controller;
 import objectclasses.Room;
 
-public class BookingGUI extends Application implements Initializable {
+public class AdminBookingGUI extends Application implements Initializable {
 
 	@FXML
 	private Button btn_submit;
@@ -56,12 +55,12 @@ public class BookingGUI extends Application implements Initializable {
 	@Override
 	public void start(Stage primary) throws Exception {
 		// TODO Auto-generated method stub
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
-		Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminBookingGUI.fxml"));
+		loader.setController(this);
 		try {
 			Parent root = loader.load();
-			Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
-			primary.setTitle("Booking");
+			Scene scene = new Scene(root, 1920, 1080);
+			primary.setTitle("uCheckin -- Book a Room");
 			primary.setFullScreen(true);
 			primary.setScene(scene);
 			primary.show();
@@ -71,6 +70,18 @@ public class BookingGUI extends Application implements Initializable {
 			e.printStackTrace();
 			System.exit(1);
 		}
+	}
+	public Scene getScene() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminBooking.fxml"));
+		loader.setController(this);
+		try {
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 1920, 1080);
+			return scene;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate,
@@ -83,24 +94,8 @@ public class BookingGUI extends Application implements Initializable {
 		}
 	}
 
-	public String getFName() {
-		return txt_fname.getText();
-	}
 
-	public int getRoomNum() {
-		return (Integer.parseInt(txt_room.getText()));
-	}
-
-	public void changeToSplash(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
-		Scene splashView = new Scene(root);
-
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-		window.setScene(splashView);
-		window.show();
-		window.setFullScreen(true);
-	}
+	
 	
 	public static boolean checkDate(LocalDate arrival, LocalDate departure) {
 		Date now = new Date();
@@ -126,16 +121,21 @@ public class BookingGUI extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("Initializing....");
 		// TODO Auto-generated method stub
-		btn_cancel.setOnAction(actionEvent -> {
-			try {
-				changeToSplash(actionEvent);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		btn_cancel.setOnAction(new EventHandler<ActionEvent>() {
 
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				LoggedInAdminGUI loggedin = new LoggedInAdminGUI();
+				Scene loggedInScene = loggedin.getScene();
+				primary.setFullScreen(true);
+				primary.setScene(loggedInScene);
+				primary.setFullScreen(true);
+				primary.show();
+			}
+			
 		});
 		btn_submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -188,22 +188,14 @@ public class BookingGUI extends Application implements Initializable {
 
 					try {
 						if (booking.createBooking() == true) {
-							control.setAccount(user);
-							control.setArrival(date1);
-							control.setDepart(date2);
-							control.setBooking(booking);
-							control.setRoom(Room.getRoomFromDB(room_num));
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
-									+ "\n"
-									+ "To login to our kiosks use your e-mail address and your confirmation number");
+							alert.setContentText("Booking Created! The confirmation number is: " + booking.getConfNum());
 							alert.setTitle("Success!");
 							alert.initModality(Modality.APPLICATION_MODAL);
 							alert.initOwner(primary);
 							alert.showAndWait();
-							LoggedInGUI loggedin = new LoggedInGUI();
+							LoggedInAdminGUI loggedin = new LoggedInAdminGUI();
 							Scene loggedInScene = loggedin.getScene();
-							loggedin.setInformation(control);
 							primary.setFullScreen(true);
 							primary.setScene(loggedInScene);
 							primary.show();

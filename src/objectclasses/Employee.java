@@ -35,6 +35,27 @@ public class Employee extends Account {
 			return false;
 		}
 	}
+	
+	public static boolean createEmployee(String fname, String lname, String username, String password, boolean admin) throws SQLException {
+		int i = 0;
+		if (admin) {
+			i = 1;
+		}
+		String sqlQuery = "INSERT INTO Employee (emp_Fname, emp_lname, admin, username, password) VALUES ('"
+				+ fname + "', '" + lname + "', " + i + ", '" + username + "', '" + password + "');";
+		int result = connection().executeUpdate(sqlQuery);
+
+		if (result != 0) {
+			System.out.println("Employee Created");
+			connection().close();
+			return true;
+		} else {
+			System.out.println("Oops, something went wrong!");
+			connection().close();
+			return false;
+		}
+	}
+	
 
 	// Connection to database method
 	private static Statement connection() {

@@ -158,7 +158,7 @@ public class Booking {
 
 		// ensure unique conf_ID is created
 		confNum = createConfID();
-		// Checks if room is booked
+		// Checks if room is booked or does not exist
 		if (Room.isBooked(room)) {
 			System.out.println("Sorry, room is already booked. Please choose another room");
 			return false;
@@ -168,7 +168,7 @@ public class Booking {
 		String date2 = sdf.format(departure);
 		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
-				+ room.roomNumber + ", " + lengthStay + ", DATE '" + date1 + "', DATE '" + date2 + "', NULL)";
+				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL, NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 		// Updates room status in room database
 		String sqlUpdate = "UPDATE room SET room_status = 1 WHERE room_num = " + room.roomNumber;
@@ -187,14 +187,42 @@ public class Booking {
 		}
 	}
 
-	public void checkOut(int roomNumber) {
-		String sqlQuery = "Update room SET room_status = 0 where room_num = " + roomNumber + ";";
+	public void checkOut() {
+		String sqlQuery = "Update room SET room_status = 0 where room_num = " + room.getRoomNumber() + ";";
+		String query = "UPDATE Booking SET check_out = now() WHERE conf_ID = " + confNum;
 		try {
+			connection().executeUpdate(query);
 			connection().executeUpdate(sqlQuery);
+			connection().close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void checkIn() {
+		String query = "UPDATE Booking SET check_in = now() WHERE conf_ID = " + confNum;
+		try {
+			connection().executeUpdate(query);
+			connection().close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean isCheckedIn() {
+		boolean b = true;
+		String q = "Select * FROM Booking WHERE conf_ID = " + confNum;
+		try {
+			ResultSet rs = connection().executeQuery(q);
+			rs.next();
+			if(rs.getDate("check_in") == null) {
+				b = false;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return b;
 	}
 
 	private static int getDaysBetween(Date start, Date end) {

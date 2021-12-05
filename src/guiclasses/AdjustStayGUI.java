@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objectclasses.Account;
 import objectclasses.Booking;
@@ -109,7 +111,7 @@ public class AdjustStayGUI extends Application implements Initializable {
 		} 
 		if(dateDeparture.compareTo(now) < 0) {
 			return false;
-		} else if (dateDeparture.compareTo(control.getArrival()) < 0) {
+		} else if (dateDeparture.compareTo(control.getArrival()) <= 0) {
 			return false;
 		} else {
 			return true;
@@ -159,6 +161,7 @@ public class AdjustStayGUI extends Application implements Initializable {
 					loggedin.setInformation(control);
 					primary.setScene(loggedInScene);
 					primary.show();
+					primary.setFullScreen(true);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -177,6 +180,7 @@ public class AdjustStayGUI extends Application implements Initializable {
 					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					primary.setScene(loggedInScene);
 					primary.show();
+					primary.setFullScreen(true);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}

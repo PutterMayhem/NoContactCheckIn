@@ -34,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import objectclasses.*;
 
@@ -47,6 +48,8 @@ public class CheckRequestsGUI extends Application implements Initializable {
 	@FXML
 	private TableColumn<CheckTable, String> col_reqname;
 	@FXML
+	private TableColumn<CheckTable, Integer> col_room;
+	@FXML
 	private TableColumn<CheckTable, String> col_price;
 	@FXML
 	private TableColumn<CheckTable, Date> col_time;
@@ -58,6 +61,7 @@ public class CheckRequestsGUI extends Application implements Initializable {
 	private Button btn_complete;
 	@FXML
 	private Button btn_back;
+	private boolean select;
 	
 	
 	
@@ -112,11 +116,28 @@ public class CheckRequestsGUI extends Application implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				select = false;
 				checklist.forEach((check) -> {
-					if (check.getSelect().isSelected()) {
+					if (check.getSelect() != null && check.getSelect().isSelected()) {
+						select = true;
 						Request.setRequestItemComplete(check.getReqID());
 					}
 				});
+				if (select) {
+					CheckRequestsGUI cr = new CheckRequestsGUI();
+					Scene crs = cr.getScene();
+					primary.setFullScreen(true);
+					primary.setScene(crs);
+					primary.setFullScreen(true);
+					primary.show();
+				} else {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Make sure to select requests to set as complete!");
+					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
+					alert.showAndWait();
+				}
 			}
 			
 		});
@@ -130,16 +151,18 @@ public class CheckRequestsGUI extends Application implements Initializable {
 				LoggedInAdminGUI loggedin = new LoggedInAdminGUI();
 				Scene loggedInScene = loggedin.getScene();
 				primary.setScene(loggedInScene);
+				primary.setFullScreen(true);
 				primary.show();
 			}
 			
 		});
 		// TODO Auto-generated method stub
 		try {
-			String query = "SELECT r.conf_ID, ri.reqitem_ID, i.item_Name, i.item_price, r.req_DateTime, ri.fulfilled FROM Request r \n" + 
+			String query = "SELECT b.room_num, r.conf_ID, ri.reqitem_ID, i.item_Name, i.item_price, r.req_DateTime, ri.fulfilled FROM Request r \n" + 
 					"INNER JOIN RequestItems ri ON r.req_ID = ri.req_ID\n" + 
 					"INNER JOIN Items i ON ri.item_ID = i.item_ID "
-					+ "ORDER BY r.req_DateTime";
+					+ "INNER JOIN Booking b on r.conf_ID = b.conf_ID "
+					+ "ORDER BY r.req_DateTime ASC";
 			ResultSet rs = connection().executeQuery(query);
 			while(rs.next()) {
 				String price = null;
@@ -150,12 +173,12 @@ public class CheckRequestsGUI extends Application implements Initializable {
 				if (rs.getInt("fulfilled") == 0) {
 					temp = "Pending";
 					checklist.add(new CheckTable(rs.getInt("conf_ID"), rs.getInt("reqitem_ID"), 
-							rs.getString("item_Name"), price, 
+							rs.getString("item_Name"), rs.getInt("room_num"), price, 
 							rs.getDate("req_DateTime"), temp, new CheckBox()));
 				} else if (rs.getInt("fulfilled") == 1) {
 					temp = "Completed";
 					checklist.add(new CheckTable(rs.getInt("conf_ID"), rs.getInt("reqitem_ID"), 
-							rs.getString("item_Name"), price, 
+							rs.getString("item_Name"), rs.getInt("room_num"), price, 
 							rs.getDate("req_DateTime"), temp, null));
 				}
 				
@@ -170,6 +193,7 @@ public class CheckRequestsGUI extends Application implements Initializable {
 		col_confnum.setCellValueFactory(new PropertyValueFactory<>("confNum"));
 		col_reqID.setCellValueFactory(new PropertyValueFactory<>("reqID"));
 		col_reqname.setCellValueFactory(new PropertyValueFactory<>("name"));
+		col_room.setCellValueFactory(new PropertyValueFactory<> ("room"));
 		col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
 		col_status.setCellValueFactory(new PropertyValueFactory<>("status"));

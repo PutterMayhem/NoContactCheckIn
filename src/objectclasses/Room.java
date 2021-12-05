@@ -60,9 +60,6 @@ public class Room {
 			ResultSet result = connection().executeQuery(sqlQuery);
 			if (result.next()) {
 				roomStatus = result.getInt("room_status");
-			} else {
-				System.out.println("Sorry, room does not exist");
-				return isBooked;
 			}
 			connection().close();
 
@@ -73,6 +70,39 @@ public class Room {
 		isBooked = (roomStatus == 1);
 		return isBooked;
 	}
+	// returns true if room is booked, false if room is not booked or does not exist
+		public static boolean isBooked(int roomNum) {
+			boolean isBooked = false;
+			String sqlQuery = "SELECT room_status FROM Room WHERE room_num = " + roomNum;
+			int roomStatus = 0;
+			try {
+				ResultSet result = connection().executeQuery(sqlQuery);
+				if (result.next()) {
+					roomStatus = result.getInt("room_status");
+				}
+				connection().close();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			isBooked = (roomStatus == 1);
+			return isBooked;
+		}
+		
+		public static boolean exists(int roomNum) {
+			boolean b = false;
+			String sqlQuery = "SELECT * FROM Room WHERE room_num = " + roomNum;
+			try {
+				ResultSet result = connection().executeQuery(sqlQuery);
+				if(result.next()) {
+					b = true;
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return b;
+		}
 
 	// prints list of all available rooms. Returns a list of available Rooms.
 	public static ArrayList<Room> getAllAvailable() {

@@ -234,7 +234,7 @@ public class Controller {
 
 	public boolean checkOut() {
 
-		getBooking().checkOut(room.getRoomNumber());
+		getBooking().checkOut();
 		controller = null;
 		return true;
 	}

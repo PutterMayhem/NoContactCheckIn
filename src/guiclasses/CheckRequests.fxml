@@ -24,32 +24,33 @@
       </AnchorPane>
       <AnchorPane prefHeight="630.0" prefWidth="1539.0">
          <children>
-            <Label layoutX="423.0" layoutY="29.0" prefHeight="63.0" prefWidth="338.0" text="Customer Requests" textAlignment="CENTER">
+            <Label layoutX="483.0" layoutY="23.0" prefHeight="63.0" prefWidth="338.0" text="Customer Requests" textAlignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="152.0" layoutY="118.0" prefHeight="290.0" prefWidth="909.0">
+            <ScrollPane layoutX="213.0" layoutY="110.0" prefHeight="290.0" prefWidth="912.0">
                <content>
-                  <TableView fx:id="table_checkreq" prefHeight="289.0" prefWidth="909.0">
+                  <TableView fx:id="table_checkreq" prefHeight="289.0" prefWidth="898.0">
                     <columns>
-                      <TableColumn fx:id="col_confnum" prefWidth="101.92996978759766" text="Confirmation #" />
-                      <TableColumn fx:id="col_reqID" prefWidth="109.33831787109375" text="Request ID" />
-                        <TableColumn fx:id="col_reqname" prefWidth="255.66168212890625" text="Request Item" />
-                        <TableColumn fx:id="col_price" prefWidth="79.94329833984375" text="Price" />
-                        <TableColumn fx:id="col_time" prefWidth="162.0567626953125" text="Time Requested" />
-                        <TableColumn fx:id="col_status" prefWidth="101.81585693359375" text="Status" />
-                        <TableColumn fx:id="col_select" prefWidth="79.40045166015625" text="Select" />
+                      <TableColumn fx:id="col_confnum" prefWidth="125.47825622558594" text="Confirmation #" />
+                      <TableColumn fx:id="col_reqID" prefWidth="87.52175903320312" text="Request ID" />
+                        <TableColumn fx:id="col_reqname" prefWidth="163.87493896484375" text="Request Item" />
+                        <TableColumn fx:id="col_room" prefWidth="80.0216064453125" text="Room #" />
+                        <TableColumn fx:id="col_price" prefWidth="81.05950927734375" text="Price" />
+                        <TableColumn fx:id="col_time" prefWidth="188.80438232421875" text="Time Requested" />
+                        <TableColumn fx:id="col_status" prefWidth="90.4560546875" text="Status" />
+                        <TableColumn fx:id="col_select" prefWidth="74.119140625" text="Select" />
                     </columns>
                   </TableView>
                </content>
             </ScrollPane>
-            <Button fx:id="btn_back" layoutX="524.0" layoutY="453.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="143.0" text="Back">
+            <Button fx:id="btn_back" layoutX="415.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-border-color: #00269B#00269B;" text="Back">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button fx:id="btn_complete" layoutX="1127.0" layoutY="206.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="175.0" text="Set Complete" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="btn_complete" layoutX="686.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-background-color: #00289B#00289B #00289B#00289B;" text="Set Complete" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="30.0" />
                </font>
