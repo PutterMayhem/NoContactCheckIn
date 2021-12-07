@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import objectclasses.Controller;
 
@@ -68,6 +69,7 @@ public class Login extends Application {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setContentText("Please fill in all the required fields");
 				alert.setTitle("Error!");
+				alert.initModality(Modality.APPLICATION_MODAL);
 				alert.showAndWait();
 				return;
 			} else {
@@ -82,6 +84,7 @@ public class Login extends Application {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Wrong email or confirmation #");
 					alert.setTitle("Error");
+					alert.initModality(Modality.APPLICATION_MODAL);
 					alert.showAndWait();
 					return;
 				}
@@ -139,6 +142,7 @@ public class Login extends Application {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Testing");
 		alert.setContentText(msg);
+		alert.initModality(Modality.APPLICATION_MODAL);
 		alert.showAndWait();
 	}
 }

@@ -117,21 +117,21 @@ public class Controller {
 	 */
 	public boolean custLogIn(String email, String confID) {
 		String sqlQuery1 = "Select * from Booking where cust_email ='" + email + "' and conf_ID = '" + confID + "';";
-		String accountQuery = "Select * from Account where cust_email = '" + email + "';";
+		String accountQuery = "Select * from Customer where cust_email = '" + email + "';";
 		ResultSet sqlResults1;
 		try {
 			sqlResults1 = connection().executeQuery(sqlQuery1);
 			ResultSet accountResult = connection().executeQuery(accountQuery);
 
-			if (sqlResults1.next()) {
+			if (sqlResults1.next() && accountResult.next()) {
 
-				String fName = accountResult.getString("cust_Fname");
-				String lName = accountResult.getString("cust_Lname");
-				String phone = accountResult.getString("cust_Phone");
-
-				account = new Account(fName, lName, phone, email);
-				setAccount(account);
-
+//				String fName = accountResult.getString("cust_Fname");
+//				String lName = accountResult.getString("cust_Lname");
+//				String phone = accountResult.getString("cust_Phone");
+//
+//				account = new Account(fName, lName, phone, email);
+//				setAccount(account);
+//
 				int roomNum = sqlResults1.getInt("room_num");
 				Date checkIn = sqlResults1.getDate("check_in");
 				Date checkOut = sqlResults1.getDate("check_out");
