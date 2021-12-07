@@ -115,6 +115,7 @@ public class Login extends Application {
 		Scene splashView = new Scene(root);
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setFullScreen(true);
 
 		window.setScene(splashView);
 	}
@@ -124,6 +125,7 @@ public class Login extends Application {
 		Scene scene = new Scene(root);
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setFullScreen(true);
 		window.setScene(scene);
 	}
 

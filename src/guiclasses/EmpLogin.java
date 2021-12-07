@@ -36,9 +36,10 @@ public class EmpLogin extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("emplogin.fxml"));
 		Scene scene = new Scene(root, 1920, 1080);
 		primary.setTitle("UCheckIn");
+
+		primary.setFullScreen(true);
 		primary.setScene(scene);
 		primary.show();
-		primary.setFullScreen(true);
 
 	}
 

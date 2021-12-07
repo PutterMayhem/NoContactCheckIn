@@ -35,7 +35,6 @@ public class splashGUI extends Application {
 		primary.setFullScreen(true);
 		primary.setScene(scene);
 		primary.show();
-		primary.setFullScreen(true);
 
 	}
 
@@ -69,8 +68,8 @@ public class splashGUI extends Application {
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-		window.setScene(loginView);
 		window.setFullScreen(true);
+		window.setScene(loginView);
 	}
 
 	public void changeToBooking(ActionEvent event) throws IOException {
@@ -78,8 +77,8 @@ public class splashGUI extends Application {
 		Scene scene = new Scene(view);
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-		window.setScene(scene);
 		window.setFullScreen(true);
+		window.setScene(scene);
 	}
 
 	public static void main(String[] args) {
