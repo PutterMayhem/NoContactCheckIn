@@ -9,8 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import objectclasses.Controller;
@@ -63,13 +61,6 @@ public class splashGUI extends Application {
 			}
 		});
 
-		checkinButton.setOnAction(actionEvent -> {
-			Alert checkIn = new Alert(AlertType.INFORMATION);
-			checkIn.setContentText("You have been checked in.");
-			checkIn.setHeaderText("Check In");
-			checkIn.setTitle("Check In");
-			checkIn.showAndWait();
-		});
 	}
 
 	public void changeToLogin(ActionEvent event) throws IOException {
