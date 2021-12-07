@@ -34,6 +34,7 @@ public class splashGUI extends Application {
 		Parent guiView = FXMLLoader.load(getClass().getResource("/guiclasses/splashgui.fxml"));
 		Scene scene = new Scene(guiView);
 		primary.setTitle("GUI");
+		primary.setFullScreen(true);
 		primary.setScene(scene);
 		primary.show();
 		primary.setFullScreen(true);

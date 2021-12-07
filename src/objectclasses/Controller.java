@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javafx.scene.control.Alert;
+
 public class Controller {
 
 	private Booking booking;
@@ -120,25 +122,28 @@ public class Controller {
 		try {
 			sqlResults1 = connection().executeQuery(sqlQuery1);
 			ResultSet accountResult = connection().executeQuery(accountQuery);
+
 			if (sqlResults1.next()) {
+
 				String fName = accountResult.getString("cust_Fname");
 				String lName = accountResult.getString("cust_Lname");
 				String phone = accountResult.getString("cust_Phone");
+
 				account = new Account(fName, lName, phone, email);
+				setAccount(account);
 
 				int roomNum = sqlResults1.getInt("room_num");
 				Date checkIn = sqlResults1.getDate("check_in");
 				Date checkOut = sqlResults1.getDate("check_out");
-				int ccToken = sqlResults1.getInt("cctoken");
 				Room room = Room.getRoomFromDB(roomNum);
 				booking = new Booking(account, room, checkIn, checkOut);
-				booking.setCcToken(ccToken);
+				setBooking(booking);
 
 				return true;
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			createAlert("No query ran");
 			e.printStackTrace();
 		}
 
@@ -160,7 +165,8 @@ public class Controller {
 				if (admin == 1) {
 					admin2 = true;
 				}
-				employee = new Employee(fName, lName, "", "", admin2);
+				employee = new Employee(empID, fName, lName, "", "", admin2);
+				setEmployee(employee);
 				return true;
 			}
 		} catch (SQLException e) {
@@ -266,8 +272,8 @@ public class Controller {
 		return false;
 	}
 
-	public boolean createEmployee(String fName, String lName, String email, String phone, boolean admin) {
-		Employee newEmp = new Employee(fName, lName, phone, email, admin);
+	public boolean createEmployee(int empID, String fName, String lName, String email, String phone, boolean admin) {
+		Employee newEmp = new Employee(empID, fName, lName, phone, email, admin);
 		try {
 			boolean isCreated = newEmp.createEmployee();
 			return isCreated;
@@ -275,6 +281,13 @@ public class Controller {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private void createAlert(String msg) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Testing");
+		alert.setContentText(msg);
+		alert.showAndWait();
 	}
 
 }

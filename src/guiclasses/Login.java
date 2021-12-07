@@ -48,6 +48,7 @@ public class Login extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
 
 			Scene scene = new Scene(root, 1920, 1080);
+			primary.setFullScreen(true);
 			primary.setScene(scene);
 			primary.setTitle("Login");
 			primary.show();
@@ -132,5 +133,12 @@ public class Login extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	private void createAlert(String msg) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Testing");
+		alert.setContentText(msg);
+		alert.showAndWait();
 	}
 }

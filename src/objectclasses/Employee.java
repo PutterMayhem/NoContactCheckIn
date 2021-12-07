@@ -8,15 +8,18 @@ import java.sql.Statement;
 public class Employee extends Account {
 
 	boolean isAdmin;
+	int empID;
 
-	public Employee(String custFName, String custLName, String phone, String email) {
+	public Employee(int empID, String custFName, String custLName, String phone, String email) {
 		super(custFName, custLName, phone, email);
 		isAdmin = false;
+		this.empID = empID;
 	}
 
-	public Employee(String custFName, String custLName, String phone, String email, boolean isAdmin) {
+	public Employee(int empID, String custFName, String custLName, String phone, String email, boolean isAdmin) {
 		super(custFName, custLName, phone, email);
 		this.isAdmin = isAdmin;
+		this.empID = empID;
 	}
 
 	public boolean createEmployee() throws SQLException {
@@ -35,14 +38,15 @@ public class Employee extends Account {
 			return false;
 		}
 	}
-	
-	public static boolean createEmployee(String fname, String lname, String username, String password, boolean admin) throws SQLException {
+
+	public static boolean createEmployee(String fname, String lname, String username, String password, boolean admin)
+			throws SQLException {
 		int i = 0;
 		if (admin) {
 			i = 1;
 		}
-		String sqlQuery = "INSERT INTO Employee (emp_Fname, emp_lname, admin, username, password) VALUES ('"
-				+ fname + "', '" + lname + "', " + i + ", '" + username + "', '" + password + "');";
+		String sqlQuery = "INSERT INTO Employee (emp_Fname, emp_lname, admin, username, password) VALUES ('" + fname
+				+ "', '" + lname + "', " + i + ", '" + username + "', '" + password + "');";
 		int result = connection().executeUpdate(sqlQuery);
 
 		if (result != 0) {
@@ -55,7 +59,6 @@ public class Employee extends Account {
 			return false;
 		}
 	}
-	
 
 	// Connection to database method
 	private static Statement connection() {
