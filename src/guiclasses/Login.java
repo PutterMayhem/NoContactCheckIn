@@ -138,11 +138,4 @@ public class Login extends Application {
 		launch(args);
 	}
 
-	private void createAlert(String msg) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Testing");
-		alert.setContentText(msg);
-		alert.initModality(Modality.APPLICATION_MODAL);
-		alert.showAndWait();
-	}
 }
