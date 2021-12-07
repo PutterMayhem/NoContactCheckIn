@@ -1,105 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <AnchorPane prefHeight="270.0" prefWidth="1080.0" style="-fx-background-color: #808080">
-            <children>
-                <ImageView fitHeight="270.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/download2.png" />
-                    </image>
-                </ImageView>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="John.Doe@yourdomain.com" x="1600.0" y="20.0">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Text>
-                <Pane layoutX="480.0" prefHeight="270.0" prefWidth="960.0">
-                    <children>
-                        <Label layoutX="70.0" layoutY="202.5" text="Email Address:">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="emailAddr" layoutX="230.0" layoutY="202.5" />
-                        <Label layoutX="420.0" layoutY="202.5" text="Confirmation Code: ">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="confCode" layoutX="625.0" layoutY="202.5" />
-                        <Button fx:id="lookupBtn" layoutX="816.0" layoutY="202.5" mnemonicParsing="false" text="Lookup" />
-                        <Pane prefHeight="135.0" prefWidth="960.0">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Browse for Available Rooms" textAlignment="CENTER" x="300.0" y="100.0">
-                                    <font>
-                                        <Font size="48.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </Pane>
-                    </children>
-                </Pane>
-            </children>
-        </AnchorPane>
-        <AnchorPane prefHeight="76.0" prefWidth="1920.0">
-            <children>
-                <Text layoutX="817.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verify the information below is correct, &#10;then click the &quot;Make a Request&quot; button." textAlignment="CENTER">
-                    <font>
-                        <Font size="18.0" />
-                    </font></Text>
-            </children>
-        </AnchorPane>
-        <AnchorPane prefHeight="264.0" prefWidth="1920.0">
-            <children>
-                <Text fx:id="custName" strokeType="OUTSIDE" strokeWidth="0.0" text="[Customer_Name]" x="870.0" y="40.0">
-                    <font>
-                        <Font size="30.0" />
-                    </font>
-                </Text>
-                <Label layoutX="470.0" layoutY="80.0" text="Check in: ">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Label>
-                <Text fx:id="checkInTime" strokeType="OUTSIDE" strokeWidth="0.0" text="[CHECK IN DATE]" x="590.0" y="100.0">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Text>
-                <Label layoutX="470.0" layoutY="115.0" text="Check out: ">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Label>
-                <Text fx:id="checkOutTime" strokeType="OUTSIDE" strokeWidth="0.0" text="[CHECK OUT DATE]" x="590.0" y="135.0">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Text>
-                <Label layoutX="830.0" layoutY="80.0" text="Room #: ">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Label>
-                <Text fx:id="roomNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="[ROOM NUMBER]" x="930.0" y="100.0">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Text>
-                <Button fx:id="makeRequestBtn" layoutX="1400.0" layoutY="190.0" mnemonicParsing="false" text="Make a&#10;Request">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                </Button>
-            </children>
-        </AnchorPane>
-        <AnchorPane prefHeight="470.0" prefWidth="1920.0" />
-    </children>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1335.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="241.0" prefWidth="1335.0" style="-fx-background-color: #808080">
+         <children>
+            <ImageView fitHeight="270.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/download2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="630.0" prefWidth="1539.0">
+         <children>
+            <Label layoutX="533.0" layoutY="23.0" prefHeight="63.0" prefWidth="262.0" text="Browse Rooms" textAlignment="CENTER">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="320.0" layoutY="92.0" prefHeight="290.0" prefWidth="707.0">
+               <content>
+                  <TableView fx:id="table_rooms" prefHeight="289.0" prefWidth="693.0">
+                    <columns>
+                      <TableColumn fx:id="col_roomnum" prefWidth="207.70489501953125" text="Room Number" />
+                      <TableColumn fx:id="col_roomtype" prefWidth="275.59722900390625" text="Room Type" />
+                        <TableColumn fx:id="col_price" prefWidth="114.63299560546875" text="Daily Cost" />
+                        <TableColumn fx:id="col_select" prefWidth="92.36700439453125" text="Select" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Button fx:id="btn_back" layoutX="415.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-border-color: #00269B#00269B;" text="Back">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_select" layoutX="686.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-background-color: #00289B#00289B #00289B#00289B;" text="Select Room" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+         </children>
+         </AnchorPane>
+   </children>
 </VBox>

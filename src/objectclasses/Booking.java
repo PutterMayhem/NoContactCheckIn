@@ -168,7 +168,7 @@ public class Booking {
 		String date2 = sdf.format(departure);
 		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
-				+ room.roomNumber + ", " + lengthStay + ", NULL, NULL, NULL)";
+				+ room.roomNumber + ", " + lengthStay + ", DATE ('" + date1 + "'), DATE ('" + date2 + "'), NULL)";
 		int result = connection().executeUpdate(sqlQuery);
 		// Updates room status in room database
 		String sqlUpdate = "UPDATE room SET room_status = 1 WHERE room_num = " + room.roomNumber;
