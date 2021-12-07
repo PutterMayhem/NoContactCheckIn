@@ -185,10 +185,10 @@ VALUES ("Jerry", "Seinfeld", 6515550123, "jseinfeld1@seinfeld.com"),
 -- 2. Insert data into `RoomType` --
 -- ------------------------------ --
 INSERT INTO RoomType
-VALUES ('SK', 1, 0, 0, 0, 0, 100),
-	   ('DQ', 0, 2, 0, 0, 0, 110),
-       ('SKS', 1, 0, 0, 1, 1, 175),
-       ('DQS', 0, 2, 0, 1, 1, 200);
+VALUES ('Single King', 1, 0, 0, 0, 0, 100),
+	   ('Double Queen', 0, 2, 0, 0, 0, 110),
+       ('Single King Suite', 1, 0, 0, 1, 1, 175),
+       ('Double Queen Suite', 0, 2, 0, 1, 1, 200);
 
 -- --------------------------------- --
 -- 3. Insert data into `RequestType` --
