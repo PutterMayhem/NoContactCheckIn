@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.BookingGUI">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="205.0" prefWidth="1920.0" style="-fx-background-color: #808080#808080;">
          <children>
@@ -74,15 +74,16 @@
                <font>
                   <Font size="24.0" />
                </font></TextField>
-            <TextField fx:id="txt_room" layoutX="981.0" layoutY="282.0" prefHeight="48.0" prefWidth="234.0">
-               <font>
-                  <Font size="24.0" />
-               </font></TextField>
             <Button fx:id="btn_cancel" layoutX="432.0" layoutY="447.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B;" text="Cancel">
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font>
             </Button>
+            <Label fx:id="label_room" layoutX="981.0" layoutY="280.0" prefHeight="36.0" prefWidth="206.0" text="Room #" underline="true">
+               <font>
+                  <Font name="Trebuchet MS" size="30.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

@@ -88,9 +88,8 @@ public class LoggedInGUI implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
 				MakeRequestGUI makeRequest  = new MakeRequestGUI();
-				Scene makeRequestScene = makeRequest.getScene(screenSize.getWidth(), screenSize.getHeight());
+				Scene makeRequestScene = makeRequest.getScene();
 				makeRequest.setInformation(control);
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				primary.setScene(makeRequestScene);

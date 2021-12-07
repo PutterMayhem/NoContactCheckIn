@@ -45,6 +45,7 @@ public class RoomTable {
 		this.roomNum = roomNum;
 		this.roomType = roomType;
 		this.select = select;
+		this.price = price;
 	}
 
 

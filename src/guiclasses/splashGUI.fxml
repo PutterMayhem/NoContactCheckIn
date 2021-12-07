@@ -13,18 +13,18 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #808080;" stylesheets="@../../bin/guiclasses/splashGUIstylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.splashGUI">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1124.0474853515625" minWidth="10.0" prefWidth="1117.1844482421875" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="839.9525146484375" minWidth="10.0" prefWidth="802.8155517578125" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="363.28631591796875" minHeight="10.0" prefHeight="305.5672302246094" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="452.4802551269531" minHeight="10.0" prefHeight="452.4802551269531" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <AnchorPane prefHeight="125.0" prefWidth="200.0" GridPane.columnSpan="2">
          <children>
-            <ImageView fitHeight="538.0" fitWidth="529.0" layoutX="773.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="369.0" fitWidth="468.0" layoutX="732.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../bin/images/download2.png" />
                </image>
@@ -33,23 +33,23 @@
       </AnchorPane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <ImageView fitHeight="766.0" fitWidth="1380.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="744.0" fitWidth="1137.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../bin/images/hiltonimage2.jpg" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <VBox prefHeight="716.0" prefWidth="823.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <Button id="bookButton" fx:id="bookButton" mnemonicParsing="false" prefHeight="383.0" prefWidth="783.0" text="Book A Room">
+            <Button id="bookButton" fx:id="bookButton" mnemonicParsing="false" prefHeight="365.0" prefWidth="803.0" text="Book A Room">
                <font>
-                  <Font size="36.0" />
+                  <Font size="55.0" />
                </font>
             </Button>
-            <Button id="loginButton" fx:id="loginButton" mnemonicParsing="false" prefHeight="383.0" prefWidth="780.0" text="Login">
+            <Button id="loginButton" fx:id="loginButton" mnemonicParsing="false" prefHeight="400.0" prefWidth="803.0" text="Login">
                <font>
-                  <Font size="36.0" />
+                  <Font size="55.0" />
                </font>
             </Button>
          </children>

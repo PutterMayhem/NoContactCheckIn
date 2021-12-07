@@ -101,12 +101,12 @@ public class MakeRequestGUI extends Application implements Initializable{
 		}
 	}
 	
-	public Scene getScene(double width, double height) {
+	public Scene getScene() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MakeRequest.fxml"));
 		loader.setController(this);
 		try {
 			Parent root = loader.load();
-			Scene scene = new Scene(root, width, height);
+			Scene scene = new Scene(root, 1920, 1080);
 			return scene;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -182,8 +182,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 				alert.initOwner(primary);
 				alert.showAndWait();
 				MakeRequestGUI mr  = new MakeRequestGUI();
-				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-				Scene mrs = mr.getScene(screenSize.getWidth(), screenSize.getHeight());
+				Scene mrs = mr.getScene();
 				mr.setInformation(control);
 				primary.setScene(mrs);
 				primary.show();
@@ -231,8 +230,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 				alert.initOwner(primary);
 				alert.showAndWait();
 				MakeRequestGUI mr  = new MakeRequestGUI();
-				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-				Scene mrs = mr.getScene(screenSize.getWidth(), screenSize.getHeight());
+				Scene mrs = mr.getScene();
 				mr.setInformation(control);
 				primary.setScene(mrs);
 				primary.show();

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,12 +43,19 @@ public class splashGUI extends Application {
 		/*
 		 * Button actions
 		 */
-		bookButton.setOnAction(actionEvent -> {
-			try {
-				changeToBooking(actionEvent);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		bookButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					roomBrowserGUI rb  = new roomBrowserGUI();
+					Scene rbs = rb.getScene();
+					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					primary.setScene(rbs);
+					primary.show();
+					primary.setFullScreen(true);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 

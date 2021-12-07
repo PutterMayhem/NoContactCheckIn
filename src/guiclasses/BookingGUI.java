@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -47,11 +48,12 @@ public class BookingGUI extends Application implements Initializable {
 	@FXML
 	private TextField txt_email;
 	@FXML
-	private TextField txt_room;
+	private Label label_room;
 	@FXML
 	private Button btn_cancel;
 
 	Controller control = Controller.getInstance();
+	private String roomnum;
 
 	@Override
 	public void start(Stage primary) throws Exception {
@@ -88,7 +90,7 @@ public class BookingGUI extends Application implements Initializable {
 	}
 
 	public int getRoomNum() {
-		return (Integer.parseInt(txt_room.getText()));
+		return (Integer.parseInt(label_room.getText()));
 	}
 
 	public void changeToSplash(ActionEvent event) throws IOException {
@@ -100,6 +102,25 @@ public class BookingGUI extends Application implements Initializable {
 		window.setScene(splashView);
 		window.show();
 		window.setFullScreen(true);
+	}
+	
+	public Scene getScene() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingGUI.fxml"));
+		loader.setController(this);
+		try {
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 1920, 1080);
+			return scene;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void setInformation(Controller control) {
+		this.control = control;
+		roomnum = String.valueOf(control.getRoom().getRoomNumber());
+		label_room.setText(roomnum);
 	}
 	
 	public static boolean checkDate(LocalDate arrival, LocalDate departure) {
@@ -141,7 +162,7 @@ public class BookingGUI extends Application implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), txt_room.getText(),
+				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), label_room.getText(),
 						dtp_checkin.getValue(), dtp_checkout.getValue()))) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Please fill in all the required fields");
@@ -166,7 +187,7 @@ public class BookingGUI extends Application implements Initializable {
 				String fname = txt_fname.getText();
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
-				int room_num = Integer.parseInt(txt_room.getText());
+				int room_num = Integer.parseInt(label_room.getText());
 
 				if (Account.checkAccount(fname, lname, null, email)) {
 					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
