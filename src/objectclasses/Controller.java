@@ -132,12 +132,12 @@ public class Controller {
 //				account = new Account(fName, lName, phone, email);
 //				setAccount(account);
 //
-//				int roomNum = sqlResults1.getInt("room_num");
-//				Date checkIn = sqlResults1.getDate("check_in");
-//				Date checkOut = sqlResults1.getDate("check_out");
-//				Room room = Room.getRoomFromDB(roomNum);
-//				booking = new Booking(account, room, checkIn, checkOut);
-//				setBooking(booking);
+				int roomNum = sqlResults1.getInt("room_num");
+				Date checkIn = sqlResults1.getDate("check_in");
+				Date checkOut = sqlResults1.getDate("check_out");
+				Room room = Room.getRoomFromDB(roomNum);
+				booking = new Booking(account, room, checkIn, checkOut);
+				setBooking(booking);
 
 				return true;
 			}
