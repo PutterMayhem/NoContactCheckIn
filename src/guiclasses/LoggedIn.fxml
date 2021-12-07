@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1399.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1399.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.LoggedInAdminGUI">
    <children>
       <AnchorPane prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: #808080#808080;">
          <children>
@@ -30,6 +30,14 @@
                   <Font size="54.0" />
                </font>
             </Label>
+            <Button fx:id="cancelBooking" layoutX="387.0" layoutY="466.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="696.0" style="-fx-border-color: #00269B#00269B #00269B#00269B;" text="Cancel Booking">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <GridPane layoutX="387.0" layoutY="120.0" prefHeight="342.0" prefWidth="709.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="355.0" minWidth="10.0" prefWidth="355.0" />

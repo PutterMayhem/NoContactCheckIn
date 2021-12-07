@@ -1,18 +1,9 @@
 package guiclasses;
 
 import java.io.IOException;
-
 import java.net.URL;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,17 +14,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import objectclasses.*;
+import objectclasses.Booking;
+import objectclasses.Controller;
 
 public class LoggedInGUI implements Initializable {
-	
+
 	@FXML
 	private Button btn_lengthstay;
 	@FXML
@@ -42,11 +33,15 @@ public class LoggedInGUI implements Initializable {
 	private Button btn_logout;
 	@FXML
 	private Button btn_checkin;
+
+	@FXML
+	private Button cancelBooking;
+
 	@FXML
 	private Label label_welcome;
 	private static Controller control;
 	private boolean isCheckedIn = false;
-	
+
 	public void changeToSplash(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("splashgui.fxml"));
 		Scene splashView = new Scene(root);
@@ -57,16 +52,16 @@ public class LoggedInGUI implements Initializable {
 		window.show();
 		window.setFullScreen(true);
 	}
-	
+
 	public void setInformation(Controller control) {
 		LoggedInGUI.control = control;
 		label_welcome.setText("Welcome " + control.getAccount().getFName() + "!");
 		isCheckedIn = control.getBooking().isCheckedIn();
-		if(control.getBooking().isCheckedIn()) {
+		if (control.getBooking().isCheckedIn()) {
 			btn_checkin.setText("Check Out");
 		}
 	}
-	
+
 	public Scene getScene() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedIn.fxml"));
 		loader.setController(this);
@@ -79,16 +74,15 @@ public class LoggedInGUI implements Initializable {
 		}
 		return null;
 	}
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		btn_request.setOnAction(new EventHandler<ActionEvent>( ) {
+		btn_request.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				MakeRequestGUI makeRequest  = new MakeRequestGUI();
+				MakeRequestGUI makeRequest = new MakeRequestGUI();
 				Scene makeRequestScene = makeRequest.getScene();
 				makeRequest.setInformation(control);
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -96,9 +90,9 @@ public class LoggedInGUI implements Initializable {
 				primary.show();
 				primary.setFullScreen(true);
 			}
-			
+
 		});
-		btn_logout.setOnAction(new EventHandler<ActionEvent>( ) {
+		btn_logout.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -109,10 +103,10 @@ public class LoggedInGUI implements Initializable {
 					e.printStackTrace();
 				}
 			}
-			
+
 		});
-		
-		btn_checkin.setOnAction(new EventHandler<ActionEvent>( ) {
+
+		btn_checkin.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -135,19 +129,18 @@ public class LoggedInGUI implements Initializable {
 					primary.setFullScreen(true);
 					primary.setMaximized(true);
 				} else {
-					//check out
+					// check out
 				}
 			}
 		});
-		
-		
-		btn_lengthstay.setOnAction(new EventHandler<ActionEvent>( ) {
+
+		btn_lengthstay.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-				AdjustStayGUI adjustStay  = new AdjustStayGUI();
+				AdjustStayGUI adjustStay = new AdjustStayGUI();
 				Scene adjustStayScene = adjustStay.getScene();
 				adjustStay.setInformation(control);
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -155,11 +148,23 @@ public class LoggedInGUI implements Initializable {
 				primary.show();
 				primary.setFullScreen(true);
 			}
-			
+
 		});
-		
-		
-		
+
+		cancelBooking.setOnAction(actionEvent -> {
+			if (!control.cancelBooking()) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Cancel Booking");
+				alert.setContentText("There was an error cancelling your booking");
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Cancel Booking");
+				alert.setContentText("Booking has been cancelled");
+				alert.showAndWait();
+			}
+		});
+
 	}
 
 }

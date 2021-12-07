@@ -274,6 +274,18 @@ public class Controller {
 		return false;
 	}
 
+	public boolean cancelBooking() {
+		String cancel = "delete from booking where conf_ID = " + booking.getConfNum() + ";";
+		try {
+			connection().execute(cancel);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	private void createAlert(String msg) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Testing");
