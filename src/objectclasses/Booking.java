@@ -168,7 +168,7 @@ public class Booking {
 		String date2 = sdf.format(departure);
 		// Records booking into database
 		String sqlQuery = "INSERT INTO Booking VALUES (" + confNum + ", '" + customer.getEmail() + "', "
-				+ room.roomNumber + ", " + lengthStay + ", DATE ('" + date1 + "'), DATE ('" + date2 + "'), NULL)";
+				+ room.roomNumber + ", " + lengthStay + ", DATE ('" + date1 + "'), DATE ('" + date2 + "'), NULL, 0)";
 		int result = connection().executeUpdate(sqlQuery);
 		// Updates room status in room database
 		String sqlUpdate = "UPDATE room SET room_status = 1 WHERE room_num = " + room.roomNumber;
@@ -201,7 +201,7 @@ public class Booking {
 	}
 	
 	public void checkIn() {
-		String query = "UPDATE Booking SET check_in = now() WHERE conf_ID = " + confNum;
+		String query = "UPDATE Booking SET checkin_status = 1 WHERE conf_ID = " + confNum;
 		try {
 			connection().executeUpdate(query);
 			connection().close();
@@ -216,7 +216,7 @@ public class Booking {
 		try {
 			ResultSet rs = connection().executeQuery(q);
 			rs.next();
-			if(rs.getDate("check_in") == null) {
+			if(rs.getInt("checkin_status") != 1) {
 				b = false;
 			}
 		} catch(SQLException e) {
