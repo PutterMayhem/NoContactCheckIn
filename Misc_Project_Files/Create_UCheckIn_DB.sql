@@ -95,6 +95,7 @@ CREATE TABLE Booking(
     check_in datetime,
     check_out datetime,
 	cctoken int,
+    checkin_status boolean,
     KEY cust_email (cust_email),
     KEY room_num (room_num),
     FOREIGN KEY(cust_email) REFERENCES Customer(cust_email) ON DELETE CASCADE,
@@ -211,15 +212,15 @@ VALUES (100, 'SK', 1, 1, 1),
 -- 5. Insert data into `Booking` --
 -- ----------------------------- --  
 INSERT INTO Booking
-VALUES (0, "ATrebek@gameshowcommittee.org", 100, 7, "2021-12-25", "2022-01-01", 983047),
-	(1, "linus@ltt.com", 100, 3, "2022-01-01", "2022-01-04", 853935),
-    (2, "max@max.com", 100, 5, "2022-06-13", "2022-06-17", 843011),
-    (3, "Chuck@limosales.limo", 101, 5, "2022-06-13", "2022-06-17", 818023),
-    (4, "David@limosales.limo", 200, 5, "2022-06-13", "2022-06-17", 695011),
-    (5, "Mahad@limosales.limo", 220, 5, "2022-06-13", "2022-06-17", 385609),
-    (6, "Free.Will@flippers.rock", 220, 1, "2022-08-03", "2022-08-04", 353433),
-    (7, "ATrebek@gameshowcommittee.org", 310, 7, "2023-12-25", "2024-01-01", 58230),
-    (8, "janiston@jenan.net", 310, 7, "2021-12-25", "2022-01-01", 29816);
+VALUES (0, "ATrebek@gameshowcommittee.org", 100, 7, "2021-12-25", "2022-01-01", 983047, 0),
+	(1, "linus@ltt.com", 100, 3, "2022-01-01", "2022-01-04", 853935, 0),
+    (2, "max@max.com", 100, 5, "2022-06-13", "2022-06-17", 843011, 0),
+    (3, "Chuck@limosales.limo", 101, 5, "2022-06-13", "2022-06-17", 818023, 0),
+    (4, "David@limosales.limo", 200, 5, "2022-06-13", "2022-06-17", 695011, 0),
+    (5, "Mahad@limosales.limo", 220, 5, "2022-06-13", "2022-06-17", 385609, 0),
+    (6, "Free.Will@flippers.rock", 220, 1, "2022-08-03", "2022-08-04", 353433, 0),
+    (7, "ATrebek@gameshowcommittee.org", 310, 7, "2023-12-25", "2024-01-01", 58230, 0),
+    (8, "janiston@jenan.net", 310, 7, "2021-12-25", "2022-01-01", 29816, 0);
 
 -- --------------------------- --
 -- 6. Insert data into `Items` --
