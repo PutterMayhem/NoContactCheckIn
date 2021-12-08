@@ -32,6 +32,7 @@ import objectclasses.Account;
 import objectclasses.Booking;
 import objectclasses.Controller;
 import objectclasses.Room;
+import objectclasses.VirtualCCProcessor;
 
 public class BookingGUI extends Application implements Initializable {
 
@@ -51,6 +52,12 @@ public class BookingGUI extends Application implements Initializable {
 	private Label label_room;
 	@FXML
 	private Button btn_cancel;
+	@FXML
+	private DatePicker dtp_expiration;
+	@FXML
+	private TextField txt_cardnum;
+	@FXML
+	private TextField txt_csc;
 
 	Controller control = Controller.getInstance();
 	private String roomnum;
@@ -76,9 +83,9 @@ public class BookingGUI extends Application implements Initializable {
 	}
 
 	public static boolean validate(String fname, String lname, String email, String room, LocalDate localDate,
-			LocalDate localDate2) {
+			LocalDate localDate2, String cardnum, String csc, LocalDate expiration) {
 		if (fname.equals("") || lname.equals("") || email.equals("") || room.equals("") || localDate == null
-				|| localDate2 == null) {
+				|| localDate2 == null || cardnum.equals(null)  || csc.equals(null) || expiration == null) {
 			return false;
 		} else {
 			return true;
@@ -117,6 +124,7 @@ public class BookingGUI extends Application implements Initializable {
 		return null;
 	}
 	
+	
 	public void setInformation(Controller control) {
 		this.control = control;
 		roomnum = String.valueOf(control.getRoom().getRoomNumber());
@@ -136,9 +144,11 @@ public class BookingGUI extends Application implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		if(dateDeparture.compareTo(now) < 0 || dateArrival.compareTo(now) < 0) {
+		if(dateDeparture.compareTo(now) < 0) {
 			return false;
 		} else if (dateDeparture.compareTo(dateArrival) <= 0) {
+			return false;
+		} else if (dateArrival.compareTo(now) < 0) {
 			return false;
 		} else {
 			return true;
@@ -163,7 +173,8 @@ public class BookingGUI extends Application implements Initializable {
 			public void handle(ActionEvent event) {
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				if (!(validate(txt_fname.getText(), txt_lname.getText(), txt_email.getText(), label_room.getText(),
-						dtp_checkin.getValue(), dtp_checkout.getValue()))) {
+						dtp_checkin.getValue(), dtp_checkout.getValue(), txt_cardnum.getText(), 
+						txt_csc.getText(), dtp_expiration.getValue()))) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setContentText("Please fill in all the required fields");
 					alert.setTitle("Error!");
@@ -187,6 +198,9 @@ public class BookingGUI extends Application implements Initializable {
 				String fname = txt_fname.getText();
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
+				String cardnum = txt_cardnum.getText();
+				int csc = Integer.parseInt(txt_csc.getText());
+				String stringexp = dtp_expiration.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 				int room_num = Integer.parseInt(label_room.getText());
 
 				if (Account.checkAccount(fname, lname, null, email)) {
@@ -197,14 +211,17 @@ public class BookingGUI extends Application implements Initializable {
 					Room room = Room.getRoomFromDB(room_num);
 					Date date1 = null;
 					Date date2 = null;
+					Date expiration = null;
 					try {
 						date1 = sdf.parse(checkin);
 						date2 = sdf.parse(checkout);
+						expiration = sdf.parse(stringexp);
 
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					String temp = sdf.format(expiration);
 					Booking booking = new Booking(user, room, date1, date2);
 
 					try {
@@ -214,6 +231,8 @@ public class BookingGUI extends Application implements Initializable {
 							control.setDepart(date2);
 							control.setBooking(booking);
 							control.setRoom(Room.getRoomFromDB(room_num));
+							VirtualCCProcessor vc = new VirtualCCProcessor(cardnum, temp, csc);
+							control.setVcc(vc);
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
 									+ "\n"

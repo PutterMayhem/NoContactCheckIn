@@ -168,7 +168,7 @@ public class Controller {
 	}
 
 	// Connection to database method
-	private static Statement connection() {
+	public static Statement connection() {
 		Statement statement = null;
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uCheckIn", "root", "");
@@ -231,8 +231,7 @@ public class Controller {
 
 	public boolean checkOut() {
 
-		getBooking().checkOut();
-		controller = null;
+		
 		return true;
 	}
 

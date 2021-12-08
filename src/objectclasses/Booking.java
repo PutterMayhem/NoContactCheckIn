@@ -148,6 +148,26 @@ public class Booking {
 		}
 		return false;
 	}
+	
+	public static Booking getBookingFromDB(Account acc, int confNum) {
+		Booking book = null;
+		String q = "SELECT * FROM Booking WHERE conf_ID = " + confNum;
+		try {
+			ResultSet rs = connection().executeQuery(q);
+			rs.next();
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			Date date1 = rs.getDate("check_in");
+			sdf.format(date1);
+			Date date2 = rs.getDate("check_out");
+			sdf.format(date2);
+			Room room = Room.getRoomFromDB(rs.getInt("room_num"));
+			book = new Booking(acc, room, date1, date2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return book;
+	}
 
 	/*
 	 * Checks if customer data exits, creates if not check conf_ID for duplicates in
@@ -187,9 +207,9 @@ public class Booking {
 		}
 	}
 
-	public void checkOut() {
+	public void checkOut(int hash) {
 		String sqlQuery = "Update room SET room_status = 0 where room_num = " + room.getRoomNumber() + ";";
-		String query = "UPDATE Booking SET check_out = now() WHERE conf_ID = " + confNum;
+		String query = "UPDATE Booking SET check_out = now(), cctoken = " + hash + " WHERE conf_ID = " + confNum;
 		try {
 			connection().executeUpdate(query);
 			connection().executeUpdate(sqlQuery);
@@ -201,7 +221,7 @@ public class Booking {
 	}
 	
 	public void checkIn() {
-		String query = "UPDATE Booking SET checkin_status = 1 WHERE conf_ID = " + confNum;
+		String query = "UPDATE Booking SET checkin_status = 1, check_in = now() WHERE conf_ID = " + confNum;
 		try {
 			connection().executeUpdate(query);
 			connection().close();
@@ -219,13 +239,14 @@ public class Booking {
 			if(rs.getInt("checkin_status") != 1) {
 				b = false;
 			}
+			rs.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return b;
 	}
 
-	private static int getDaysBetween(Date start, Date end) {
+	public static int getDaysBetween(Date start, Date end) {
 		long difference = end.getTime() - start.getTime();
 		float daysBetween = (difference / (1000 * 60 * 60 * 24));
 		return (int) daysBetween;
@@ -251,6 +272,16 @@ public class Booking {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void setLengthStay(int lengthStay, int confNum) {
+		String sqlQuery = "UPDATE Booking SET stay_length = " + lengthStay + " WHERE conf_ID = " + confNum;
+		try {
+			connection().executeUpdate(sqlQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// Connection to database method

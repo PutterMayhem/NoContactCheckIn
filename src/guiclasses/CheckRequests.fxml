@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1335.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.CheckRequestsGUI">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1335.0" style="-fx-background-color: #808080 #808080;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.CheckRequestsGUI">
    <children>
       <AnchorPane prefHeight="241.0" prefWidth="1335.0" style="-fx-background-color: #808080">
          <children>
-            <ImageView fitHeight="270.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="216.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/download2.png" />
                </image>
@@ -45,7 +45,7 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <Button fx:id="btn_back" layoutX="415.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-border-color: #00269B#00269B;" text="Back">
+            <Button fx:id="btn_back" layoutX="415.0" layoutY="445.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="215.0" style="-fx-background-color: #00269B#00269B;" text="Back" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>

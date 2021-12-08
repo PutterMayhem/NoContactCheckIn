@@ -100,11 +100,16 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btn_cancel" layoutX="899.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #00289B#00289B;" text="Delete Request" textFill="WHITE">
+            <Button fx:id="btn_cancel" layoutX="889.0" layoutY="570.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #00289B#00289B;" text="Delete Request" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
+            <Label fx:id="label_total" layoutX="907.0" layoutY="500.0" prefHeight="30.0" prefWidth="181.0" text="Total: ">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

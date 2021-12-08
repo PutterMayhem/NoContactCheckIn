@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1399.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.LoggedInAdminGUI">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1399.0" style="-fx-background-color: #808080#808080 #808080#808080;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiclasses.LoggedInAdminGUI">
    <children>
       <AnchorPane prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: #808080#808080;">
          <children>
@@ -40,7 +40,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btn_checkrequests" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B;" text="User Requests">
+                  <Button fx:id="btn_checkrequests" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="User Requests" textFill="WHITE">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -48,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btn_add" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B;" text="Add Employee" GridPane.columnIndex="1">
+                  <Button fx:id="btn_add" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="Add Employee" textFill="WHITE" GridPane.columnIndex="1">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -56,7 +56,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btn_createbooking" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B;" text="Create Booking" GridPane.rowIndex="1">
+                  <Button fx:id="btn_createbooking" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="Create Booking" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btn_logout" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B;" text="Logout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="btn_logout" mnemonicParsing="false" prefHeight="150.0" prefWidth="340.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="Logout" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="35.0" />
                      </font>

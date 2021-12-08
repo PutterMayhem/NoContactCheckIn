@@ -49,6 +49,21 @@ public class Room {
 	public void setBooked(boolean booked) {
 		this.booked = booked;
 	}
+	
+	public float getRate() {
+		float rate = 0;
+		String sqlQuery = "SELECT room_num, r.roomType_ID, room_status, rate FROM Room r INNER JOIN RoomType rt\n" + 
+				"ON r.roomType_ID = rt.roomType_ID WHERE room_num = " + roomNumber;
+		try {
+			ResultSet rs = connection().executeQuery(sqlQuery);
+			rs.next();
+			rate = rs.getFloat("rate");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rate;
+	}
 
 	// returns true if room is booked, false if room is not booked or does not exist
 	public static boolean isBooked(Room room) {

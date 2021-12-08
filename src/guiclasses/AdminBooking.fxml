@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1785.0" style="-fx-background-color: #808080#808080 #808080#808080;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="205.0" prefWidth="1920.0" style="-fx-background-color: #808080#808080;">
          <children>
@@ -49,7 +49,7 @@
                <font>
                   <Font size="24.0" />
                </font></TextField>
-            <Button fx:id="btn_submit" layoutX="759.0" layoutY="447.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B;" text="Submit">
+            <Button fx:id="btn_submit" layoutX="759.0" layoutY="447.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="Submit" textFill="WHITE">
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font>
@@ -78,7 +78,7 @@
                <font>
                   <Font size="24.0" />
                </font></TextField>
-            <Button fx:id="btn_cancel" layoutX="432.0" layoutY="447.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B;" text="Cancel">
+            <Button fx:id="btn_cancel" layoutX="432.0" layoutY="447.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #00269B#00269B; -fx-background-color: #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B #00269B#00269B;" text="Cancel" textFill="WHITE">
                <font>
                   <Font name="Trebuchet MS" size="30.0" />
                </font>

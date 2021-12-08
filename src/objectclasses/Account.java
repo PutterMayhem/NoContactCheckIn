@@ -78,6 +78,23 @@ public class Account {
 			return 0;
 		}
 	}
+	
+	public static Account getAccountFromDB(String email) {
+		Account account = null;
+		String q = "SELECT * FROM Customer WHERE cust_Email = '" + email + "';";
+		try {
+			ResultSet rs = connection().executeQuery(q);
+			rs.next();
+			String fname  = rs.getString("cust_Fname");
+			String lname = rs.getString("cust_Lname");
+			account = new Account(fname, lname, null, email);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return account;
+	}
 
 	public boolean createCustomer() throws SQLException {
 		String sqlQuery = "INSERT INTO Customer (cust_Fname, cust_Lname, cust_Phone, cust_Email)" + " VALUES ('"

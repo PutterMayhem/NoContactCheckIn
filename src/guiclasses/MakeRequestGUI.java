@@ -76,9 +76,12 @@ public class MakeRequestGUI extends Application implements Initializable{
     private TableColumn<RequestTable, String> col_status;
     @FXML
     private TableColumn<RequestTable, CheckBox> col_cancel;
-	private static Controller control;
+    @FXML
+    private Label label_total;
+	private Controller control = Controller.getInstance();
 	private static float totalprice;
 	private static int confNum;
+	
 	
 	ObservableList<ServiceTable> servicelist = FXCollections.observableArrayList();
 	ObservableList<FoodTable> foodlist = FXCollections.observableArrayList();
@@ -115,10 +118,12 @@ public class MakeRequestGUI extends Application implements Initializable{
 	}
 	
 	public void setInformation(Controller control) {
-		MakeRequestGUI.control = control;
+		this.control = control;
 		label_welcome.setText("Make a Request for Room " + control.getRoom().getRoomNumber());
+		label_total.setText("Total: $" + totalprice);
 		MakeRequestGUI.confNum = control.getBooking().getConfNum();
 		MakeRequestGUI.totalprice = control.getAmountOwed();
+		System.out.println("test " + control.getBooking().getConfNum());
 	}
 	
 	private static Statement connection() {
@@ -265,6 +270,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 				servicelist.add(new ServiceTable(rs.getString("item_Name"), new CheckBox())); 
 			}
 			rs.close();
+			table_food.setPlaceholder(null);
 			String query2 = "SELECT * FROM Items WHERE item_price > 0";
 			ResultSet rs1 = connection().executeQuery(query2);
 			while(rs1.next()) {
@@ -276,6 +282,7 @@ public class MakeRequestGUI extends Application implements Initializable{
 					"INNER JOIN RequestItems ri ON r.req_ID = ri.req_ID " + 
 					"INNER JOIN Items i ON i.item_ID = ri.item_ID " + 
 					"WHERE conf_ID = " + confNum + " ORDER BY ri.fulfilled";
+			System.out.println(confNum);
 			ResultSet rs2 = connection().executeQuery(query3);
 			while(rs2.next()) {
 				String temp = null;

@@ -47,12 +47,7 @@ public class splashGUI extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					roomBrowserGUI rb  = new roomBrowserGUI();
-					Scene rbs = rb.getScene();
-					Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					primary.setScene(rbs);
-					primary.show();
-					primary.setFullScreen(true);
+					changeToBrowser(event);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -69,6 +64,16 @@ public class splashGUI extends Application {
 		});
 
 	}
+	public void changeToBrowser(ActionEvent event) throws IOException {
+		Parent view = FXMLLoader.load(getClass().getResource("roomBrowser.fxml"));
+		Scene loginView = new Scene(view);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		
+		window.setScene(loginView);
+		window.setFullScreen(true);
+		window.show();
+	}
 
 	public void changeToLogin(ActionEvent event) throws IOException {
 		Parent view = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -76,8 +81,10 @@ public class splashGUI extends Application {
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-		window.setFullScreen(true);
+		
 		window.setScene(loginView);
+		window.setFullScreen(true);
+		window.show();
 	}
 
 	public void changeToBooking(ActionEvent event) throws IOException {
