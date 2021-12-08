@@ -64,6 +64,8 @@ public class roomBrowserGUI implements Initializable {
 	private Button btn_select;
 	@FXML 
 	private VBox vbox;
+	@FXML 
+	private Button btn_refresh;
 	
 	Controller control = Controller.getInstance();
 	private static int count = 0;
@@ -140,6 +142,19 @@ public class roomBrowserGUI implements Initializable {
 				e.printStackTrace();
 			}
 
+		});
+		btn_refresh.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				MakeRequestGUI mr  = new MakeRequestGUI();
+				Scene mrs = mr.getScene();
+				mr.setInformation(control);
+				primary.setScene(mrs);
+				primary.show();
+				primary.setFullScreen(true);
+			}
 		});
 		try {
 			String query = "SELECT room_num, r.roomType_ID, room_status, rate FROM Room r INNER JOIN RoomType rt\n" + 

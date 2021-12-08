@@ -78,6 +78,8 @@ public class MakeRequestGUI extends Application implements Initializable{
     private TableColumn<RequestTable, CheckBox> col_cancel;
     @FXML
     private Label label_total;
+    @FXML 
+    private Button btn_refresh;
 	private Controller control = Controller.getInstance();
 	private static float totalprice;
 	private static int confNum;
@@ -259,6 +261,20 @@ public class MakeRequestGUI extends Application implements Initializable{
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
+			}
+		});
+		
+		btn_refresh.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				MakeRequestGUI mr  = new MakeRequestGUI();
+				Scene mrs = mr.getScene();
+				mr.setInformation(control);
+				primary.setScene(mrs);
+				primary.show();
+				primary.setFullScreen(true);
 			}
 		});
 		

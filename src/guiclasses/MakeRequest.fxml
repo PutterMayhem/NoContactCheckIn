@@ -21,6 +21,11 @@
                   <Image url="@../../../UCheckIn/src/images/download2.png" />
                </image>
             </ImageView>
+            <Button fx:id="btn_refresh" layoutX="1227.0" layoutY="177.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="100.0" style="-fx-background-color: TRANSPARENT;" text="Refresh" textFill="#00289b" underline="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="708.0" prefWidth="1335.0">

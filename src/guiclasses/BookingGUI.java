@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -91,6 +90,77 @@ public class BookingGUI extends Application implements Initializable {
 			return true;
 		}
 	}
+	 // Return true if the card number is valid
+    public static boolean isValid(long number)
+    {
+       return (getSize(number) >= 13 &&
+               getSize(number) <= 16) &&
+               (prefixMatched(number, 4) ||
+                prefixMatched(number, 5) ||
+                prefixMatched(number, 37) ||
+                prefixMatched(number, 6)) &&
+              ((sumOfDoubleEvenPlace(number) +
+                sumOfOddPlace(number)) % 10 == 0);
+    }
+ 
+    // Get the result from Step 2
+    public static int sumOfDoubleEvenPlace(long number)
+    {
+        int sum = 0;
+        String num = number + "";
+        for (int i = getSize(number) - 2; i >= 0; i -= 2)
+            sum += getDigit(Integer.parseInt(num.charAt(i) + "") * 2);
+         
+        return sum;
+    }
+ 
+    // Return this number if it is a single digit, otherwise,
+    // return the sum of the two digits
+    public static int getDigit(int number)
+    {
+        if (number < 9)
+            return number;
+        return number / 10 + number % 10;
+    }
+ 
+    // Return sum of odd-place digits in number
+    public static int sumOfOddPlace(long number)
+    {
+        int sum = 0;
+        String num = number + "";
+        for (int i = getSize(number) - 1; i >= 0; i -= 2)
+            sum += Integer.parseInt(num.charAt(i) + "");       
+        return sum;
+    }
+ 
+    // Return true if the digit d is a prefix for number
+    public static boolean prefixMatched(long number, int d)
+    {
+        return getPrefix(number, getSize(d)) == d;
+    }
+ 
+    // Return the number of digits in d
+    public static int getSize(long d)
+    {
+        String num = d + "";
+        return num.length();
+    }
+ 
+    // Return the first k number of digits from
+    // number. If the number of digits in number
+    // is less than k, return number.
+    public static long getPrefix(long number, int k)
+    {
+        if (getSize(number) > k) {
+            String num = number + "";
+            return Long.parseLong(num.substring(0, k));
+        }
+        return number;
+    }
+    
+    public static boolean checkCSC(String csc) {
+    	return csc.matches("^\\d{3}$");
+    }
 
 	public String getFName() {
 		return txt_fname.getText();
@@ -202,6 +272,36 @@ public class BookingGUI extends Application implements Initializable {
 				int csc = Integer.parseInt(txt_csc.getText());
 				String stringexp = dtp_expiration.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 				int room_num = Integer.parseInt(label_room.getText());
+				long longcard = 0;
+				try {
+					longcard = Long.parseLong(cardnum);
+					if (!isValid(longcard)) {
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setContentText("Please enter a valid credit card number!");
+						alert.setTitle("Error!");
+						alert.initModality(Modality.APPLICATION_MODAL);
+						alert.initOwner(primary);
+						alert.showAndWait();
+						return;
+					}
+				} catch(Exception e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Please enter a valid credit card number!");
+					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
+					alert.showAndWait();
+					return;
+				}
+				if (!checkCSC(txt_csc.getText())) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Please ensure CSC is valid!");
+					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
+					alert.showAndWait();
+					return;
+				}
 
 				if (Account.checkAccount(fname, lname, null, email)) {
 					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -241,6 +341,7 @@ public class BookingGUI extends Application implements Initializable {
 							alert.initModality(Modality.APPLICATION_MODAL);
 							alert.initOwner(primary);
 							alert.showAndWait();
+							
 							LoggedInGUI loggedin = new LoggedInGUI();
 							Scene loggedInScene = loggedin.getScene();
 							loggedin.setInformation(control);
