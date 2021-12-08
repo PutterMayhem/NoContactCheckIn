@@ -148,10 +148,9 @@ public class roomBrowserGUI implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				MakeRequestGUI mr  = new MakeRequestGUI();
-				Scene mrs = mr.getScene();
-				mr.setInformation(control);
-				primary.setScene(mrs);
+				roomBrowserGUI rb  = new roomBrowserGUI();
+				Scene rbs = rb.getScene();
+				primary.setScene(rbs);
 				primary.show();
 				primary.setFullScreen(true);
 			}

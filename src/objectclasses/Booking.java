@@ -206,13 +206,25 @@ public class Booking {
 			return false;
 		}
 	}
+	
 
-	public void checkOut(int hash) {
+	public void checkOut() {
 		String sqlQuery = "Update room SET room_status = 0 where room_num = " + room.getRoomNumber() + ";";
-		String query = "UPDATE Booking SET check_out = now(), cctoken = " + hash + " WHERE conf_ID = " + confNum;
+		String query = "UPDATE Booking SET check_out = now() WHERE conf_ID = " + confNum;
 		try {
 			connection().executeUpdate(query);
 			connection().executeUpdate(sqlQuery);
+			connection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertCCToken(int hash) {
+		String query = "UPDATE Booking SET check_out = now(), cctoken = " + hash + " WHERE conf_ID = " + confNum;
+		try {
+			connection().executeUpdate(query);
 			connection().close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

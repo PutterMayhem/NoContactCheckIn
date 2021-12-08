@@ -269,7 +269,7 @@ public class BookingGUI extends Application implements Initializable {
 				String lname = txt_lname.getText();
 				String email = txt_email.getText();
 				String cardnum = txt_cardnum.getText();
-				int csc = Integer.parseInt(txt_csc.getText());
+				
 				String stringexp = dtp_expiration.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 				int room_num = Integer.parseInt(label_room.getText());
 				long longcard = 0;
@@ -293,9 +293,21 @@ public class BookingGUI extends Application implements Initializable {
 					alert.showAndWait();
 					return;
 				}
+				int csc = 0;
+				try {
+					csc = Integer.parseInt(txt_csc.getText());
+				} catch (Exception e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Please ensure CSC is a 3-digit number!");
+					alert.setTitle("Error!");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.initOwner(primary);
+					alert.showAndWait();
+					return;
+				}
 				if (!checkCSC(txt_csc.getText())) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setContentText("Please ensure CSC is valid!");
+					alert.setContentText("Please ensure CSC is a 3-digit number!");
 					alert.setTitle("Error!");
 					alert.initModality(Modality.APPLICATION_MODAL);
 					alert.initOwner(primary);
@@ -333,6 +345,8 @@ public class BookingGUI extends Application implements Initializable {
 							control.setRoom(Room.getRoomFromDB(room_num));
 							VirtualCCProcessor vc = new VirtualCCProcessor(cardnum, temp, csc);
 							control.setVcc(vc);
+							int hash = control.getVcc().hashCode();
+							control.getBooking().insertCCToken(hash);
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setContentText("Booking Created! Your Confirmation Number is: " + booking.getConfNum()
 									+ "\n"

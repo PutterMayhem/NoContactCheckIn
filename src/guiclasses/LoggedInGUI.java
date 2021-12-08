@@ -150,9 +150,9 @@ public class LoggedInGUI implements Initializable {
 					// check out
 					Booking b = control.getBooking();
 					Date today = new Date();
-					int lengthStay = (int) ChronoUnit.DAYS.between(control.getArrival().toInstant(), today.toInstant());
+					int lengthStay = Booking.getDaysBetween(control.getArrival(), today);
 					Booking.setLengthStay(lengthStay, b.getConfNum());
-					b.checkOut(control.getVcc().hashCode());
+					b.checkOut();
 					if (lengthStay == 0) {
 						lengthStay += 1;
 					}
