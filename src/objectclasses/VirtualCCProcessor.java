@@ -45,6 +45,15 @@ public class VirtualCCProcessor {
 		hash = 37 * hash + dateString.hashCode();
 		return hash;
 	}
+	
+	public static int hashCode(String expiration, String cardNum, int csc) {
+		int hash = 9;
+		String dateString = expiration.toString();
+		hash = 37 * hash + cardNum.hashCode();
+		hash = 37 * hash + csc;
+		hash = 37 * hash + dateString.hashCode();
+		return hash;
+	}
 
 	public String payBill(int cctoken, float amt) {
 		return "Approved";
